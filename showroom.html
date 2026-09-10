@@ -58,8 +58,23 @@
   .intro-line{padding:70px 0 10px;}
   .intro-line p{font-size:clamp(20px,3vw,27px); font-family:'Bricolage Grotesque',sans-serif; font-weight:500; max-width:38ch; line-height:1.4;}
 
-  /* ---------- feature (ambiente) ---------- */
-  .feature{position:relative; min-height:78vh; overflow:hidden; margin-top:50px;}
+  /* ---------- índice (paso 1 del arco: panorama) ---------- */
+  .indice{padding:66px 0 6px;}
+  .indice-head{max-width:44ch; margin-bottom:26px;}
+  .indice-head h2{font-size:clamp(22px,3vw,28px);}
+  .indice-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px;}
+  .idx-card{position:relative; aspect-ratio:16/10; overflow:hidden; display:block; scroll-margin-top:80px;}
+  .idx-card img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
+  .idx-card:hover img{transform:scale(1.05);}
+  .idx-card::after{content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(4,4,3,.82), transparent 60%); pointer-events:none;}
+  .idx-card .idx-in{position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; justify-content:flex-end; padding:18px; color:#fff;}
+  .idx-card .idx-num{font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--naranja); letter-spacing:.08em; text-transform:uppercase;}
+  .idx-card h3{font-size:clamp(17px,2.2vw,22px); margin-top:4px;}
+  .idx-card .go{font-family:'IBM Plex Mono',monospace; font-size:9.5px; text-transform:uppercase; letter-spacing:.06em; margin-top:6px; opacity:.85; display:flex; align-items:center; gap:6px; transition:gap .2s ease;}
+  .idx-card:hover .go{gap:11px;}
+
+  /* ---------- feature (ambiente — paso 2: detalle) ---------- */
+  .feature{position:relative; min-height:78vh; overflow:hidden; margin-top:50px; scroll-margin-top:64px;}
   .feature img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
   .feature .scrim{position:absolute; inset:0; background:linear-gradient(to top, rgba(4,4,3,.85) 0%, rgba(4,4,3,.2) 45%, transparent 72%);}
   .feature .fo{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:0 28px 56px; max-width:1180px; margin:0 auto; color:#fff;}
@@ -67,6 +82,16 @@
   .feature p.desc{font-size:14.5px; color:#E7E1D2; max-width:42ch; margin:12px 0 18px; line-height:1.65;}
   .link-cta{font-family:'Inter',sans-serif; font-size:14px; font-weight:700; color:#fff; display:inline-flex; align-items:center; gap:6px; transition:gap .2s ease; width:fit-content;}
   .link-cta:hover{gap:11px;}
+
+  /* ---------- resolución (paso 3 del arco: cierre) ---------- */
+  .resolucion{background:#0A0A09; padding:86px 0; border-top:1px solid var(--line); margin-top:50px; text-align:center;}
+  .resolucion .tag{justify-content:center;}
+  .tri{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; max-width:720px; margin:0 auto 32px;}
+  .tri figure{position:relative; aspect-ratio:3/4; overflow:hidden;}
+  .tri img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  .resolucion h2{font-size:clamp(24px,3.6vw,38px); max-width:22ch; margin:0 auto 14px;}
+  .resolucion p.sub2{font-size:14px; color:var(--soft); max-width:46ch; margin:0 auto 26px; line-height:1.6;}
+  .resolucion .link-cta{color:var(--ink); margin:0 auto; justify-content:center;}
 
   /* ---------- presupuesto + footer + fab (compartido) ---------- */
   #presupuesto{background:#0A0A09; padding:80px 0; border-top:1px solid var(--line); margin-top:50px;}
@@ -94,6 +119,9 @@
   @media(max-width:760px){
     .main-nav{display:none;}
     .burger{display:flex;}
+    .indice-grid{grid-template-columns:1fr; gap:10px;}
+    .idx-card{aspect-ratio:16/11;}
+    .tri{max-width:320px; gap:6px;}
     #presupuesto .row{flex-direction:column;}
   }
 </style>
@@ -134,25 +162,64 @@
     <p>Grifería, revestimientos y muebles pensados en conjunto — cada ambiente se eligió como si fuéramos a instalarlo nosotros mismos.</p>
   </section>
 
-  <section class="feature reveal-el">
+  <section class="wrap indice reveal-el">
+    <div class="indice-head">
+      <p class="tag"><span class="tick"></span>El recorrido</p>
+      <h2>Elegí por dónde empezar</h2>
+    </div>
+    <div class="indice-grid">
+      <a href="#banos" class="idx-card">
+        <img src="assets/img/showroom-banos-1.jpg" alt="Baños" style="object-position:50% 40%;" />
+        <div class="idx-in">
+          <span class="idx-num">01</span>
+          <h3>Baños</h3>
+          <span class="go">Ver ambiente →</span>
+        </div>
+      </a>
+      <a href="#revestimientos" class="idx-card">
+        <img src="assets/img/03-terminado.jpg" alt="Revestimientos" style="object-position:55% 45%;" />
+        <div class="idx-in">
+          <span class="idx-num">02</span>
+          <h3>Revestimientos</h3>
+          <span class="go">Ver ambiente →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section id="banos" class="feature reveal-el">
     <img src="assets/img/showroom-banos-1.jpg" alt="Sanitarios en exhibición en el showroom" style="object-position:50% 42%;" />
     <div class="scrim"></div>
     <div class="fo">
-      <p class="tag"><span class="tick"></span>01 — Baños</p>
+      <p class="tag"><span class="tick"></span>01/02 — Baños</p>
       <h2>Líneas simples para un baño en calma</h2>
       <p class="desc">Sanitarios, muebles con bacha y grifería combinados en el local — para ver cómo se ven juntos antes de pedirlos.</p>
       <a href="index.html#presupuesto" class="link-cta">Consultar por esta línea →</a>
     </div>
   </section>
 
-  <section class="feature reveal-el">
+  <section id="revestimientos" class="feature reveal-el">
     <img src="assets/img/03-terminado.jpg" alt="Porcelanato símil madera en exhibición" style="object-position:55% 45%;" />
     <div class="scrim"></div>
     <div class="fo">
-      <p class="tag"><span class="tick"></span>02 — Revestimientos</p>
+      <p class="tag"><span class="tick"></span>02/02 — Revestimientos</p>
       <h2>El mismo piso que vas a pisar en tu casa</h2>
       <p class="desc">Porcelanato en formato real, no en catálogo digital — para ver la textura y el color tal como van a quedar instalados.</p>
       <a href="index.html#presupuesto" class="link-cta">Consultar por esta línea →</a>
+    </div>
+  </section>
+
+  <section class="resolucion reveal-el">
+    <div class="wrap">
+      <p class="tag"><span class="tick"></span>En conjunto</p>
+      <div class="tri">
+        <figure><img src="assets/img/showroom-hero.jpg" alt="Mueble de baño" style="object-position:50% 45%;" /></figure>
+        <figure><img src="assets/img/showroom-banos-2.jpg" alt="Sanitarios" style="object-position:50% 35%;" /></figure>
+        <figure><img src="assets/img/03-terminado.jpg" alt="Revestimiento" style="object-position:55% 40%;" /></figure>
+      </div>
+      <h2>Así se ve un ambiente completo, armado con nosotros.</h2>
+      <p class="sub2">Grifería, mueble y revestimiento pensados juntos — no en pedidos separados ni en visitas distintas.</p>
+      <a href="index.html#presupuesto" class="link-cta">Pedir presupuesto para mi ambiente →</a>
     </div>
   </section>
 
