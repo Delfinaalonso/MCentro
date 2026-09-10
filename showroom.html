@@ -48,48 +48,60 @@
   html.js-anim .reveal-el.is-visible{opacity:1; transform:none; transition:opacity .8s ease, transform .8s ease;}
   html.js-anim .reveal-el.d1.is-visible{transition-delay:.12s;}
 
-  /* ---------- page hero ---------- */
-  .phero{position:relative; height:78vh; min-height:460px; overflow:hidden;}
-  .phero img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
-  .phero .scrim{position:absolute; inset:0; background:linear-gradient(to top, rgba(4,4,3,.85) 0%, rgba(4,4,3,.22) 45%, transparent 72%);}
-  .phero .ov{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:0 28px 56px; max-width:1180px; margin:0 auto; color:#fff;}
-  .phero h1{font-size:clamp(46px,9vw,116px); font-weight:800; line-height:.9;}
-  .phero p.sub{font-size:15px; color:#E7E1D2; max-width:44ch; margin-top:14px; line-height:1.6;}
+  /* ---------- page hero: presupuesto + video del local ---------- */
+  .phero-split{display:grid; grid-template-columns:1.1fr 1fr; min-height:76vh;}
+  .ps-copy{display:flex; flex-direction:column; justify-content:center; padding:60px 44px;}
+  .ps-copy h1{font-size:clamp(34px,4.6vw,56px); font-weight:800; line-height:1.04; color:#fff;}
+  .ps-copy .sub{font-size:14.5px; color:var(--soft); max-width:40ch; margin:16px 0 28px; line-height:1.65;}
+  .ps-cta{display:flex; align-items:center; gap:24px; flex-wrap:wrap;}
+  .ps-link{color:var(--ink); opacity:.8; font-size:13.5px; font-weight:600; display:inline-flex; align-items:center; gap:6px; transition:gap .2s ease;}
+  .ps-link:hover{gap:11px; opacity:1;}
+  .ps-media{position:relative; overflow:hidden; min-height:320px;}
+  .ps-media img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  html.js-anim .ps-media img{animation:kbLoop 17s ease-in-out infinite alternate;}
+  @keyframes kbLoop{ from{transform:scale(1) translate(0,0);} to{transform:scale(1.1) translate(-1.5%,-1.5%);} }
+  @media(max-width:900px){
+    .phero-split{grid-template-columns:1fr;}
+    .ps-media{min-height:260px; order:-1;}
+    .ps-copy{padding:40px 28px;}
+  }
 
   /* ---------- intro line ---------- */
   .intro-line{padding:70px 0 10px;}
   .intro-line p{font-size:clamp(20px,3vw,27px); font-family:'Bricolage Grotesque',sans-serif; font-weight:500; max-width:38ch; line-height:1.4;}
 
-  /* ---------- destacados (sección grande, primero: novedades + líneas) ---------- */
-  .destacados{padding:70px 0 14px;}
-  .destacados-head{display:flex; align-items:flex-end; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-bottom:24px;}
-  .destacados-head h2{font-size:clamp(24px,3.4vw,34px); max-width:20ch;}
-  .slider-nav{display:flex; gap:8px;}
-  .slider-nav button{width:38px; height:38px; border:1.5px solid var(--line); background:none; color:#fff; cursor:pointer; font-size:15px; display:flex; align-items:center; justify-content:center; transition:border-color .15s ease;}
-  .slider-nav button:hover{border-color:var(--naranja);}
-  .slider{display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; padding:0 28px 22px; margin:0 -28px; scrollbar-width:none;}
-  .slider::-webkit-scrollbar{display:none;}
-  .slide{scroll-snap-align:start; flex:0 0 auto; width:320px; aspect-ratio:3/4; position:relative; overflow:hidden; display:block;}
-  .slide img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
-  .slide:hover img{transform:scale(1.05);}
-  .slide::after{content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(4,4,3,.85), transparent 55%); pointer-events:none;}
-  .slide .sl-in{position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; justify-content:flex-end; padding:20px; color:#fff;}
-  .slide .sl-tag{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; padding:4px 8px; border:1px solid rgba(255,255,255,.5); width:fit-content; margin-bottom:10px;}
-  .slide.is-new .sl-tag{background:var(--naranja); border-color:var(--naranja);}
-  .slide h3{font-size:clamp(18px,2.2vw,22px); margin-bottom:6px;}
-  .slide .go{font-family:'IBM Plex Mono',monospace; font-size:9.5px; text-transform:uppercase; letter-spacing:.06em; opacity:.85; display:flex; align-items:center; gap:6px; transition:gap .2s ease;}
-  .slide:hover .go{gap:11px;}
-  @media(max-width:760px){ .slide{width:240px;} .slider-nav{display:none;} }
+  /* ---------- líneas del showroom (grid de categorías) ---------- */
+  .lineas{padding:80px 0 16px;}
+  .lineas-head{margin-bottom:26px;}
+  .lineas-head h2{font-size:clamp(26px,3.6vw,38px); max-width:20ch;}
+  .lineas-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px;}
+  .linea-box{position:relative; aspect-ratio:3/4; overflow:hidden; display:block;}
+  .linea-box img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
+  .linea-box:hover img{transform:scale(1.06);}
+  .linea-box::after{content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(4,4,3,.88), transparent 55%); pointer-events:none;}
+  .lb-in{position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; justify-content:flex-end; padding:18px; color:#fff;}
+  .lb-tag{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em; color:var(--naranja); margin-bottom:8px;}
+  .linea-box h3{font-size:clamp(15px,1.6vw,18px); line-height:1.18; margin-bottom:6px;}
+  .linea-box .go{font-family:'IBM Plex Mono',monospace; font-size:9px; text-transform:uppercase; letter-spacing:.06em; opacity:.85; display:flex; align-items:center; gap:6px; transition:gap .2s ease;}
+  .linea-box:hover .go{gap:11px;}
+  .lineas-more{font-size:13px; color:var(--soft); margin-top:20px; max-width:56ch; line-height:1.6;}
+  @media(max-width:900px){ .lineas-grid{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:520px){ .lineas-grid{grid-template-columns:1fr;} .linea-box{aspect-ratio:16/10;} }
 
-  /* ---------- feature (ambiente — paso 2: detalle) ---------- */
-  .feature{position:relative; min-height:78vh; overflow:hidden; margin-top:50px; scroll-margin-top:64px;}
-  .feature img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
-  .feature .scrim{position:absolute; inset:0; background:linear-gradient(to top, rgba(4,4,3,.85) 0%, rgba(4,4,3,.2) 45%, transparent 72%);}
-  .feature .fo{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:0 28px 56px; max-width:1180px; margin:0 auto; color:#fff;}
-  .feature h2{font-size:clamp(30px,5vw,56px); font-weight:800; max-width:14ch;}
-  .feature p.desc{font-size:14.5px; color:#E7E1D2; max-width:42ch; margin:12px 0 18px; line-height:1.65;}
   .link-cta{font-family:'Inter',sans-serif; font-size:14px; font-weight:700; color:#fff; display:inline-flex; align-items:center; gap:6px; transition:gap .2s ease; width:fit-content;}
   .link-cta:hover{gap:11px;}
+
+  /* ---------- marcas y socios (slider) ---------- */
+  .partners{padding:70px 0 90px; border-top:1px solid var(--line); margin-top:50px;}
+  .partners-head{margin-bottom:26px;}
+  .partners-head h2{font-size:clamp(22px,3vw,30px); max-width:26ch;}
+  .partners-slider{display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; padding:4px 28px 10px; margin:0 -28px; scrollbar-width:none;}
+  .partners-slider::-webkit-scrollbar{display:none;}
+  .partner-card{scroll-snap-align:start; flex:0 0 auto; width:190px; height:104px; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; text-align:center; padding:14px;}
+  .partner-card.real{background:#141310;}
+  .partner-card.placeholder{border-style:dashed; opacity:.5;}
+  .partner-card .pc-name{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:#fff;}
+  .partner-card.placeholder .pc-name{color:var(--soft); font-size:10.5px;}
 
   /* ---------- resolución (paso 3 del arco: cierre) ---------- */
   .resolucion{background:#0A0A09; padding:86px 0; border-top:1px solid var(--line); margin-top:50px; text-align:center;}
@@ -156,60 +168,18 @@
 </header>
 
 <main>
-  <section class="phero">
-    <img src="assets/img/stock-showroom-hero.jpg" alt="Ambiente de baño luminoso con toallas y detalles en exhibición" style="object-position:50% 55%;" />
-    <div class="scrim"></div>
-    <div class="ov">
+  <section class="phero-split reveal-el">
+    <div class="ps-copy">
       <p class="tag"><span class="tick"></span>Showroom</p>
-      <h1>Ambientes,<br>no catálogo</h1>
-      <p class="sub">Un recorrido curado por ambiente — sin precios ni fichas técnicas de por medio. Para que definas el estilo antes de venir.</p>
-    </div>
-  </section>
-
-  <section class="wrap destacados reveal-el">
-    <div class="destacados-head">
-      <div>
-        <p class="tag"><span class="tick"></span>Destacados</p>
-        <h2>Líneas destacadas y nuevos ingresos</h2>
-      </div>
-      <div class="slider-nav">
-        <button type="button" data-dir="prev" aria-label="Ver anterior">←</button>
-        <button type="button" data-dir="next" aria-label="Ver siguiente">→</button>
+      <h1>Arrancá por el presupuesto</h1>
+      <p class="sub">Contanos qué ambiente estás armando y te mostramos las líneas del local que tiene sentido que veas primero — sin recorrer todo el catálogo.</p>
+      <div class="ps-cta">
+        <a href="#presupuesto" class="btn btn-naranja">Pedir presupuesto →</a>
+        <a href="#lineas" class="ps-link">Ver qué hay en el showroom ↓</a>
       </div>
     </div>
-    <div class="slider" tabindex="0" aria-label="Líneas destacadas y nuevos ingresos">
-      <a href="index.html#presupuesto" class="slide is-new">
-        <img src="assets/img/00-textura.jpg" alt="Porcelanato gran formato" style="object-position:50% 55%;" />
-        <div class="sl-in">
-          <span class="sl-tag">Nuevo ingreso</span>
-          <h3>Porcelanato gran formato</h3>
-          <span class="go">Consultar disponibilidad →</span>
-        </div>
-      </a>
-      <a href="#banos" class="slide">
-        <img src="assets/img/showroom-banos-1.jpg" alt="Baños" style="object-position:50% 40%;" />
-        <div class="sl-in">
-          <span class="sl-tag">Línea destacada</span>
-          <h3>Baños</h3>
-          <span class="go">Ver ambiente →</span>
-        </div>
-      </a>
-      <a href="#revestimientos" class="slide">
-        <img src="assets/img/03-terminado.jpg" alt="Revestimientos" style="object-position:55% 45%;" />
-        <div class="sl-in">
-          <span class="sl-tag">Línea destacada</span>
-          <h3>Revestimientos</h3>
-          <span class="go">Ver ambiente →</span>
-        </div>
-      </a>
-      <a href="#banos" class="slide is-new">
-        <img src="assets/img/stock-muebles.jpg" alt="Muebles con bacha" style="object-position:50% 45%;" />
-        <div class="sl-in">
-          <span class="sl-tag">Nuevo ingreso</span>
-          <h3>Muebles con bacha</h3>
-          <span class="go">Ver ambiente →</span>
-        </div>
-      </a>
+    <div class="ps-media">
+      <img src="assets/img/stock-showroom-hero.jpg" alt="Ambiente del showroom" style="object-position:50% 55%;" />
     </div>
   </section>
 
@@ -217,39 +187,57 @@
     <p>Grifería, revestimientos y muebles pensados en conjunto — cada ambiente se eligió como si fuéramos a instalarlo nosotros mismos.</p>
   </section>
 
-  <section id="banos" class="feature reveal-el">
-    <img src="assets/img/stock-banos.jpg" alt="Sanitarios en exhibición en el showroom" style="object-position:50% 42%;" />
-    <div class="scrim"></div>
-    <div class="fo">
-      <p class="tag"><span class="tick"></span>01/02 — Baños</p>
-      <h2>Líneas simples para un baño en calma</h2>
-      <p class="desc">Sanitarios, muebles con bacha y grifería combinados en el local — para ver cómo se ven juntos antes de pedirlos.</p>
-      <a href="index.html#presupuesto" class="link-cta">Consultar por esta línea →</a>
+  <section id="lineas" class="wrap lineas reveal-el">
+    <div class="lineas-head">
+      <p class="tag"><span class="tick"></span>En el local</p>
+      <h2>Elegí por dónde empezar</h2>
     </div>
-  </section>
-
-  <section id="revestimientos" class="feature reveal-el">
-    <img src="assets/img/stock-porcelanato.jpg" alt="Porcelanato símil madera en exhibición" style="object-position:55% 45%;" />
-    <div class="scrim"></div>
-    <div class="fo">
-      <p class="tag"><span class="tick"></span>02/02 — Revestimientos</p>
-      <h2>El mismo piso que vas a pisar en tu casa</h2>
-      <p class="desc">Porcelanato en formato real, no en catálogo digital — para ver la textura y el color tal como van a quedar instalados.</p>
-      <a href="index.html#presupuesto" class="link-cta">Consultar por esta línea →</a>
+    <div class="lineas-grid">
+      <a href="#presupuesto" class="linea-box">
+        <img src="assets/img/stock-revestimientos.jpg" alt="Revestimientos" style="object-position:55% 45%;" />
+        <div class="lb-in"><span class="lb-tag">01</span><h3>Revestimientos</h3><span class="go">Consultar →</span></div>
+      </a>
+      <a href="#presupuesto" class="linea-box">
+        <img src="assets/img/stock-porcelanato.jpg" alt="Pisos" style="object-position:50% 55%;" />
+        <div class="lb-in"><span class="lb-tag">02</span><h3>Pisos</h3><span class="go">Consultar →</span></div>
+      </a>
+      <a href="#presupuesto" class="linea-box">
+        <img src="assets/img/stock-banos-detalle.jpg" alt="Grifería" style="object-position:50% 22%;" />
+        <div class="lb-in"><span class="lb-tag">03</span><h3>Grifería</h3><span class="go">Consultar →</span></div>
+      </a>
+      <a href="#presupuesto" class="linea-box">
+        <img src="assets/img/showroom-banos-1.jpg" alt="Sanitarios y muebles con bacha" style="object-position:50% 38%;" />
+        <div class="lb-in"><span class="lb-tag">04</span><h3>Sanitarios y muebles con bacha</h3><span class="go">Consultar →</span></div>
+      </a>
     </div>
+    <p class="lineas-more">Y seguimos sumando líneas — grifería exterior, adhesivos, aislantes y más, directo en el local.</p>
   </section>
 
   <section class="resolucion reveal-el">
     <div class="wrap">
       <p class="tag"><span class="tick"></span>En conjunto</p>
       <div class="tri">
-        <figure><img src="assets/img/stock-banos-detalle.jpg" alt="Mueble de baño" style="object-position:50% 30%;" /></figure>
+        <figure><img src="assets/img/stock-muebles.jpg" alt="Mueble con bacha" style="object-position:50% 45%;" /></figure>
         <figure><img src="assets/img/showroom-banos-2.jpg" alt="Sanitarios" style="object-position:50% 35%;" /></figure>
-        <figure><img src="assets/img/stock-revestimientos.jpg" alt="Revestimiento" style="object-position:55% 40%;" /></figure>
+        <figure><img src="assets/img/03-terminado.jpg" alt="Revestimiento" style="object-position:55% 45%;" /></figure>
       </div>
       <h2>Así se ve un ambiente completo, armado con nosotros.</h2>
       <p class="sub2">Grifería, mueble y revestimiento pensados juntos — no en pedidos separados ni en visitas distintas.</p>
       <a href="index.html#presupuesto" class="link-cta">Pedir presupuesto para mi ambiente →</a>
+    </div>
+  </section>
+
+  <section class="wrap partners reveal-el">
+    <div class="partners-head">
+      <p class="tag"><span class="tick"></span>Marcas y socios</p>
+      <h2>Con quién trabajamos en el local</h2>
+    </div>
+    <div class="partners-slider" tabindex="0" aria-label="Marcas y socios estratégicos">
+      <div class="partner-card real"><span class="pc-name">Ferrum</span></div>
+      <div class="partner-card placeholder"><span class="pc-name">+ Sumar marca</span></div>
+      <div class="partner-card placeholder"><span class="pc-name">+ Sumar marca</span></div>
+      <div class="partner-card placeholder"><span class="pc-name">+ Sumar marca</span></div>
+      <div class="partner-card placeholder"><span class="pc-name">+ Sumar marca</span></div>
     </div>
   </section>
 
@@ -313,16 +301,5 @@
   var fabMain = document.querySelector('.fab-main');
   var fabWrap = document.querySelector('.fab');
   if(fabMain){ fabMain.addEventListener('click', function(){ fabWrap.classList.toggle('open'); }); }
-
-  var slider = document.querySelector('.slider');
-  if(slider){
-    document.querySelectorAll('.slider-nav button').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        var card = slider.querySelector('.slide');
-        var step = card ? card.getBoundingClientRect().width + 14 : 320;
-        slider.scrollBy({ left: btn.dataset.dir === 'prev' ? -step : step, behavior: 'smooth' });
-      });
-    });
-  }
 })();
 </script>
