@@ -76,7 +76,6 @@
   .lineas-head h2{font-size:clamp(26px,3.6vw,38px); max-width:20ch;}
   .lineas-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:12px;}
   .linea-box{position:relative; aspect-ratio:3/4; display:block; overflow:hidden;}
-  .linea-box .flip-inner{position:relative; width:100%; height:100%;}
   .flip-face{position:absolute; inset:0; overflow:hidden; transition:opacity .45s ease;}
   .flip-face img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
   .flip-front{opacity:1; z-index:2;}
@@ -195,87 +194,77 @@
     </div>
     <div class="lineas-grid">
       <a href="#presupuesto" class="linea-box">
-        <div class="flip-inner">
-          <div class="flip-face flip-front">
-            <img src="assets/img/portada-pisos-y-revestimientos.jpg" alt="Pisos y revestimientos" style="object-position:50% 45%;" />
-            <div class="lb-in"><span class="lb-tag">01</span><h3>Pisos y revestimientos</h3><span class="go">Consultar →</span></div>
+        <div class="flip-face flip-front">
+          <img src="assets/img/portada-pisos-y-revestimientos.jpg" alt="Pisos y revestimientos" style="object-position:50% 45%;" />
+          <div class="lb-in"><span class="lb-tag">01</span><h3>Pisos y revestimientos</h3><span class="go">Consultar →</span></div>
+        </div>
+        <div class="flip-face flip-back">
+          <img src="assets/img/portada-pisos-y-revestimientos.jpg" alt="" aria-hidden="true" />
+          <div class="fb-in">
+            <span class="fb-title">Marcas en esta línea</span>
+            <div class="fb-brands"><span class="fb-brand">Misiones</span></div>
           </div>
-          <div class="flip-face flip-back">
-            <img src="assets/img/portada-pisos-y-revestimientos.jpg" alt="" aria-hidden="true" />
-            <div class="fb-in">
-              <span class="fb-title">Marcas en esta línea</span>
-              <div class="fb-brands"><span class="fb-brand">Misiones</span></div>
+        </div>
+      </a>
+      <a href="#presupuesto" class="linea-box">
+        <div class="flip-face flip-front">
+          <img src="assets/img/portada-griferia.jpg" alt="Grifería" style="object-position:50% 45%;" />
+          <div class="lb-in"><span class="lb-tag">02</span><h3>Grifería</h3><span class="go">Consultar →</span></div>
+        </div>
+        <div class="flip-face flip-back">
+          <img src="assets/img/portada-griferia.jpg" alt="" aria-hidden="true" />
+          <div class="fb-in">
+            <span class="fb-title">Marcas en esta línea</span>
+            <div class="fb-brands">
+              <span class="fb-brand">FV</span>
+              <span class="fb-brand">Ferrum</span>
+              <span class="fb-brand">Vasser</span>
             </div>
           </div>
         </div>
       </a>
       <a href="#presupuesto" class="linea-box">
-        <div class="flip-inner">
-          <div class="flip-face flip-front">
-            <img src="assets/img/portada-griferia.jpg" alt="Grifería" style="object-position:50% 45%;" />
-            <div class="lb-in"><span class="lb-tag">02</span><h3>Grifería</h3><span class="go">Consultar →</span></div>
-          </div>
-          <div class="flip-face flip-back">
-            <img src="assets/img/portada-griferia.jpg" alt="" aria-hidden="true" />
-            <div class="fb-in">
-              <span class="fb-title">Marcas en esta línea</span>
-              <div class="fb-brands">
-                <span class="fb-brand">FV</span>
-                <span class="fb-brand">Ferrum</span>
-                <span class="fb-brand">Vasser</span>
-              </div>
+        <div class="flip-face flip-front">
+          <img src="assets/img/portada-sanitarios.jpg" alt="Sanitarios" style="object-position:50% 45%;" />
+          <div class="lb-in"><span class="lb-tag">03</span><h3>Sanitarios</h3><span class="go">Consultar →</span></div>
+        </div>
+        <div class="flip-face flip-back">
+          <img src="assets/img/portada-sanitarios.jpg" alt="" aria-hidden="true" />
+          <div class="fb-in">
+            <span class="fb-title">Marcas en esta línea</span>
+            <div class="fb-brands">
+              <span class="fb-brand">Ferrum</span>
+              <span class="fb-brand">Jhonson</span>
             </div>
           </div>
         </div>
       </a>
       <a href="#presupuesto" class="linea-box">
-        <div class="flip-inner">
-          <div class="flip-face flip-front">
-            <img src="assets/img/portada-sanitarios.jpg" alt="Sanitarios" style="object-position:50% 45%;" />
-            <div class="lb-in"><span class="lb-tag">03</span><h3>Sanitarios</h3><span class="go">Consultar →</span></div>
-          </div>
-          <div class="flip-face flip-back">
-            <img src="assets/img/portada-sanitarios.jpg" alt="" aria-hidden="true" />
-            <div class="fb-in">
-              <span class="fb-title">Marcas en esta línea</span>
-              <div class="fb-brands">
-                <span class="fb-brand">Ferrum</span>
-                <span class="fb-brand">Jhonson</span>
-              </div>
+        <div class="flip-face flip-front">
+          <img src="assets/img/portada-amoblamientos.jpg" alt="Amoblamientos de baño" style="object-position:50% 30%;" />
+          <div class="lb-in"><span class="lb-tag">04</span><h3>Amoblamientos de baño</h3><span class="go">Consultar →</span></div>
+        </div>
+        <div class="flip-face flip-back">
+          <img src="assets/img/portada-amoblamientos.jpg" alt="" aria-hidden="true" />
+          <div class="fb-in">
+            <span class="fb-title">Marcas en esta línea</span>
+            <div class="fb-brands">
+              <span class="fb-brand">Blangino</span>
+              <span class="fb-brand">Jhonson</span>
             </div>
           </div>
         </div>
       </a>
       <a href="#presupuesto" class="linea-box">
-        <div class="flip-inner">
-          <div class="flip-face flip-front">
-            <img src="assets/img/portada-amoblamientos.jpg" alt="Amoblamientos de baño" style="object-position:50% 30%;" />
-            <div class="lb-in"><span class="lb-tag">04</span><h3>Amoblamientos de baño</h3><span class="go">Consultar →</span></div>
-          </div>
-          <div class="flip-face flip-back">
-            <img src="assets/img/portada-amoblamientos.jpg" alt="" aria-hidden="true" />
-            <div class="fb-in">
-              <span class="fb-title">Marcas en esta línea</span>
-              <div class="fb-brands">
-                <span class="fb-brand">Blangino</span>
-                <span class="fb-brand">Jhonson</span>
-              </div>
-            </div>
-          </div>
+        <div class="flip-face flip-front">
+          <img src="assets/img/portada-art-del-hogar.jpg" alt="Artículos del hogar" style="object-position:50% 40%;" />
+          <div class="lb-in"><span class="lb-tag">05</span><h3>Artículos del hogar</h3><span class="go">Consultar →</span></div>
         </div>
-      </a>
-      <a href="#presupuesto" class="linea-box">
-        <div class="flip-inner">
-          <div class="flip-face flip-front">
-            <img src="assets/img/portada-art-del-hogar.jpg" alt="Artículos del hogar" style="object-position:50% 40%;" />
-            <div class="lb-in"><span class="lb-tag">05</span><h3>Artículos del hogar</h3><span class="go">Consultar →</span></div>
-          </div>
-          <div class="flip-face flip-back">
-            <img src="assets/img/portada-art-del-hogar.jpg" alt="" aria-hidden="true" />
-            <div class="fb-in">
-              <span class="fb-title">Marcas en esta línea</span>
-              <div class="fb-brands"><span class="fb-brand">TST</span></div>
-            </div>
+        <div class="flip-face flip-back">
+          <img src="assets/img/portada-art-del-hogar.jpg" alt="" aria-hidden="true" />
+          <div class="fb-in">
+            <span class="fb-title">Marcas en esta línea</span>
+            <div class="fb-brands"><span class="fb-brand">TST</span></div>
           </div>
         </div>
       </a>
