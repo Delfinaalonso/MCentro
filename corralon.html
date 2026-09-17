@@ -61,10 +61,18 @@
   /* ---------- ledger (stock) ---------- */
   .ledger{
     padding:56px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin-top:30px;
+  }
+  .ledger .wrap{position:relative;}
+  .ledger .wrap::before{
+    content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
     background-image:
       repeating-linear-gradient(0deg, rgba(0,109,58,.22) 0, rgba(0,109,58,.22) 1px, transparent 1px, transparent 56px),
       repeating-linear-gradient(90deg, rgba(0,109,58,.22) 0, rgba(0,109,58,.22) 1px, transparent 1px, transparent 56px);
+    mask-image:linear-gradient(to right, transparent 0, transparent 680px, #000 780px, #000 100%);
+    -webkit-mask-image:linear-gradient(to right, transparent 0, transparent 680px, #000 780px, #000 100%);
   }
+  @media(max-width:900px){ .ledger .wrap::before{ display:none; } }
+  .ledger h2,.ledger p.desc,.ledger ul{position:relative; z-index:1;}
   .ledger h2{font-size:clamp(26px,4vw,38px); margin-bottom:8px; max-width:20ch;}
   .ledger p.desc{font-size:14px; color:var(--soft); max-width:44ch; margin-bottom:30px; line-height:1.6;}
   .ledger ul{list-style:none; max-width:680px;}
