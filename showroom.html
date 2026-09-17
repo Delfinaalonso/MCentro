@@ -51,19 +51,22 @@
   html.js-anim .reveal-el.d1.is-visible{transition-delay:.12s;}
 
   /* ---------- page hero: presupuesto + video del local ---------- */
-  .phero-split{display:grid; grid-template-columns:1.1fr 1fr; min-height:76vh;}
-  .ps-copy{display:flex; flex-direction:column; justify-content:center; padding:60px 44px;}
+  .phero-split{
+    position:relative; display:grid; grid-template-columns:1.1fr 1fr; min-height:76vh; overflow:hidden;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(235,92,46,.22) 0, rgba(235,92,46,.22) 1px, transparent 1px, transparent 56px),
+      repeating-linear-gradient(90deg, rgba(235,92,46,.22) 0, rgba(235,92,46,.22) 1px, transparent 1px, transparent 56px);
+  }
+  .phero-split::after{content:''; position:absolute; inset:auto 0 0 0; height:140px; background:linear-gradient(to bottom, transparent, var(--bg)); z-index:0; pointer-events:none;}
+  .ps-copy{position:relative; z-index:1; display:flex; flex-direction:column; justify-content:center; padding:60px 44px;}
   .ps-copy h1{font-size:clamp(34px,4.6vw,56px); font-weight:800; line-height:1.04; color:var(--ink);}
   .ps-copy .sub{font-size:14.5px; color:var(--soft); max-width:40ch; margin:16px 0 28px; line-height:1.65;}
   .ps-cta{display:flex; align-items:center; gap:24px; flex-wrap:wrap;}
   .ps-link{color:var(--ink); opacity:.8; font-size:13.5px; font-weight:600; display:inline-flex; align-items:center; gap:6px; transition:gap .2s ease;}
   .ps-link:hover{gap:11px; opacity:1;}
   .ps-media{
-    position:relative; min-height:380px; padding:36px;
+    position:relative; z-index:1; min-height:380px; padding:36px;
     display:flex; align-items:center; justify-content:center;
-    background-image:
-      repeating-linear-gradient(0deg, rgba(235,92,46,.22) 0, rgba(235,92,46,.22) 1px, transparent 1px, transparent 56px),
-      repeating-linear-gradient(90deg, rgba(235,92,46,.22) 0, rgba(235,92,46,.22) 1px, transparent 1px, transparent 56px);
   }
   .ps-frame{position:relative; width:100%; height:100%; overflow:hidden; border:1px solid rgba(42,31,20,.22); box-shadow:0 24px 48px -24px rgba(42,31,20,.35);}
   .ps-frame img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
@@ -80,7 +83,7 @@
   .intro-line p{font-size:clamp(20px,3vw,27px); font-family:'Bricolage Grotesque',sans-serif; font-weight:500; max-width:38ch; line-height:1.4;}
 
   /* ---------- líneas del showroom (grid de categorías) ---------- */
-  .lineas{padding:80px 0 16px;}
+  .lineas{padding:60px 0 16px;}
   .lineas-head{margin-bottom:26px;}
   .lineas-head h2{font-size:clamp(26px,3.6vw,38px); max-width:20ch;}
   .lineas-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:12px;}
@@ -103,7 +106,7 @@
   .link-cta:hover{gap:11px;}
 
   /* ---------- marcas y socios (slider) ---------- */
-  .partners{padding:70px 0 90px; border-top:1px solid var(--line); margin-top:50px;}
+  .partners{padding:50px 0 60px; border-top:1px solid var(--line); margin-top:30px;}
   .partners-head{margin-bottom:26px;}
   .partners-head h2{font-size:clamp(22px,3vw,30px); max-width:26ch;}
   .partners-marquee{overflow-x:auto; margin:0 -28px; padding:4px 28px; -webkit-mask-image:linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); mask-image:linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); scrollbar-width:none;}
@@ -118,7 +121,7 @@
   .partner-card img{max-height:44px; width:auto; max-width:80%; object-fit:contain; filter:brightness(0); opacity:.72;}
 
   /* ---------- presupuesto + footer + fab (compartido) — banda oscura cálida de cierre ---------- */
-  #presupuesto{--bg:var(--deep); --ink:var(--deep-ink); --soft:var(--deep-soft); --line:var(--deep-line); background:var(--bg); padding:80px 0; border-top:1px solid var(--line); margin-top:50px;}
+  #presupuesto{--bg:var(--deep); --ink:var(--deep-ink); --soft:var(--deep-soft); --line:var(--deep-line); background:var(--bg); padding:64px 0; border-top:1px solid var(--line); margin-top:30px;}
   #presupuesto .row{display:flex; gap:48px; flex-wrap:wrap; justify-content:space-between;}
   #presupuesto .intro-col{max-width:34ch;}
   #presupuesto h2{color:var(--ink); font-size:clamp(26px,4vw,38px); margin-bottom:12px;}
