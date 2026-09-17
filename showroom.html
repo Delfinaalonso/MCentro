@@ -360,16 +360,16 @@
   var fabWrap = document.querySelector('.fab');
   if(fabMain){ fabMain.addEventListener('click', function(){ fabWrap.classList.toggle('open'); }); }
 
-  if(window.matchMedia('(hover: none)').matches){
-    document.querySelectorAll('.linea-box').forEach(function(box){
-      box.addEventListener('click', function(e){
-        if(!box.classList.contains('is-flipped')){
-          e.preventDefault();
-          document.querySelectorAll('.linea-box.is-flipped').forEach(function(b){ if(b !== box) b.classList.remove('is-flipped'); });
-          box.classList.add('is-flipped');
-        }
-      });
+  document.querySelectorAll('.linea-box').forEach(function(box){
+    var lastPointerWasTouch = false;
+    box.addEventListener('pointerup', function(e){ lastPointerWasTouch = (e.pointerType === 'touch'); });
+    box.addEventListener('click', function(e){
+      if(lastPointerWasTouch && !box.classList.contains('is-flipped')){
+        e.preventDefault();
+        document.querySelectorAll('.linea-box.is-flipped').forEach(function(b){ if(b !== box) b.classList.remove('is-flipped'); });
+        box.classList.add('is-flipped');
+      }
     });
-  }
+  });
 })();
 </script>
