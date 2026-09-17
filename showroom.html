@@ -58,13 +58,20 @@
   .ps-cta{display:flex; align-items:center; gap:24px; flex-wrap:wrap;}
   .ps-link{color:var(--ink); opacity:.8; font-size:13.5px; font-weight:600; display:inline-flex; align-items:center; gap:6px; transition:gap .2s ease;}
   .ps-link:hover{gap:11px; opacity:1;}
-  .ps-media{position:relative; overflow:hidden; min-height:320px;}
-  .ps-media img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
-  html.js-anim .ps-media img{animation:kbLoop 17s ease-in-out infinite alternate;}
-  @keyframes kbLoop{ from{transform:scale(1) translate(0,0);} to{transform:scale(1.1) translate(-1.5%,-1.5%);} }
+  .ps-media{
+    position:relative; min-height:380px; padding:36px;
+    display:flex; align-items:center; justify-content:center;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(235,92,46,.22) 0, rgba(235,92,46,.22) 1px, transparent 1px, transparent 56px),
+      repeating-linear-gradient(90deg, rgba(235,92,46,.22) 0, rgba(235,92,46,.22) 1px, transparent 1px, transparent 56px);
+  }
+  .ps-frame{position:relative; width:100%; height:100%; overflow:hidden; border:1px solid rgba(42,31,20,.22); box-shadow:0 24px 48px -24px rgba(42,31,20,.35);}
+  .ps-frame img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  html.js-anim .ps-frame img{animation:kbLoop 17s ease-in-out infinite alternate;}
+  @keyframes kbLoop{ from{transform:scale(1.08) translate(0,0);} to{transform:scale(1.22) translate(-1.5%,-1.5%);} }
   @media(max-width:900px){
     .phero-split{grid-template-columns:1fr;}
-    .ps-media{min-height:260px; order:-1;}
+    .ps-media{min-height:300px; order:-1; padding:20px;}
     .ps-copy{padding:40px 28px;}
   }
 
@@ -173,7 +180,9 @@
       </div>
     </div>
     <div class="ps-media">
-      <img src="assets/img/portada-showroom.jpg" alt="Ambiente del showroom" style="object-position:50% 45%;" />
+      <div class="ps-frame">
+        <img src="assets/img/portada-showroom.jpg" alt="Ambiente del showroom" style="object-position:15% 42%;" />
+      </div>
     </div>
   </section>
 
