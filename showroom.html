@@ -84,25 +84,43 @@
   .intro-line{padding:70px 0 10px;}
   .intro-line p{font-size:clamp(20px,3vw,27px); font-family:'Bricolage Grotesque',sans-serif; font-weight:500; max-width:38ch; line-height:1.4;}
 
-  /* ---------- líneas del showroom (grid de categorías) ---------- */
+  /* ---------- líneas del showroom (grid de categorías, flip cards) ---------- */
   .lineas{padding:24px 0 16px;}
   .lineas-head{margin-bottom:20px;}
   .lineas-head h2{font-size:clamp(26px,3.6vw,38px); max-width:20ch;}
   .lineas-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:12px;}
-  .linea-box{position:relative; aspect-ratio:3/4; display:block; overflow:hidden;}
-  .linea-box img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
-  .linea-box:hover img{transform:scale(1.06);}
-  .linea-box::after{content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(4,4,3,.88), transparent 55%); pointer-events:none;}
-  .lb-in{position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; justify-content:flex-end; padding:18px; color:#fff;}
-  .lb-tag{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em; color:var(--naranja); margin-bottom:8px;}
-  .linea-box h3{font-size:clamp(14px,1.4vw,17px); line-height:1.18; margin-bottom:6px;}
-  .linea-box .go{font-family:'IBM Plex Mono',monospace; font-size:9px; text-transform:uppercase; letter-spacing:.06em; opacity:.85; display:flex; align-items:center; gap:6px; transition:gap .2s ease;}
-  .linea-box:hover .go{gap:11px;}
-  .lb-brands{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.04em; text-transform:uppercase; color:var(--soft); margin-top:4px;}
+
+  .linea-box{perspective:1200px; position:relative; width:100%;}
+  .linea-box::before{content:''; display:block; padding-bottom:133.333%;}
+  .linea-box-inner{position:absolute; inset:0; transition:transform .65s cubic-bezier(.4,.2,.2,1); transform-style:preserve-3d;}
+  .linea-box.flipped .linea-box-inner,
+  .linea-box:hover .linea-box-inner{transform:rotateY(180deg);}
+  .linea-face{position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; overflow:hidden; pointer-events:auto;}
+  .linea-box.flipped .linea-front,
+  .linea-box:hover .linea-front{pointer-events:none;}
+  .linea-back{pointer-events:none;}
+  .linea-box.flipped .linea-back,
+  .linea-box:hover .linea-back{pointer-events:auto;}
+
+  .linea-front img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  .lb-scrim{position:absolute; inset:0; background:linear-gradient(to top, rgba(4,4,3,.88), transparent 55%); pointer-events:none;}
+  .lb-front-in{position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; justify-content:flex-end; padding:18px; color:#fff;}
+  .lb-tag{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em; color:var(--naranja); margin-bottom:8px; display:block;}
+  .linea-front h3{font-size:clamp(14px,1.4vw,17px); line-height:1.18; color:#fff;}
+
+  .linea-back{
+    background:var(--cardfill); border:1px solid var(--line); transform:rotateY(180deg);
+    display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:18px;
+  }
+  .linea-back h3{font-size:clamp(14px,1.4vw,17px); line-height:1.2; margin-bottom:8px; color:var(--ink);}
+  .lb-brands{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.04em; text-transform:uppercase; color:var(--soft); margin-bottom:16px;}
+  .linea-back .go{font-family:'IBM Plex Mono',monospace; font-size:9px; text-transform:uppercase; letter-spacing:.06em; color:var(--naranja); display:inline-flex; align-items:center; gap:6px; transition:gap .2s ease;}
+  .linea-back .go:hover{gap:11px;}
+
   .lineas-more{font-size:13px; color:var(--soft); margin-top:20px; max-width:56ch; line-height:1.6;}
   @media(max-width:1000px){ .lineas-grid{grid-template-columns:repeat(3,1fr);} }
   @media(max-width:600px){ .lineas-grid{grid-template-columns:repeat(2,1fr);} }
-  @media(max-width:420px){ .lineas-grid{grid-template-columns:1fr;} .linea-box{aspect-ratio:16/10;} }
+  @media(max-width:420px){ .lineas-grid{grid-template-columns:1fr;} .linea-box::before{padding-bottom:62.5%;} }
 
   .link-cta{font-family:'Inter',sans-serif; font-size:14px; font-weight:700; color:#fff; display:inline-flex; align-items:center; gap:6px; transition:gap .2s ease; width:fit-content;}
   .link-cta:hover{gap:11px;}
@@ -217,51 +235,96 @@
       <h2>Elegí por dónde empezar</h2>
     </div>
     <div class="lineas-grid">
-      <a href="#presupuesto" class="linea-box">
-        <img src="assets/img/portada-pisos-y-revestimientos.jpg" alt="Pisos y revestimientos" style="object-position:50% 45%;" />
-        <div class="lb-in">
-          <span class="lb-tag">01</span>
-          <h3>Pisos y revestimientos</h3>
-          <span class="lb-brands">Misiones</span>
-          <span class="go">Consultar →</span>
+      <div class="linea-box">
+        <div class="linea-box-inner">
+          <div class="linea-face linea-front">
+            <img src="assets/img/portada-pisos-y-revestimientos.jpg" alt="Pisos y revestimientos" style="object-position:50% 45%;" />
+            <div class="lb-scrim"></div>
+            <div class="lb-front-in">
+              <span class="lb-tag">01</span>
+              <h3>Pisos y revestimientos</h3>
+            </div>
+          </div>
+          <div class="linea-face linea-back">
+            <span class="lb-tag">01</span>
+            <h3>Pisos y revestimientos</h3>
+            <span class="lb-brands">Misiones</span>
+            <a href="#presupuesto" class="go">Consultar →</a>
+          </div>
         </div>
-      </a>
-      <a href="#presupuesto" class="linea-box">
-        <img src="assets/img/portada-griferia.jpg" alt="Grifería" style="object-position:50% 45%;" />
-        <div class="lb-in">
-          <span class="lb-tag">02</span>
-          <h3>Grifería</h3>
-          <span class="lb-brands">FV · Ferrum · Vasser</span>
-          <span class="go">Consultar →</span>
+      </div>
+      <div class="linea-box">
+        <div class="linea-box-inner">
+          <div class="linea-face linea-front">
+            <img src="assets/img/portada-griferia.jpg" alt="Grifería" style="object-position:50% 45%;" />
+            <div class="lb-scrim"></div>
+            <div class="lb-front-in">
+              <span class="lb-tag">02</span>
+              <h3>Grifería</h3>
+            </div>
+          </div>
+          <div class="linea-face linea-back">
+            <span class="lb-tag">02</span>
+            <h3>Grifería</h3>
+            <span class="lb-brands">FV · Ferrum · Vasser</span>
+            <a href="#presupuesto" class="go">Consultar →</a>
+          </div>
         </div>
-      </a>
-      <a href="#presupuesto" class="linea-box">
-        <img src="assets/img/portada-sanitarios.jpg" alt="Sanitarios" style="object-position:50% 45%;" />
-        <div class="lb-in">
-          <span class="lb-tag">03</span>
-          <h3>Sanitarios</h3>
-          <span class="lb-brands">Ferrum · Jhonson</span>
-          <span class="go">Consultar →</span>
+      </div>
+      <div class="linea-box">
+        <div class="linea-box-inner">
+          <div class="linea-face linea-front">
+            <img src="assets/img/portada-sanitarios.jpg" alt="Sanitarios" style="object-position:50% 45%;" />
+            <div class="lb-scrim"></div>
+            <div class="lb-front-in">
+              <span class="lb-tag">03</span>
+              <h3>Sanitarios</h3>
+            </div>
+          </div>
+          <div class="linea-face linea-back">
+            <span class="lb-tag">03</span>
+            <h3>Sanitarios</h3>
+            <span class="lb-brands">Ferrum · Jhonson</span>
+            <a href="#presupuesto" class="go">Consultar →</a>
+          </div>
         </div>
-      </a>
-      <a href="#presupuesto" class="linea-box">
-        <img src="assets/img/portada-amoblamientos.jpg" alt="Amoblamientos de baño" style="object-position:50% 30%;" />
-        <div class="lb-in">
-          <span class="lb-tag">04</span>
-          <h3>Amoblamientos de baño</h3>
-          <span class="lb-brands">Blangino · Jhonson</span>
-          <span class="go">Consultar →</span>
+      </div>
+      <div class="linea-box">
+        <div class="linea-box-inner">
+          <div class="linea-face linea-front">
+            <img src="assets/img/portada-amoblamientos.jpg" alt="Amoblamientos de baño" style="object-position:50% 30%;" />
+            <div class="lb-scrim"></div>
+            <div class="lb-front-in">
+              <span class="lb-tag">04</span>
+              <h3>Amoblamientos de baño</h3>
+            </div>
+          </div>
+          <div class="linea-face linea-back">
+            <span class="lb-tag">04</span>
+            <h3>Amoblamientos de baño</h3>
+            <span class="lb-brands">Blangino · Jhonson</span>
+            <a href="#presupuesto" class="go">Consultar →</a>
+          </div>
         </div>
-      </a>
-      <a href="#presupuesto" class="linea-box">
-        <img src="assets/img/portada-art-del-hogar.jpg" alt="Artículos del hogar" style="object-position:50% 40%;" />
-        <div class="lb-in">
-          <span class="lb-tag">05</span>
-          <h3>Artículos del hogar</h3>
-          <span class="lb-brands">TST</span>
-          <span class="go">Consultar →</span>
+      </div>
+      <div class="linea-box">
+        <div class="linea-box-inner">
+          <div class="linea-face linea-front">
+            <img src="assets/img/portada-art-del-hogar.jpg" alt="Artículos del hogar" style="object-position:50% 40%;" />
+            <div class="lb-scrim"></div>
+            <div class="lb-front-in">
+              <span class="lb-tag">05</span>
+              <h3>Artículos del hogar</h3>
+            </div>
+          </div>
+          <div class="linea-face linea-back">
+            <span class="lb-tag">05</span>
+            <h3>Artículos del hogar</h3>
+            <span class="lb-brands">TST</span>
+            <a href="#presupuesto" class="go">Consultar →</a>
+          </div>
         </div>
-      </a>
+      </div>
     </div>
     <p class="lineas-more">Y seguimos sumando líneas — directo en el local.</p>
   </section>
@@ -369,5 +432,15 @@
   var fabMain = document.querySelector('.fab-main');
   var fabWrap = document.querySelector('.fab');
   if(fabMain){ fabMain.addEventListener('click', function(){ fabWrap.classList.toggle('open'); }); }
+
+  var isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  if(isTouchDevice){
+    document.querySelectorAll('.linea-box').forEach(function(card){
+      card.addEventListener('click', function(){
+        document.querySelectorAll('.linea-box').forEach(function(c){ if(c!==card) c.classList.remove('flipped'); });
+        card.classList.toggle('flipped');
+      });
+    });
+  }
 })();
 </script>
