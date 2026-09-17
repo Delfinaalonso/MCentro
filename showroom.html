@@ -137,8 +137,19 @@
   .btn-naranja{background:var(--naranja); color:#fff;}
   .btn-verde{background:var(--verde-brand); color:#fff;}
 
-  footer{--bg:var(--deep); --soft:var(--deep-soft); background:var(--bg); color:var(--soft); padding:26px 28px; border-top:1px solid rgba(243,235,222,.06);}
-  footer .row{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; max-width:1180px; margin:0 auto; font-family:'IBM Plex Mono',monospace; font-size:10.5px;}
+  footer{--bg:var(--deep); --soft:var(--deep-soft); position:relative; overflow:hidden; background:var(--bg); color:var(--soft); padding:26px 28px; border-top:1px solid rgba(243,235,222,.06);}
+  footer::before{
+    content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(0,0,0,.3) 0, rgba(0,0,0,.3) 1px, transparent 1px, transparent 46px),
+      repeating-linear-gradient(90deg, rgba(0,0,0,.3) 0, rgba(0,0,0,.3) 1px, transparent 1px, transparent 46px);
+    -webkit-mask-image:radial-gradient(ellipse 75% 130% at 50% 50%, #000 0%, transparent 90%);
+    mask-image:radial-gradient(ellipse 75% 130% at 50% 50%, #000 0%, transparent 90%);
+  }
+  footer .row{position:relative; z-index:1; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; max-width:1180px; margin:0 auto; font-family:'IBM Plex Mono',monospace; font-size:10.5px;}
+  footer .contact-row{margin-top:12px; padding-top:12px; border-top:1px solid rgba(243,235,222,.08); gap:18px;}
+  footer .contact-row a{color:var(--soft); transition:color .15s ease;}
+  footer .contact-row a:hover{color:var(--naranja);}
 
   .fab{position:fixed; bottom:20px; right:20px; z-index:70; display:flex; flex-direction:column-reverse; gap:10px; align-items:flex-end;}
   .fab-wa{background:rgba(0,109,58,.88); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); color:#fff; border-radius:30px; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; padding:12px 18px; box-shadow:0 10px 24px -8px rgba(42,31,20,.4); border:none; cursor:pointer; opacity:0; transform:translateY(8px) scale(.9); pointer-events:none; transition:opacity .2s ease, transform .2s ease, background-color .15s ease;}
@@ -286,7 +297,7 @@
         <input class="field" placeholder="¿Qué ambiente estás armando?" />
         <div class="ct-actions">
           <button class="btn btn-naranja" type="button">Enviar y recibir presupuesto</button>
-          <button class="btn btn-verde" type="button">Escribir por WhatsApp</button>
+          <a class="btn btn-verde" href="http://wa.link/g53pjo" target="_blank" rel="noopener">Escribir por WhatsApp</a>
         </div>
       </div>
     </div>
@@ -298,10 +309,15 @@
     <span>MATERIALES CENTRO — SHOWROOM &amp; CORRALÓN · GENERAL PICO, LA PAMPA</span>
     <span>SHOWROOM LUN A VIE 8–16H / SÁB 8–12:30H · CORRALÓN MISMO HORARIO</span>
   </div>
+  <div class="row contact-row">
+    <a href="https://instagram.com/materialescentro" target="_blank" rel="noopener">INSTAGRAM · @MATERIALESCENTRO</a>
+    <a href="http://wa.link/g53pjo" target="_blank" rel="noopener">WHATSAPP · +54 9 2302 63-4844</a>
+    <a href="tel:+542302435940">TEL · 2302 43-5940</a>
+  </div>
 </footer>
 
 <div class="fab">
-  <button class="fab-wa" type="button">Escribir por WhatsApp</button>
+  <a class="fab-wa" href="http://wa.link/g53pjo" target="_blank" rel="noopener">Escribir por WhatsApp</a>
   <button class="fab-main" type="button">Contanos tu proyecto</button>
 </div>
 
