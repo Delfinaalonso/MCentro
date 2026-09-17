@@ -23,17 +23,18 @@
 
   /* ---------- header ---------- */
   header{position:fixed; top:0; left:0; right:0; z-index:80; transition:background .3s ease;}
-  header::before{content:''; position:absolute; inset:0; height:130px; background:linear-gradient(to bottom, rgba(0,0,0,.6), transparent); pointer-events:none; z-index:-1;}
+  header::before{content:''; position:absolute; inset:0; height:150px; background:linear-gradient(to bottom, rgba(0,0,0,.8) 0%, rgba(0,0,0,.45) 55%, transparent 100%); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); pointer-events:none; z-index:-1;}
   header.solid{background-color:var(--bg); background-image:var(--grain); background-repeat:repeat; background-size:300px 300px; background-blend-mode:multiply; border-bottom:1px solid var(--line);}
   header.solid::before{display:none;}
   .top-row{display:flex; align-items:center; justify-content:space-between; gap:18px; padding:20px 28px; max-width:1180px; margin:0 auto;}
-  .logo-mark{height:40px; flex-shrink:0;}
+  .logo-mark{height:40px; flex-shrink:0; filter:drop-shadow(0 2px 6px rgba(0,0,0,.6));}
   .logo-mark svg{height:100%; width:auto; display:block;}
+  header.solid .logo-mark{filter:none;}
   .head-right{display:flex; align-items:center; gap:32px;}
   .main-nav{display:flex; gap:32px; font-size:16.5px; font-family:'Bricolage Grotesque',sans-serif; font-weight:600; letter-spacing:-.005em;}
-  .main-nav a{color:#fff; padding-bottom:4px; border-bottom:1.5px solid transparent; transition:border-color .15s ease, color .2s ease;}
+  .main-nav a{color:#fff; padding-bottom:4px; border-bottom:1.5px solid transparent; text-shadow:0 1px 4px rgba(0,0,0,.5); transition:border-color .15s ease, color .2s ease;}
   .main-nav a:hover{border-color:rgba(255,255,255,.65);}
-  header.solid .main-nav a{color:var(--ink);}
+  header.solid .main-nav a{color:var(--ink); text-shadow:none;}
   header.solid .main-nav a:hover{border-color:rgba(42,31,20,.4);}
   .burger{display:none; width:36px; height:36px; border:1.5px solid rgba(255,255,255,.5); background:none; cursor:pointer; align-items:center; justify-content:center; flex-shrink:0; transition:border-color .2s ease;}
   .burger span, .burger span::before, .burger span::after{content:''; display:block; width:16px; height:1.5px; background:#fff; position:relative; transition:background-color .2s ease;}
@@ -400,14 +401,14 @@
     }
 
     var t0 = smooth(clamp((p - bounds[0]) / (bounds[1]-bounds[0]), 0, 1));
-    imgs[0].style.transform = 'scale(' + lerp(1.35,1.0,t0) + ')';
+    imgs[0].style.transform = 'scale(' + lerp(1.1,1.0,t0) + ')';
     act0meta.style.opacity = t0 > .55 ? 1 : 0;
 
     var t1 = smooth(clamp((p - bounds[1]) / (bounds[2]-bounds[1]), 0, 1));
-    imgs[1].style.transform = 'translateX(' + lerp(0,-3.5,t1) + '%) scale(' + lerp(1.06,1.14,t1) + ')';
+    imgs[1].style.transform = 'translateX(' + lerp(0,-2,t1) + '%) scale(' + lerp(1.03,1.07,t1) + ')';
 
     var t2 = smooth(clamp((p - bounds[2]) / (bounds[3]-bounds[2]), 0, 1));
-    imgs[2].style.transform = 'scale(' + lerp(1.0,1.1,t2) + ')';
+    imgs[2].style.transform = 'scale(' + lerp(1.0,1.05,t2) + ')';
 
     var t3 = smooth(clamp((p - bounds[3]) / (bounds[4]-bounds[3]), 0, 1));
     var reveal = t3 * 122;
