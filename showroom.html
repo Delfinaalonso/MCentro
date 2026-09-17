@@ -97,13 +97,17 @@
   .partners{padding:70px 0 90px; border-top:1px solid var(--line); margin-top:50px;}
   .partners-head{margin-bottom:26px;}
   .partners-head h2{font-size:clamp(22px,3vw,30px); max-width:26ch;}
-  .partners-slider{display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; padding:4px 28px 10px; margin:0 -28px; scrollbar-width:none;}
-  .partners-slider::-webkit-scrollbar{display:none;}
-  .partner-card{scroll-snap-align:start; flex:0 0 auto; width:190px; height:104px; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; text-align:center; padding:14px;}
+  .partners-marquee{overflow-x:auto; margin:0 -28px; padding:4px 28px; -webkit-mask-image:linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); mask-image:linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); scrollbar-width:none;}
+  .partners-marquee::-webkit-scrollbar{display:none;}
+  html.js-anim .partners-marquee{overflow:hidden;}
+  .partners-track{display:flex; gap:14px; width:max-content;}
+  html.js-anim .partners-track{animation:partnersMarquee 26s linear infinite;}
+  html.js-anim .partners-marquee:hover .partners-track{animation-play-state:paused;}
+  @keyframes partnersMarquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  .partner-card{flex:0 0 auto; width:190px; height:104px; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; text-align:center; padding:14px;}
   .partner-card.real{background:#141310;}
-  .partner-card.placeholder{border-style:dashed; opacity:.5;}
   .partner-card .pc-name{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:#fff;}
-  .partner-card.placeholder .pc-name{color:var(--soft); font-size:10.5px;}
+  .partner-card img{max-height:44px; width:auto; max-width:100%; object-fit:contain; filter:grayscale(1) brightness(2); opacity:.85;}
 
   /* ---------- presupuesto + footer + fab (compartido) ---------- */
   #presupuesto{background:#0A0A09; padding:80px 0; border-top:1px solid var(--line); margin-top:50px;}
@@ -232,14 +236,23 @@
       <p class="tag"><span class="tick"></span>Marcas y socios</p>
       <h2>Con quién trabajamos en el local</h2>
     </div>
-    <div class="partners-slider" tabindex="0" aria-label="Marcas y socios estratégicos">
-      <div class="partner-card real"><span class="pc-name">Ferrum</span></div>
-      <div class="partner-card real"><span class="pc-name">FV</span></div>
-      <div class="partner-card real"><span class="pc-name">TST</span></div>
-      <div class="partner-card real"><span class="pc-name">Jhonson</span></div>
-      <div class="partner-card real"><span class="pc-name">Blangino</span></div>
-      <div class="partner-card real"><span class="pc-name">Misiones</span></div>
-      <div class="partner-card real"><span class="pc-name">Vasser</span></div>
+    <div class="partners-marquee" tabindex="0" aria-label="Marcas y socios estratégicos">
+      <div class="partners-track">
+        <div class="partner-card real"><span class="pc-name">Ferrum</span></div>
+        <div class="partner-card real"><span class="pc-name">FV</span></div>
+        <div class="partner-card real"><span class="pc-name">TST</span></div>
+        <div class="partner-card real"><span class="pc-name">Jhonson</span></div>
+        <div class="partner-card real"><span class="pc-name">Blangino</span></div>
+        <div class="partner-card real"><span class="pc-name">Misiones</span></div>
+        <div class="partner-card real"><span class="pc-name">Vasser</span></div>
+        <div class="partner-card real" aria-hidden="true"><span class="pc-name">Ferrum</span></div>
+        <div class="partner-card real" aria-hidden="true"><span class="pc-name">FV</span></div>
+        <div class="partner-card real" aria-hidden="true"><span class="pc-name">TST</span></div>
+        <div class="partner-card real" aria-hidden="true"><span class="pc-name">Jhonson</span></div>
+        <div class="partner-card real" aria-hidden="true"><span class="pc-name">Blangino</span></div>
+        <div class="partner-card real" aria-hidden="true"><span class="pc-name">Misiones</span></div>
+        <div class="partner-card real" aria-hidden="true"><span class="pc-name">Vasser</span></div>
+      </div>
     </div>
   </section>
 
