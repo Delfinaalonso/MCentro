@@ -102,19 +102,17 @@
   .linea-box.flipped .linea-back,
   .linea-box:hover .linea-back{pointer-events:auto;}
 
-  .linea-front img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  .linea-front img, .linea-back img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
   .lb-scrim{position:absolute; inset:0; background:linear-gradient(to top, rgba(4,4,3,.88), transparent 55%); pointer-events:none;}
   .lb-front-in{position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; justify-content:flex-end; padding:18px; color:#fff;}
   .lb-tag{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em; color:var(--naranja); margin-bottom:8px; display:block;}
   .linea-front h3{font-size:clamp(14px,1.4vw,17px); line-height:1.18; color:#fff;}
 
-  .linea-back{
-    background:var(--cardfill); border:1px solid var(--line); transform:rotateY(180deg);
-    display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:18px;
-  }
-  .linea-back h3{font-size:clamp(14px,1.4vw,17px); line-height:1.2; margin-bottom:8px; color:var(--ink);}
-  .lb-brands{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.04em; text-transform:uppercase; color:var(--soft); margin-bottom:16px;}
-  .linea-back .go{font-family:'IBM Plex Mono',monospace; font-size:9px; text-transform:uppercase; letter-spacing:.06em; color:var(--naranja); display:inline-flex; align-items:center; gap:6px; transition:gap .2s ease;}
+  .linea-back{transform:rotateY(180deg);}
+  .lb-back-in{position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; justify-content:flex-end; padding:18px; color:#fff;}
+  .linea-back h3{font-size:clamp(14px,1.4vw,17px); line-height:1.2; margin-bottom:6px; color:#fff;}
+  .lb-brands{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.04em; text-transform:uppercase; color:rgba(255,255,255,.78); margin-bottom:10px; display:block;}
+  .linea-back .go{font-family:'IBM Plex Mono',monospace; font-size:9px; text-transform:uppercase; letter-spacing:.06em; color:#fff; display:inline-flex; align-items:center; gap:6px; transition:gap .2s ease;}
   .linea-back .go:hover{gap:11px;}
 
   .lineas-more{font-size:13px; color:var(--soft); margin-top:20px; max-width:56ch; line-height:1.6;}
@@ -246,10 +244,14 @@
             </div>
           </div>
           <div class="linea-face linea-back">
-            <span class="lb-tag">01</span>
-            <h3>Pisos y revestimientos</h3>
-            <span class="lb-brands">Misiones</span>
-            <a href="#presupuesto" class="go">Consultar →</a>
+            <img src="assets/img/stock-porcelanato.jpg" alt="" />
+            <div class="lb-scrim"></div>
+            <div class="lb-back-in">
+              <span class="lb-tag">01</span>
+              <h3>Pisos y revestimientos</h3>
+              <span class="lb-brands">Misiones</span>
+              <a href="#presupuesto" class="go">Consultar →</a>
+            </div>
           </div>
         </div>
       </div>
@@ -264,10 +266,14 @@
             </div>
           </div>
           <div class="linea-face linea-back">
-            <span class="lb-tag">02</span>
-            <h3>Grifería</h3>
-            <span class="lb-brands">FV · Ferrum · Vasser</span>
-            <a href="#presupuesto" class="go">Consultar →</a>
+            <img src="assets/img/stock-muebles.jpg" alt="" />
+            <div class="lb-scrim"></div>
+            <div class="lb-back-in">
+              <span class="lb-tag">02</span>
+              <h3>Grifería</h3>
+              <span class="lb-brands">FV · Ferrum · Vasser</span>
+              <a href="#presupuesto" class="go">Consultar →</a>
+            </div>
           </div>
         </div>
       </div>
@@ -282,10 +288,14 @@
             </div>
           </div>
           <div class="linea-face linea-back">
-            <span class="lb-tag">03</span>
-            <h3>Sanitarios</h3>
-            <span class="lb-brands">Ferrum · Jhonson</span>
-            <a href="#presupuesto" class="go">Consultar →</a>
+            <img src="assets/img/stock-banos.jpg" alt="" />
+            <div class="lb-scrim"></div>
+            <div class="lb-back-in">
+              <span class="lb-tag">03</span>
+              <h3>Sanitarios</h3>
+              <span class="lb-brands">Ferrum · Jhonson</span>
+              <a href="#presupuesto" class="go">Consultar →</a>
+            </div>
           </div>
         </div>
       </div>
@@ -300,10 +310,14 @@
             </div>
           </div>
           <div class="linea-face linea-back">
-            <span class="lb-tag">04</span>
-            <h3>Amoblamientos de baño</h3>
-            <span class="lb-brands">Blangino · Jhonson</span>
-            <a href="#presupuesto" class="go">Consultar →</a>
+            <img src="assets/img/stock-banos-detalle.jpg" alt="" />
+            <div class="lb-scrim"></div>
+            <div class="lb-back-in">
+              <span class="lb-tag">04</span>
+              <h3>Amoblamientos de baño</h3>
+              <span class="lb-brands">Blangino · Jhonson</span>
+              <a href="#presupuesto" class="go">Consultar →</a>
+            </div>
           </div>
         </div>
       </div>
@@ -318,10 +332,14 @@
             </div>
           </div>
           <div class="linea-face linea-back">
-            <span class="lb-tag">05</span>
-            <h3>Artículos del hogar</h3>
-            <span class="lb-brands">TST</span>
-            <a href="#presupuesto" class="go">Consultar →</a>
+            <img src="assets/img/stock-showroom-hero.jpg" alt="" />
+            <div class="lb-scrim"></div>
+            <div class="lb-back-in">
+              <span class="lb-tag">05</span>
+              <h3>Artículos del hogar</h3>
+              <span class="lb-brands">TST</span>
+              <a href="#presupuesto" class="go">Consultar →</a>
+            </div>
           </div>
         </div>
       </div>
