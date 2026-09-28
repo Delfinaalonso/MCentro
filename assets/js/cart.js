@@ -106,9 +106,29 @@ var MCCart = (function(){
     });
   }
 
+  // formulario "¿Qué necesitás?" de las categorías sin catálogo real:
+  // <form data-necesitas="Nombre categoría"><textarea data-necesitas-text>
+  // <button data-necesitas-add> / <button data-necesitas-send></form>
+  function wireNecesitasForms(){
+    document.querySelectorAll('[data-necesitas]').forEach(function(form){
+      if(form.dataset.mcWired) return;
+      form.dataset.mcWired = '1';
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var textarea = form.querySelector('[data-necesitas-text]');
+        var text = textarea && textarea.value.trim();
+        if(!text) return;
+        add({ tipo: 'consulta', nombre: form.getAttribute('data-necesitas'), nota: text });
+        textarea.value = '';
+        if(e.submitter && e.submitter.hasAttribute('data-necesitas-send')){ sendWhatsApp(); }
+      });
+    });
+  }
+
   function init(){
     render();
     wireSendButtons();
+    wireNecesitasForms();
     window.addEventListener('storage', function(e){ if(e.key === KEY) render(); });
   }
 
