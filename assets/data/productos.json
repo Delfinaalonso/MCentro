@@ -137,7 +137,7 @@
       "unidad": "bolsa",
       "precio": null,
       "foto": "assets/img/corralon-bags.jpg",
-      "destacado": false,
+      "destacado": true,
       "activo": true,
       "orden": 1
     },
@@ -165,7 +165,7 @@
       "unidad": "m³",
       "precio": null,
       "foto": "assets/img/corralon-aisle.jpg",
-      "destacado": false,
+      "destacado": true,
       "activo": true,
       "orden": 1
     },
@@ -193,7 +193,7 @@
       "unidad": "unidad",
       "precio": null,
       "foto": "assets/img/corralon-bricks.jpg",
-      "destacado": false,
+      "destacado": true,
       "activo": true,
       "orden": 1
     },
@@ -221,7 +221,7 @@
       "unidad": "unidad",
       "precio": null,
       "foto": "assets/img/corralon-hero.jpg",
-      "destacado": false,
+      "destacado": true,
       "activo": true,
       "orden": 1
     },
@@ -277,7 +277,7 @@
       "unidad": "rollo",
       "precio": null,
       "foto": "assets/img/corralon-hero.jpg",
-      "destacado": false,
+      "destacado": true,
       "activo": true,
       "orden": 1
     }
