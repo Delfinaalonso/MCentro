@@ -1,0 +1,210 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi pedido — Materiales Centro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<style>
+  .pedido-hero{padding:64px 0 20px; max-width:56ch;}
+  .pedido-hero h1{font-size:clamp(32px,4.6vw,52px); font-weight:800; line-height:1.05; color:var(--ink);}
+  .pedido-hero .sub{font-size:14.5px; color:var(--soft); margin-top:14px; line-height:1.65;}
+
+  .pedido-body{padding:10px 0 90px;}
+
+  .pedido-empty{padding:30px 0 10px;}
+  .pedido-empty p{font-size:15px; color:var(--soft); margin-bottom:20px;}
+  .pedido-empty-links{display:flex; gap:12px; flex-wrap:wrap;}
+
+  .pedido-list{display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:14px;}
+  .pedido-item{background:var(--bg); display:flex; align-items:center; gap:16px; padding:18px 20px; flex-wrap:wrap;}
+  .pi-info{flex:1; min-width:220px;}
+  .pi-tag{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--naranja); display:block; margin-bottom:4px;}
+  .pi-info h3{font-size:15.5px; font-family:'Bricolage Grotesque',sans-serif; font-weight:600; color:var(--ink);}
+  .pi-meta{font-size:13px; color:var(--soft); display:block; margin-top:3px;}
+  .pi-nota{font-size:14px; color:var(--ink); line-height:1.5; max-width:52ch; white-space:pre-wrap;}
+  .pi-qty{display:flex; align-items:center; gap:8px;}
+  .pi-qty button{width:28px; height:28px; border:1px solid rgba(42,31,20,.3); background:transparent; color:var(--ink); font-size:15px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;}
+  .pi-qty button:hover{border-color:var(--ink);}
+  .pi-qty input{width:42px; text-align:center; border:1px solid rgba(42,31,20,.3); background:transparent; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--ink); padding:5px 2px;}
+  .pi-remove{width:32px; height:32px; border:1px solid rgba(42,31,20,.3); background:transparent; color:var(--ink); font-size:16px; cursor:pointer; flex-shrink:0;}
+  .pi-remove:hover{border-color:var(--naranja); color:var(--naranja);}
+
+  .pedido-summary{margin-top:30px; padding-top:24px; border-top:1px solid var(--line);}
+  .pedido-total{display:flex; align-items:baseline; justify-content:space-between; max-width:420px; font-family:'Bricolage Grotesque',sans-serif;}
+  .pedido-total span{font-size:14px; color:var(--soft);}
+  .pedido-total strong{font-size:26px; color:var(--ink);}
+  .pedido-total-note{font-size:12.5px; color:var(--soft); margin-top:6px; max-width:52ch; line-height:1.5;}
+  .pedido-actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:20px;}
+  .pedido-preview{margin-top:24px; font-size:13px; color:var(--soft);}
+  .pedido-preview summary{cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.04em; text-transform:uppercase;}
+  .pedido-preview pre{white-space:pre-wrap; margin-top:14px; padding:18px; border:1px solid var(--line); background:var(--cardfill); font-family:'Inter',sans-serif; font-size:13.5px; color:var(--ink); line-height:1.6;}
+
+  @media(max-width:600px){
+    .pedido-item{padding:16px;}
+    .pi-qty{order:2;}
+    .pi-remove{order:3;}
+  }
+</style>
+
+<body data-page="pedido">
+<div data-include="header"></div>
+
+<main>
+  <section class="pedido-hero wrap reveal-el">
+    <p class="tag"><span class="tick"></span>Mi pedido</p>
+    <h1>Revisá tu pedido</h1>
+    <p class="sub">Sumá o sacá ítems de lo que fuiste agregando desde el catálogo o desde cualquier categoría, y cuando esté listo lo mandamos por WhatsApp en un solo mensaje.</p>
+  </section>
+
+  <section class="wrap pedido-body">
+    <div class="pedido-empty" data-pedido-empty style="display:none;">
+      <p>Todavía no agregaste nada a tu pedido.</p>
+      <div class="pedido-empty-links">
+        <a href="catalogo.html" class="btn btn-naranja">Ver catálogo</a>
+        <a href="terminaciones.html" class="btn btn-outline">Ver Terminaciones</a>
+      </div>
+    </div>
+
+    <div data-pedido-list class="pedido-list"></div>
+
+    <div class="pedido-summary" data-pedido-summary style="display:none;">
+      <div class="pedido-total">
+        <span>Total estimado</span>
+        <strong data-pedido-total>$0</strong>
+      </div>
+      <p class="pedido-total-note">Los ítems sin precio cargado todavía (aparecen como "Precio a confirmar") no suman a este total — se confirman por WhatsApp junto con el resto del pedido.</p>
+      <div class="pedido-actions">
+        <button type="button" class="btn btn-outline" data-pedido-clear>Vaciar pedido</button>
+        <button type="button" class="btn btn-naranja" data-cart-send>Enviar por WhatsApp</button>
+      </div>
+      <details class="pedido-preview">
+        <summary>Ver el mensaje que se va a enviar</summary>
+        <pre data-pedido-preview></pre>
+      </details>
+    </div>
+  </section>
+</main>
+
+<div data-include="footer"></div>
+
+<script src="assets/js/include.js"></script>
+<script src="assets/js/cart.js"></script>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce){
+    document.documentElement.classList.add('js-anim');
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+      }, {threshold:.16});
+      document.querySelectorAll('.reveal-el').forEach(function(el){ io.observe(el); });
+    }
+  }
+
+  window.includesReady.then(function(){
+    var burger = document.querySelector('.burger');
+    var panel = document.querySelector('.mobile-panel');
+    if(burger && panel){
+      burger.addEventListener('click', function(){
+        var open = panel.classList.toggle('open');
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      panel.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click', function(){ panel.classList.remove('open'); burger.setAttribute('aria-expanded','false'); });
+      });
+    }
+
+    var fabMain = document.querySelector('.fab-main');
+    var fabWrap = document.querySelector('.fab');
+    if(fabMain){ fabMain.addEventListener('click', function(){ fabWrap.classList.toggle('open'); }); }
+  });
+})();
+</script>
+
+<script>
+/* Materiales Centro — Mi pedido: lista editable del carrito único,
+   total estimado y vista previa del mensaje de WhatsApp. */
+(function(){
+  var listEl = document.querySelector('[data-pedido-list]');
+  var emptyEl = document.querySelector('[data-pedido-empty]');
+  var summaryEl = document.querySelector('[data-pedido-summary]');
+  var totalEl = document.querySelector('[data-pedido-total]');
+  var previewEl = document.querySelector('[data-pedido-preview]');
+  var clearBtn = document.querySelector('[data-pedido-clear]');
+
+  function formatMoney(n){ return '$' + Number(n).toLocaleString('es-AR'); }
+
+  function render(){
+    var items = MCCart.getItems();
+    var hasItems = items.length > 0;
+    emptyEl.style.display = hasItems ? 'none' : '';
+    summaryEl.style.display = hasItems ? '' : 'none';
+    listEl.innerHTML = '';
+
+    items.forEach(function(item){
+      var row = document.createElement('div');
+      row.className = 'pedido-item';
+
+      if(item.tipo === 'producto'){
+        var subtotal = item.precio ? formatMoney(item.precio * item.cantidad) : 'Precio a confirmar';
+        row.innerHTML =
+          '<div class="pi-info">' +
+            '<span class="pi-tag">Producto</span>' +
+            '<h3>' + item.nombre + '</h3>' +
+            '<span class="pi-meta">' + item.unidad + ' · ' + subtotal + '</span>' +
+          '</div>' +
+          '<div class="pi-qty">' +
+            '<button type="button" data-pi-minus aria-label="Restar">−</button>' +
+            '<input type="number" min="1" value="' + item.cantidad + '" data-pi-qty>' +
+            '<button type="button" data-pi-plus aria-label="Sumar">+</button>' +
+          '</div>' +
+          '<button type="button" class="pi-remove" data-pi-remove aria-label="Quitar">×</button>';
+
+        var qtyInput = row.querySelector('[data-pi-qty]');
+        row.querySelector('[data-pi-minus]').addEventListener('click', function(){
+          MCCart.updateQty(item.id, Math.max(1, item.cantidad - 1));
+        });
+        row.querySelector('[data-pi-plus]').addEventListener('click', function(){
+          MCCart.updateQty(item.id, item.cantidad + 1);
+        });
+        qtyInput.addEventListener('change', function(){
+          MCCart.updateQty(item.id, parseInt(qtyInput.value, 10) || 1);
+        });
+      } else {
+        row.innerHTML =
+          '<div class="pi-info">' +
+            '<span class="pi-tag">Consulta · ' + item.nombre + '</span>' +
+            '<p class="pi-nota">' + item.nota + '</p>' +
+          '</div>' +
+          '<button type="button" class="pi-remove" data-pi-remove aria-label="Quitar">×</button>';
+      }
+
+      row.querySelector('[data-pi-remove]').addEventListener('click', function(){
+        MCCart.remove(item.id);
+      });
+
+      listEl.appendChild(row);
+    });
+
+    totalEl.textContent = formatMoney(MCCart.getTotal());
+    previewEl.textContent = MCCart.buildWhatsAppMessage();
+  }
+
+  clearBtn.addEventListener('click', function(){
+    if(window.confirm('¿Vaciar todo el pedido?')){ MCCart.clear(); }
+  });
+
+  document.addEventListener('mc-cart-change', render);
+  window.addEventListener('storage', function(e){ if(e.key === 'mc_cart_v1') render(); });
+
+  if(window.includesReady && typeof window.includesReady.then === 'function'){
+    window.includesReady.then(render);
+  } else {
+    document.addEventListener('DOMContentLoaded', render);
+  }
+})();
+</script>
+</body>
+</html>
