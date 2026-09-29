@@ -14,8 +14,14 @@
   --grain:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC41NSIgbnVtT2N0YXZlcz0iMyIgc2VlZD0iMTEiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48ZmVDb2xvck1hdHJpeCB0eXBlPSJtYXRyaXgiIHZhbHVlcz0iMC40MiAwIDAgMCAwICAwLjI1IDAgMCAwIDAgIDAuMTAgMCAwIDAgMCAgMCAwIDAgMC4yNCAwIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI24pIi8+PC9zdmc+");
 }
 *{box-sizing:border-box; margin:0; padding:0;}
-html{-webkit-text-size-adjust:100%; overflow-x:hidden;}
-body{background-color:var(--bg); background-image:var(--grain); background-repeat:repeat; background-size:300px 300px; background-blend-mode:multiply; color:var(--ink); font-family:'Inter',system-ui,sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+/* overflow-x:clip (no overflow-x:hidden/auto) a propósito: hidden/auto en el
+   html o el body rompe position:sticky de cualquier elemento de la página
+   (por ejemplo la cinemática de la home) porque convierte a html/body en el
+   contenedor de scroll en vez del viewport. clip recorta el desborde
+   horizontal (lo que necesitábamos para el marquee de marcas) sin ese
+   efecto secundario. */
+html{-webkit-text-size-adjust:100%; overflow-x:clip;}
+body{background-color:var(--bg); background-image:var(--grain); background-repeat:repeat; background-size:300px 300px; background-blend-mode:multiply; color:var(--ink); font-family:'Inter',system-ui,sans-serif; -webkit-font-smoothing:antialiased; overflow-x:clip;}
 h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif; letter-spacing:-.01em; text-wrap:balance;}
 img{max-width:100%; display:block;}
 a{color:inherit; text-decoration:none;}
@@ -214,6 +220,13 @@ footer .row{position:relative; z-index:1; display:flex; justify-content:space-be
   .nav-cat-btn{display:none;}
   .burger{display:flex;}
 }
+
+/* Red de seguridad: si el <nav> medido en JS no entra en una sola línea con
+   la tipografía real ya cargada, forzamos el menú hamburguesa aunque el
+   ancho de pantalla esté por encima de los 850px de arriba. Ver include.js. */
+html.nav-force-burger .main-nav{display:none;}
+html.nav-force-burger .nav-cat-btn{display:none;}
+html.nav-force-burger .burger{display:flex;}
 
 @media(max-width:760px){
   #presupuesto .row{flex-direction:column;}

@@ -101,6 +101,10 @@
         entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); } });
       }, {threshold:.16});
       document.querySelectorAll('.reveal-el').forEach(function(el){ io.observe(el); });
+      /* Red de seguridad: si algo no se revela solo, no queda invisible para siempre. */
+      setTimeout(function(){
+        document.querySelectorAll('.reveal-el:not(.is-visible)').forEach(function(el){ el.classList.add('is-visible'); });
+      }, 4000);
     }
   }
 
