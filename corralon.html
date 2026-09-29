@@ -15,21 +15,6 @@
   .phero h1{font-size:clamp(46px,9vw,116px); font-weight:800; line-height:.9;}
   .phero p.sub{font-size:15px; color:#E7E1D2; max-width:44ch; margin-top:14px; line-height:1.6;}
 
-  /* ---------- categorías (construcción en seco / instalaciones / herramientas) — cards simples, no flip ---------- */
-  .proof{padding:56px 0 60px;}
-  .proof h2{font-size:clamp(22px,3vw,30px); margin-bottom:8px; max-width:26ch;}
-  .proof p.desc{font-size:14px; color:var(--soft); max-width:48ch; margin-bottom:30px; line-height:1.6;}
-  .simple-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
-  .simple-box{position:relative; aspect-ratio:3/4; overflow:hidden; display:block;}
-  .simple-box img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
-  .simple-box:hover img{transform:scale(1.06);}
-  .simple-box::after{content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(4,4,3,.88), transparent 55%); pointer-events:none;}
-  .sb-in{position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; justify-content:flex-end; padding:18px; color:#fff;}
-  .sb-tag{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em; color:var(--naranja); margin-bottom:8px;}
-  .simple-box h3{font-size:clamp(15px,1.6vw,18px); line-height:1.18; margin-bottom:6px;}
-  .simple-box .go{font-family:'IBM Plex Mono',monospace; font-size:9px; text-transform:uppercase; letter-spacing:.06em; opacity:.85; display:flex; align-items:center; gap:6px; transition:gap .2s ease;}
-  .simple-box:hover .go{gap:11px;}
-  @media(max-width:600px){ .simple-grid{grid-template-columns:1fr;} }
 </style>
 
 <body data-page="corralon">
@@ -235,28 +220,6 @@
       </div>
     </div>
     <p class="lineas-more">Cantidades y precios se confirman al pedir presupuesto.</p>
-  </section>
-
-  <section class="proof">
-    <div class="wrap reveal-el">
-      <p class="tag"><span class="tick"></span>En el corralón</p>
-      <h2>Materiales y soluciones para seguir avanzando.</h2>
-      <p class="desc">Encontrá lo que necesitás para cada etapa de tu obra.</p>
-      <div class="simple-grid">
-        <a href="construccion-en-seco.html" class="simple-box">
-          <img src="assets/img/portada-en-seco.jpg" alt="Construcción en seco" style="object-position:50% 45%;" />
-          <div class="sb-in"><span class="sb-tag">01</span><h3>Construcción en seco</h3><span class="go">Ver más →</span></div>
-        </a>
-        <a href="instalaciones.html" class="simple-box">
-          <img src="assets/img/portada-instalaciones.jpg" alt="Instalaciones" style="object-position:50% 40%;" />
-          <div class="sb-in"><span class="sb-tag">02</span><h3>Instalaciones</h3><span class="go">Ver más →</span></div>
-        </a>
-        <a href="herramientas.html" class="simple-box">
-          <img src="assets/img/portada-herramientas.jpg" alt="Herramientas" style="object-position:50% 30%;" />
-          <div class="sb-in"><span class="sb-tag">03</span><h3>Herramientas</h3><span class="go">Ver más →</span></div>
-        </a>
-      </div>
-    </div>
   </section>
 
   <section class="wrap destacados reveal-el">
