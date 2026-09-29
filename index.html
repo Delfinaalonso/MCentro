@@ -11,19 +11,32 @@
      sobre la cinemática, distinto del header sólido compartido — se
      redeclara acá completo y gana por estar después en la cascada. ---------- */
   header{position:fixed; top:0; left:0; right:0; z-index:80; transition:background .3s ease;}
-  header::before{content:''; position:absolute; inset:0; height:92px; background:linear-gradient(to bottom, rgba(0,0,0,.8) 0%, rgba(0,0,0,.45) 55%, transparent 100%); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); pointer-events:none; z-index:-1;}
+  header::before{content:''; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,.78) 0%, rgba(0,0,0,.5) 65%, rgba(0,0,0,.28) 100%); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); pointer-events:none; z-index:-1;}
   header.solid{background-color:var(--bg); background-image:var(--grain); background-repeat:repeat; background-size:300px 300px; background-blend-mode:multiply; border-bottom:1px solid var(--line);}
   header.solid::before{display:none;}
   .top-row{display:flex; align-items:center; justify-content:space-between; gap:18px; padding:20px 28px; max-width:1180px; margin:0 auto;}
   .logo-mark{height:40px; flex-shrink:0; filter:drop-shadow(0 2px 6px rgba(0,0,0,.6));}
   .logo-mark svg{height:100%; width:auto; display:block;}
   header.solid .logo-mark{filter:none;}
-  .head-right{display:flex; align-items:center; gap:22px;}
-  .main-nav{display:flex; align-items:center; gap:24px; font-size:15.5px; font-family:'Bricolage Grotesque',sans-serif; font-weight:600; letter-spacing:-.005em;}
-  .main-nav a{color:#fff; padding-bottom:4px; border-bottom:1.5px solid transparent; text-shadow:0 1px 4px rgba(0,0,0,.5); transition:border-color .15s ease, color .2s ease;}
-  .main-nav a:hover{border-color:rgba(255,255,255,.65);}
+  .head-right{display:flex; align-items:center; gap:16px;}
+
+  .main-nav{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px;
+    max-width:1180px; margin:0 auto; padding:8px 22px 16px;
+    border-top:1px solid rgba(255,255,255,.18);
+  }
+  .main-nav a{
+    font-family:'Bricolage Grotesque',sans-serif; font-weight:600; font-size:14px; letter-spacing:-.005em; white-space:nowrap;
+    color:#fff; padding:9px 16px; border:1.5px solid transparent; text-shadow:0 1px 4px rgba(0,0,0,.5);
+    transition:border-color .15s ease, background-color .15s ease, color .15s ease;
+  }
+  .main-nav a:hover{border-color:rgba(255,255,255,.5); background:rgba(255,255,255,.08);}
+  .main-nav a.on{border-color:var(--naranja); color:var(--naranja); background:rgba(235,92,46,.18);}
+  header.solid .main-nav{border-top-color:var(--line);}
   header.solid .main-nav a{color:var(--ink); text-shadow:none;}
-  header.solid .main-nav a:hover{border-color:rgba(42,31,20,.4);}
+  header.solid .main-nav a:hover{border-color:rgba(42,31,20,.22); background:var(--cardfill);}
+  header.solid .main-nav a.on{background:rgba(235,92,46,.08);}
+
   .burger{display:none; width:36px; height:36px; border:1.5px solid rgba(255,255,255,.5); background:none; cursor:pointer; align-items:center; justify-content:center; flex-shrink:0; transition:border-color .2s ease;}
   .burger span, .burger span::before, .burger span::after{content:''; display:block; width:16px; height:1.5px; background:#fff; position:relative; transition:background-color .2s ease;}
   .burger span::before{position:absolute; top:-6px;} .burger span::after{position:absolute; top:6px;}
@@ -91,7 +104,7 @@
 
   html.js-anim .reveal-el.d2.is-visible{transition-delay:.24s;}
 
-  @media(max-width:1120px){
+  @media(max-width:640px){
     .main-nav{display:none;}
     .burger{display:flex;}
   }

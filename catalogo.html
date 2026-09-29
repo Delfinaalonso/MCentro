@@ -12,18 +12,31 @@
   .cat-hero h1{font-size:clamp(32px,4.6vw,52px); font-weight:800; line-height:1.05; color:var(--ink);}
   .cat-hero .sub{font-size:14.5px; color:var(--soft); margin-top:14px; line-height:1.65;}
 
-  .cat-filters{padding:20px 0 8px;}
-  .cat-filter-row{margin-bottom:14px;}
+  .cat-filters{
+    margin:20px 0 8px; padding:26px 26px 24px;
+    background:var(--deep); background-image:var(--grain); background-repeat:repeat; background-size:300px 300px; background-blend-mode:multiply;
+    border:1px solid var(--deep-line);
+  }
+  .cat-filter-row{margin-bottom:18px;}
+  .cat-filter-row:last-child{margin-bottom:0;}
+  .cat-filter-label{display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--deep-soft); margin-bottom:10px;}
   .cat-chips{display:flex; flex-wrap:wrap; gap:8px;}
-  .chip{font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.04em; text-transform:uppercase; padding:9px 14px; border:1.5px solid rgba(42,31,20,.28); background:transparent; color:var(--ink); cursor:pointer; transition:border-color .15s ease, background .15s ease;}
-  .chip:hover{border-color:var(--ink);}
-  .chip.is-active{background:var(--ink); border-color:var(--ink); color:var(--bg);}
+  .chip{
+    font-family:'Inter',sans-serif; font-weight:600; font-size:13px;
+    padding:8px 16px; border-radius:20px; border:1.5px solid var(--deep-line);
+    background:transparent; color:var(--deep-ink); cursor:pointer;
+    transition:border-color .15s ease, background-color .15s ease, color .15s ease;
+  }
+  .chip:hover{border-color:var(--naranja);}
+  .chip.is-active{background:var(--naranja); border-color:var(--naranja); color:#fff;}
 
-  .cat-search-row{display:flex; align-items:center; gap:18px; flex-wrap:wrap; padding-top:6px; border-top:1px solid var(--line);}
-  .cat-search{max-width:340px; background:var(--cardfill); border:1px solid var(--line); padding:12px 14px; font-family:'Inter',sans-serif; font-size:14px; color:var(--ink);}
-  .cat-search::placeholder{color:var(--soft);}
+  .cat-search-row{display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap; padding-top:20px; border-top:1px solid var(--deep-line);}
+  .cat-search-wrap{position:relative; flex:1; min-width:220px; max-width:360px;}
+  .cat-search-wrap svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--deep-soft); pointer-events:none;}
+  .cat-search{width:100%; background:rgba(243,235,222,.06); border:1.5px solid var(--deep-line); border-radius:24px; padding:11px 16px 11px 40px; font-family:'Inter',sans-serif; font-size:14px; color:var(--deep-ink);}
+  .cat-search::placeholder{color:var(--deep-soft);}
   .cat-search:focus{outline:none; border-color:var(--naranja);}
-  .cat-count{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.04em; color:var(--soft); text-transform:uppercase;}
+  .cat-count{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.04em; color:var(--deep-soft); text-transform:uppercase; white-space:nowrap;}
 
   .cat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; padding:26px 0 20px;}
   .cat-card{border:1px solid var(--line); background:var(--cardfill); display:flex; flex-direction:column;}
@@ -58,16 +71,23 @@
     <p class="sub">Filtrá por rubro y subcategoría, buscá por nombre y sumá todo a tu pedido. Al final armamos un solo mensaje de WhatsApp con todo lo que hayas agregado.</p>
   </section>
 
-  <section class="cat-filters wrap reveal-el">
-    <div class="cat-filter-row">
-      <div class="cat-chips" data-filter-rubro></div>
-    </div>
-    <div class="cat-filter-row">
-      <div class="cat-chips" data-filter-sub></div>
-    </div>
-    <div class="cat-filter-row cat-search-row">
-      <input type="search" class="cat-search" data-cat-search placeholder="Buscar producto..." />
-      <span class="cat-count" data-cat-count>0 productos</span>
+  <section class="wrap reveal-el">
+    <div class="cat-filters">
+      <div class="cat-filter-row">
+        <span class="cat-filter-label">Rubro</span>
+        <div class="cat-chips" data-filter-rubro></div>
+      </div>
+      <div class="cat-filter-row">
+        <span class="cat-filter-label">Subcategoría</span>
+        <div class="cat-chips" data-filter-sub></div>
+      </div>
+      <div class="cat-filter-row cat-search-row">
+        <div class="cat-search-wrap">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="search" class="cat-search" data-cat-search placeholder="Buscar producto..." />
+        </div>
+        <span class="cat-count" data-cat-count>0 productos</span>
+      </div>
     </div>
   </section>
 
