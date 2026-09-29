@@ -18,16 +18,17 @@
     mask-image:linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
   }
   .ps-copy{position:relative; z-index:1; display:flex; flex-direction:column; justify-content:center; padding:60px 44px;}
-  .ps-copy h1{font-size:clamp(34px,4.6vw,56px); font-weight:800; line-height:1.04; color:var(--ink);}
-  .ps-copy .sub{font-size:14.5px; color:var(--soft); max-width:40ch; margin:16px 0 28px; line-height:1.65;}
+  .ps-copy h1{font-size:clamp(36px,5vw,60px); font-weight:800; line-height:1.03; color:var(--ink);}
+  .ps-copy .sub{font-size:15px; color:var(--soft); max-width:40ch; margin:18px 0 30px; line-height:1.68;}
   .ps-cta{display:flex; align-items:center; gap:24px; flex-wrap:wrap;}
   .ps-link{color:var(--ink); opacity:.8; font-size:13.5px; font-weight:600; display:inline-flex; align-items:center; gap:6px; transition:gap .2s ease;}
   .ps-link:hover{gap:11px; opacity:1;}
+  .ps-brands{margin-top:32px; padding-top:22px; border-top:1px solid var(--line); font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--soft); line-height:1.9;}
   .ps-media{
     position:relative; z-index:1; min-height:380px; padding:36px;
     display:flex; align-items:center; justify-content:center;
   }
-  .ps-frame{position:relative; width:100%; height:100%; overflow:hidden; border:1px solid rgba(42,31,20,.22); box-shadow:0 24px 48px -24px rgba(42,31,20,.35);}
+  .ps-frame{position:relative; width:100%; height:100%; overflow:hidden; border-radius:10px; border:1px solid rgba(42,31,20,.22); box-shadow:0 30px 56px -22px rgba(42,31,20,.4);}
   .ps-frame img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
   html.js-anim .ps-frame img{animation:kbLoop 17s ease-in-out infinite alternate;}
   @keyframes kbLoop{ from{transform:scale(1.08) translate(0,0);} to{transform:scale(1.22) translate(-1.5%,-1.5%);} }
@@ -52,9 +53,15 @@
   html.js-anim .partners-track{animation:partnersMarquee 26s linear infinite;}
   html.js-anim .partners-marquee:hover .partners-track{animation-play-state:paused;}
   @keyframes partnersMarquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
-  .partner-card{flex:0 0 auto; width:190px; height:104px; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; text-align:center; padding:14px;}
-  .partner-card.real{background:var(--cardfill);}
-  .partner-card img{max-height:44px; width:auto; max-width:80%; object-fit:contain; filter:brightness(0); opacity:.72;}
+  .partner-card{
+    flex:0 0 auto; width:210px; height:122px; border:1px solid var(--line); border-radius:8px;
+    display:flex; align-items:center; justify-content:center; text-align:center; padding:18px;
+    box-shadow:0 4px 14px -7px rgba(42,31,20,.22); transition:box-shadow .25s ease, transform .25s ease;
+  }
+  .partner-card:hover{box-shadow:0 18px 32px -12px rgba(42,31,20,.32); transform:translateY(-4px);}
+  .partner-card.real{background:var(--bg);}
+  .partner-card img{max-height:52px; width:auto; max-width:82%; object-fit:contain; filter:grayscale(1) contrast(1.05); opacity:.8; transition:filter .25s ease, opacity .25s ease;}
+  .partner-card:hover img{filter:none; opacity:1;}
 </style>
 
 <body data-page="terminaciones">
@@ -70,6 +77,7 @@
         <a href="#presupuesto" class="btn btn-naranja">Pedir presupuesto →</a>
         <a href="#lineas" class="ps-link">Ver qué hay en Terminaciones ↓</a>
       </div>
+      <p class="ps-brands">Ferrum · FV · TST · Jhonson · Blangino · Misiones · Vasser</p>
     </div>
     <div class="ps-media">
       <div class="ps-frame">
