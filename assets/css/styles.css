@@ -31,17 +31,17 @@ header{position:sticky; top:0; z-index:80; background-color:var(--bg); backgroun
 .head-right{display:flex; align-items:center; gap:16px;}
 
 .main-nav{
-  display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px;
-  max-width:1180px; margin:0 auto; padding:8px 22px 14px;
+  display:flex; flex-wrap:nowrap; align-items:center; justify-content:center; gap:clamp(10px,2vw,26px);
+  max-width:1180px; margin:0 auto; padding:11px 16px 15px;
   border-top:1px solid var(--line);
 }
 .main-nav a{
   font-family:'Bricolage Grotesque',sans-serif; font-weight:600; font-size:14px; letter-spacing:-.005em; white-space:nowrap;
-  color:var(--ink); padding:9px 16px; border:1.5px solid transparent;
-  transition:border-color .15s ease, background-color .15s ease, color .15s ease;
+  color:var(--ink); padding-bottom:4px; border-bottom:1.5px solid transparent;
+  transition:border-color .15s ease, color .15s ease;
 }
-.main-nav a:hover{border-color:rgba(42,31,20,.22); background:var(--cardfill);}
-.main-nav a.on{border-color:var(--naranja); color:var(--naranja); background:rgba(235,92,46,.08);}
+.main-nav a:hover{border-color:rgba(42,31,20,.4);}
+.main-nav a.on{border-color:var(--naranja); color:var(--naranja); font-weight:700;}
 
 .burger{display:none; width:36px; height:36px; border:1.5px solid rgba(42,31,20,.4); background:none; cursor:pointer; align-items:center; justify-content:center; flex-shrink:0;}
 .burger span, .burger span::before, .burger span::after{content:''; display:block; width:16px; height:1.5px; background:var(--ink); position:relative;}
@@ -209,7 +209,7 @@ footer .row{position:relative; z-index:1; display:flex; justify-content:space-be
 
 .lineas-more{font-size:13px; color:var(--soft); margin-top:20px; max-width:56ch; line-height:1.6;}
 
-@media(max-width:640px){
+@media(max-width:850px){
   .main-nav{display:none;}
   .nav-cat-btn{display:none;}
   .burger{display:flex;}
