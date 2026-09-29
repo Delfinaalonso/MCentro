@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mi pedido — Materiales Centro</title>
@@ -136,6 +137,12 @@
 
   function formatMoney(n){ return '$' + Number(n).toLocaleString('es-AR'); }
 
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+    });
+  }
+
   function render(){
     var items = MCCart.getItems();
     var hasItems = items.length > 0;
@@ -175,8 +182,8 @@
       } else {
         row.innerHTML =
           '<div class="pi-info">' +
-            '<span class="pi-tag">Consulta · ' + item.nombre + '</span>' +
-            '<p class="pi-nota">' + item.nota + '</p>' +
+            '<span class="pi-tag">Consulta · ' + escapeHtml(item.nombre) + '</span>' +
+            '<p class="pi-nota">' + escapeHtml(item.nota) + '</p>' +
           '</div>' +
           '<button type="button" class="pi-remove" data-pi-remove aria-label="Quitar">×</button>';
       }
