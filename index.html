@@ -77,15 +77,16 @@
   .salida-head{max-width:44ch; margin-bottom:40px;}
   .salida-head p.tag{color:var(--soft);}
   .salida-head h2{font-size:clamp(28px,4vw,42px); color:var(--ink);}
-  .exit-grid{display:flex; gap:14px; min-height:56vh;}
-  .exit{flex:1; position:relative; overflow:hidden; display:block; scroll-margin-top:90px;}
+  .exit-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+  .exit{position:relative; overflow:hidden; display:block; aspect-ratio:3/4; scroll-margin-top:90px;}
   .exit img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:saturate(1.02) contrast(1.02); transition:transform .5s ease;}
   .exit:hover img{transform:scale(1.045);}
   .exit .scrim{position:absolute; inset:0; background:linear-gradient(to top, rgba(4,4,3,.85), rgba(4,4,3,.15) 55%, transparent 75%);}
-  .exit .ex-in{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:26px; color:#fff;}
-  .exit h3{font-size:clamp(20px,2.6vw,30px);}
-  .exit .go{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--naranja); display:flex; align-items:center; gap:7px; margin-top:10px; transition:gap .2s ease;}
+  .exit .ex-in{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:20px; color:#fff;}
+  .exit h3{font-size:clamp(17px,1.8vw,22px); line-height:1.15;}
+  .exit .go{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--naranja); display:flex; align-items:center; gap:7px; margin-top:8px; transition:gap .2s ease;}
   .exit:hover .go{gap:12px;}
+  @media(max-width:900px){ .exit-grid{grid-template-columns:repeat(2,1fr);} }
 
   html.js-anim .reveal-el.d2.is-visible{transition-delay:.24s;}
 
@@ -95,8 +96,8 @@
   }
 
   @media(max-width:760px){
-    .exit-grid{flex-direction:column; min-height:0;}
-    .exit{min-height:220px;}
+    .exit-grid{grid-template-columns:1fr;}
+    .exit{aspect-ratio:16/10;}
     .l1.big{font-size:clamp(30px,9vw,60px);}
     .rail{display:none;}
   }
@@ -186,7 +187,32 @@
           <div class="scrim"></div>
           <div class="ex-in"><h3>Corralón</h3><span class="go">Entrar →</span></div>
         </a>
-        <a href="quienes-somos.html" class="exit reveal-el d2">
+        <a href="construccion-en-seco.html" class="exit reveal-el d2">
+          <img src="assets/img/portada-en-seco.jpg" alt="Construcción en seco" style="object-position:50% 45%;" />
+          <div class="scrim"></div>
+          <div class="ex-in"><h3>Construcción en seco</h3><span class="go">Entrar →</span></div>
+        </a>
+        <a href="instalaciones.html" class="exit reveal-el">
+          <img src="assets/img/portada-instalaciones.jpg" alt="Instalaciones" style="object-position:60% 40%;" />
+          <div class="scrim"></div>
+          <div class="ex-in"><h3>Instalaciones</h3><span class="go">Entrar →</span></div>
+        </a>
+        <a href="herramientas.html" class="exit reveal-el d1">
+          <img src="assets/img/portada-herramientas.jpg" alt="Herramientas" style="object-position:50% 30%;" />
+          <div class="scrim"></div>
+          <div class="ex-in"><h3>Herramientas</h3><span class="go">Entrar →</span></div>
+        </a>
+        <a href="articulos-para-el-hogar.html" class="exit reveal-el d2">
+          <img src="assets/img/portada-art-del-hogar.jpg" alt="Artículos para el hogar" style="object-position:60% 70%;" />
+          <div class="scrim"></div>
+          <div class="ex-in"><h3>Artículos para el hogar</h3><span class="go">Entrar →</span></div>
+        </a>
+        <a href="catalogo.html" class="exit reveal-el">
+          <img src="assets/img/corralon-aisle.jpg" alt="Catálogo" style="object-position:30% 55%;" />
+          <div class="scrim"></div>
+          <div class="ex-in"><h3>Catálogo</h3><span class="go">Ver productos →</span></div>
+        </a>
+        <a href="quienes-somos.html" class="exit reveal-el d1">
           <img src="assets/img/portada-quienesomos.jpg" alt="Quiénes somos" style="object-position:50% 46%;" />
           <div class="scrim"></div>
           <div class="ex-in"><h3>Quiénes somos</h3><span class="go">Conocernos →</span></div>
