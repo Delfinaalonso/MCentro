@@ -249,12 +249,6 @@ window.includesReady.then(function(){
     }
   }catch(err){ console.error('Error en el menú mobile', err); }
 
-  try{
-    var fabMain = document.querySelector('.fab-main');
-    var fabWrap = document.querySelector('.fab');
-    if(fabMain){ fabMain.addEventListener('click', function(){ fabWrap.classList.toggle('open'); }); }
-  }catch(err){ console.error('Error en el botón flotante', err); }
-
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   try{
