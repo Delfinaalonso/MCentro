@@ -5,6 +5,11 @@
    Cada página conserva su propio <style> para lo que le es propio
    (hero, grillas de categoría, etc.) y puede sobrescribir cualquier
    regla de acá (p. ej. el header especial de Home).
+
+   Este archivo se linkea con ?v=2 en cada página (cache-busting): un
+   navegador puede cachear una versión vieja de este CSS mientras ya
+   carga el HTML nuevo, y quedan mezclados (pasó una vez). Si se edita
+   este archivo, subir ese número en TODAS las páginas que lo linkean.
    ============================================================ */
 
 :root{
