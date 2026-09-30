@@ -47,13 +47,13 @@
     -webkit-appearance:none; appearance:none; cursor:default;
   }
 
-  /* Botón fijo de sonido: para que sea intuitivo qué se puede tocar, en vez
-     de que todo el video sea un gesto invisible. Arriba a la izquierda,
-     no abajo: abajo a la derecha vive siempre el botón flotante de
-     WhatsApp (fixed, en todas las páginas), y quedaban los dos flotando
-     a la misma altura. */
+  /* Botón fijo de sonido, abajo a la izquierda: alineado a la misma altura
+     que el botón flotante de WhatsApp de abajo a la derecha (ese botón
+     mide 43px de alto y su borde real queda a 69px del piso, no a los
+     20px que indica su CSS, porque adentro convive con el globo de chat
+     oculto). Los dos quedan lo más cerca posible del borde, a la par. */
   .video-sound-toggle{
-    position:absolute; left:18px; top:18px; z-index:3;
+    position:absolute; left:18px; bottom:69px; z-index:3;
     width:46px; height:46px; border-radius:50%;
     border:1px solid rgba(241,236,227,.4); background:rgba(4,4,3,.55);
     backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
