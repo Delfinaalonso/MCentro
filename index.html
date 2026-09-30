@@ -19,9 +19,8 @@
      por acto — el video habla solo. */
   /* El header ocupa 73px fijos arriba (medido en todos los anchos); si el
      video mide 100vh completo, sus últimos 73px quedan tapados por el
-     borde de la pantalla al cargar — y ahí es justo donde vive el botón
-     de sonido. Se descuenta esa altura para que el video (y el botón)
-     entren enteros sin necesidad de scrollear. */
+     borde de la pantalla al cargar. Se descuenta esa altura para que el
+     video entre entero sin necesidad de scrollear. */
   #obra-video{position:relative; height:calc(100vh - 73px); height:calc(100dvh - 73px); overflow:hidden; background:var(--deep);}
   .video-frame{
     position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
@@ -30,30 +29,31 @@
   }
   .video-frame iframe{position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;}
 
-  /* Capa invisible sobre el video: absorbe cualquier toque/clic y no hace
-     nada con él. Así el video nunca se puede pausar, adelantar ni tocar
-     para ir a YouTube — el único control que queda vivo es el botón de
-     sonido, que se dibuja encima gracias al z-index. */
-  .video-shield{position:absolute; inset:0; z-index:2; background:transparent;}
-
-  /* El video arranca muteado (lo exigen todos los navegadores para poder
-     reproducir en automático); este botón es la única forma de activar
-     el sonido, así que tiene que verse y ser fácil de tocar en celular. */
-  /* A la izquierda, no a la derecha: ahí abajo a la derecha vive siempre
-     el botón flotante de WhatsApp (position:fixed, en todas las páginas)
-     y se pisaban. */
-  .video-sound-toggle{
-    position:absolute; left:18px; bottom:18px; z-index:3;
-    width:46px; height:46px; border-radius:50%;
-    border:1px solid rgba(241,236,227,.4); background:rgba(4,4,3,.55);
-    backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
-    color:#F1ECE3; display:flex; align-items:center; justify-content:center;
-    cursor:pointer; transition:background .2s ease, border-color .2s ease;
+  /* Capa invisible sobre el video: absorbe cualquier toque/clic y decide
+     ella qué hacer con él (mutear o desmutear) — nunca lo deja pasar al
+     reproductor de YouTube, así que el video nunca se puede pausar,
+     adelantar ni tocar para ir a YouTube, tocarlo solo cambia el sonido. */
+  .video-shield{
+    position:absolute; inset:0; z-index:2; width:100%; height:100%;
+    background:transparent; border:none; padding:0; margin:0;
+    -webkit-appearance:none; appearance:none; cursor:pointer;
   }
-  .video-sound-toggle:hover{background:rgba(4,4,3,.78); border-color:rgba(241,236,227,.7);}
-  .video-sound-toggle .ic-unmuted{display:none;}
-  .video-sound-toggle:not(.is-muted) .ic-muted{display:none;}
-  .video-sound-toggle:not(.is-muted) .ic-unmuted{display:block;}
+
+  /* No hay botón fijo en pantalla: tocar el video mutea/desmutea directo.
+     Este ícono es sólo un aviso que aparece un instante al tocar y
+     desaparece solo, para confirmar el cambio sin quedar molestando. */
+  .video-tap-feedback{
+    position:absolute; top:50%; left:50%; z-index:3; pointer-events:none;
+    width:64px; height:64px; border-radius:50%;
+    background:rgba(4,4,3,.6); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    color:#F1ECE3; display:flex; align-items:center; justify-content:center;
+    opacity:0; transform:translate(-50%,-50%) scale(.82);
+    transition:opacity .25s ease, transform .25s ease;
+  }
+  .video-tap-feedback.show{opacity:1; transform:translate(-50%,-50%) scale(1);}
+  .video-tap-feedback .ic-unmuted{display:none;}
+  .video-tap-feedback:not(.is-muted) .ic-muted{display:none;}
+  .video-tap-feedback:not(.is-muted) .ic-unmuted{display:block;}
 
   /* ================= SALIDA — tres fotogramas, no tarjetas ================= */
   #salida{padding:84px 0 50px;}
@@ -104,11 +104,11 @@
         allow="autoplay; encrypted-media" allowfullscreen>
       </iframe>
     </div>
-    <div class="video-shield" aria-hidden="true"></div>
-    <button type="button" class="video-sound-toggle is-muted" id="videoSoundToggle" aria-pressed="false" aria-label="Activar sonido">
-      <svg class="ic-muted" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 9l5 5M21 9l-5 5"/></svg>
-      <svg class="ic-unmuted" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19.5 6a9 9 0 0 1 0 12"/></svg>
-    </button>
+    <button type="button" class="video-shield" id="videoShield" aria-pressed="false" aria-label="Activar sonido del video"></button>
+    <div class="video-tap-feedback is-muted" id="videoTapFeedback" aria-hidden="true">
+      <svg class="ic-muted" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 9l5 5M21 9l-5 5"/></svg>
+      <svg class="ic-unmuted" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19.5 6a9 9 0 0 1 0 12"/></svg>
+    </div>
   </section>
 
   <section id="salida">
@@ -255,14 +255,22 @@ window.includesReady.then(function(){
 
   try{
     var ytFrame = document.getElementById('obraYt');
-    var soundBtn = document.getElementById('videoSoundToggle');
-    if(ytFrame && soundBtn && window.YT === undefined){
+    var shield = document.getElementById('videoShield');
+    var tapFeedback = document.getElementById('videoTapFeedback');
+    if(ytFrame && shield && tapFeedback && window.YT === undefined){
       var ytPlayer = null;
+      var feedbackTimer = null;
 
       function setSoundUi(muted){
-        soundBtn.classList.toggle('is-muted', muted);
-        soundBtn.setAttribute('aria-pressed', muted ? 'false' : 'true');
-        soundBtn.setAttribute('aria-label', muted ? 'Activar sonido' : 'Silenciar');
+        shield.setAttribute('aria-pressed', muted ? 'false' : 'true');
+        shield.setAttribute('aria-label', muted ? 'Activar sonido del video' : 'Silenciar video');
+        tapFeedback.classList.toggle('is-muted', muted);
+      }
+
+      function popFeedback(){
+        tapFeedback.classList.add('show');
+        clearTimeout(feedbackTimer);
+        feedbackTimer = setTimeout(function(){ tapFeedback.classList.remove('show'); }, 900);
       }
 
       window.onYouTubeIframeAPIReady = function(){
@@ -273,7 +281,7 @@ window.includesReady.then(function(){
         }catch(err){ console.error('Error al iniciar el reproductor de YouTube', err); }
       };
 
-      soundBtn.addEventListener('click', function(){
+      shield.addEventListener('click', function(){
         if(!ytPlayer || !ytPlayer.isMuted){ return; }
         try{
           if(ytPlayer.isMuted()){
@@ -284,6 +292,7 @@ window.includesReady.then(function(){
             ytPlayer.mute();
             setSoundUi(true);
           }
+          popFeedback();
         }catch(err){ console.error('Error al cambiar el sonido del video', err); }
       });
 
