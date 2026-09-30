@@ -11,7 +11,11 @@
      sobre la cinemática, distinto del header sólido compartido — se
      redeclara acá completo y gana por estar después en la cascada. ---------- */
   header{position:fixed; top:0; left:0; right:0; z-index:80; transition:background .3s ease;}
-  header::before{content:''; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,.78) 0%, rgba(0,0,0,.5) 65%, rgba(0,0,0,.28) 100%); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); pointer-events:none; z-index:-1;}
+  /* El fondo del header transparente hacía "ruido" (blur + degradé fuerte
+     encima de una foto ya cargada de textura): se saca el blur — que era
+     lo que ensuciaba todo — y el degradé queda más corto y suave, solo lo
+     necesario para que el texto se lea, sin tapar la foto de abajo. */
+  header::before{content:''; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,.5) 0%, rgba(0,0,0,.22) 75%, transparent 100%); pointer-events:none; z-index:-1;}
   header.solid{background-color:var(--bg); background-image:var(--grain); background-repeat:repeat; background-size:300px 300px; background-blend-mode:multiply; border-bottom:1px solid var(--line);}
   header.solid::before{display:none;}
   .top-row{display:flex; align-items:center; justify-content:space-between; gap:18px; padding:20px 28px; max-width:1500px; margin:0 auto;}
@@ -19,15 +23,15 @@
   .logo-mark svg{height:100%; width:auto; display:block;}
   header.solid .logo-mark{filter:none;}
   .head-right{display:flex; align-items:center; gap:16px;}
-  /* "Catálogo" y "Mi pedido" quedaban con su color oscuro de siempre sobre
-     el degradé oscuro/blureado del header transparente — invisibles. Se
-     aclaran igual que el resto del nav sobre la cinemática. */
-  .nav-cat-btn{color:#fff; border-color:rgba(255,255,255,.5);}
-  .nav-cat-btn:hover{border-color:rgba(255,255,255,.85);}
+  /* "Mi pedido" quedaba con su color oscuro de siempre sobre el degradé
+     del header transparente — invisible. Se aclara igual que el resto
+     del nav sobre la cinemática. "Productos destacados" ya es naranja
+     en el CSS compartido, que contrasta bien en los dos estados, solo
+     necesita la sombra de texto acá para leerse mejor sobre la foto. */
+  .nav-cat-btn{text-shadow:0 1px 4px rgba(0,0,0,.5);}
   .cart-pill{color:#fff; text-shadow:0 1px 4px rgba(0,0,0,.5);}
   .cart-pill:hover{border-color:rgba(255,255,255,.5);}
-  header.solid .nav-cat-btn{color:var(--ink); border-color:rgba(42,31,20,.35);}
-  header.solid .nav-cat-btn:hover{border-color:var(--ink);}
+  header.solid .nav-cat-btn{text-shadow:none;}
   header.solid .cart-pill{color:var(--ink); text-shadow:none;}
   header.solid .cart-pill:hover{border-color:rgba(42,31,20,.4);}
 
