@@ -10,45 +10,20 @@
   /* ---------- header: pedido explícito de sacar todas las sombras/degradé
      oscuro y el halo de texto — el header de home queda con el mismo estilo
      sólido, colores y tipografía que ya usan todas las demás páginas (nada
-     se redeclara acá, se hereda tal cual de styles.css). Solo el <tag>
-     sobre la cinemática arranca en un tono claro porque ahí sí sigue
-     habiendo foto de fondo detrás del texto. ---------- */
-  .tag{color:#D8D2C4;}
+     se redeclara acá, se hereda tal cual de styles.css). ---------- */
 
-  /* ================= EL RECORRIDO (obra fija) ================= */
-  #obra{position:relative; height:650vh; height:650dvh;}
-  .stage{position:sticky; top:0; height:100vh; height:100dvh; overflow:hidden; background:var(--deep);}
-  .layer{position:absolute; inset:0; opacity:0; will-change:opacity;}
-  .layer .img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; will-change:transform;}
-  .split-wrap{display:flex;}
-  .split-wrap .split-half{position:relative; width:50%; height:100%; overflow:hidden;}
-  .split-wrap .split-half:first-child{border-right:1px solid rgba(241,236,227,.35);}
-  .split-wrap .split-half img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
-  .layer .scrim{position:absolute; inset:0; background:linear-gradient(to top, rgba(4,4,3,.82) 0%, rgba(4,4,3,.25) 40%, transparent 68%);}
-  .layer .ov{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:0 28px 70px; max-width:1180px; margin:0 auto; color:#fff;}
-  .layer .ov .sub{font-size:15px; color:#E7E1D2; max-width:40ch; line-height:1.6; margin-top:10px;}
-  .l1{font-family:'Bricolage Grotesque',sans-serif; font-weight:800; color:#fff; line-height:.98; letter-spacing:-.02em;}
-  .l1.big{font-size:clamp(34px,7vw,88px); max-width:14ch;}
-  .l1.small{font-size:clamp(24px,4vw,44px); max-width:16ch;}
-  .l1.num{font-size:clamp(70px,14vw,168px); color:var(--verde); line-height:.85;}
-
-  #act3 .reveal{clip-path:polygon(0 0, 0% 0, -18% 100%, 0% 100%);}
-
-  /* chrome: act readout + progress rail */
-  .reel{position:absolute; left:28px; bottom:28px; z-index:5; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:#D8D2C4; display:flex; align-items:center; gap:9px;}
-  .reel .tick{color:var(--naranja);}
-  .rail{position:absolute; right:28px; top:50%; transform:translateY(-50%); z-index:5; display:flex; flex-direction:column; gap:14px;}
-  .rail i{width:6px; height:6px; border:1px solid rgba(255,255,255,.4); transform:rotate(45deg); display:block; transition:background .3s ease, border-color .3s ease;}
-  .rail i.on{background:var(--naranja); border-color:var(--naranja);}
-
-  /* progressive enhancement: sin JS o con reduced-motion, todo se ve estático y apilado */
-  html:not(.js-anim) #obra{height:auto;}
-  html:not(.js-anim) .stage{position:static; height:auto;}
-  html:not(.js-anim) .layer{position:relative; height:100vh; opacity:1;}
-  html:not(.js-anim) .layer .img{transform:none !important;}
-  html:not(.js-anim) #act3 .reveal{clip-path:none;}
-  html:not(.js-anim) .rail, html:not(.js-anim) .reel{display:none;}
-  html:not(.js-anim) header{opacity:1;}
+  /* ================= VIDEO DE APERTURA =================
+     Reemplaza la secuencia de fotos con scroll "pegado" por el video que
+     pasó la clienta (YouTube, no listado). Mucho más simple: una sola
+     sección de una pantalla de alto, sin matemática de scroll ni estados
+     por acto — el video habla solo. */
+  #obra-video{position:relative; height:100vh; height:100dvh; overflow:hidden; background:var(--deep);}
+  .video-frame{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:100vw; height:56.25vw; /* 16:9 a partir del ancho... */
+    min-height:100%; min-width:177.78vh; /* ...o del alto, lo que cubra más */
+  }
+  .video-frame iframe{position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;}
 
   /* ================= SALIDA — tres fotogramas, no tarjetas ================= */
   #salida{padding:84px 0 50px;}
@@ -82,8 +57,6 @@
   @media(max-width:760px){
     .exit-grid{grid-template-columns:1fr;}
     .exit{aspect-ratio:16/10;}
-    .l1.big{font-size:clamp(30px,9vw,60px);}
-    .rail{display:none;}
   }
 </style>
 
@@ -92,66 +65,13 @@
 
 
 <main id="top">
-  <section id="obra">
-    <div class="stage" id="stage">
-
-      <div class="layer" data-act="0">
-        <img class="img" id="imgAct0" src="assets/img/home-primera-imagen.png" alt="Textura abstracta de revestimiento" style="object-position:50% 55%; filter:grayscale(.55) contrast(1.12);" />
-        <div class="scrim"></div>
-        <div class="ov"><span class="tag" style="opacity:0" id="act0meta"><span class="tick"></span>GENERAL PICO, LA PAMPA — DESDE 1980</span></div>
-      </div>
-
-      <div class="layer" data-act="1">
-        <img class="img" id="imgAct1" src="assets/img/materiales.jpg" alt="Cargadora trabajando en el patio de acopio" style="object-position:50% 30%;" />
-        <div class="scrim"></div>
-        <div class="ov">
-          <p class="tag"><span class="tick"></span>01 · corralón</p>
-          <h2 class="l1 big">PRIMERO,<br>LA TIERRA</h2>
-        </div>
-      </div>
-
-      <div class="layer" data-act="2">
-        <img class="img" id="imgAct2" src="assets/img/IMG_1558.jpeg" alt="Ladrillos huecos apilados" style="object-position:50% 50%;" />
-        <div class="scrim"></div>
-        <div class="ov"><h2 class="l1 small">DESPUÉS,<br>LA FORMA</h2></div>
-      </div>
-
-      <div class="layer" id="act3" data-act="3">
-        <img class="img raw" src="assets/img/detalle2.png" alt="Pallets de ladrillos en el patio" style="object-position:50% 45%;" />
-        <img class="img reveal" id="imgAct3Reveal" src="assets/img/detalle1.jpeg" alt="Porcelanato símil madera terminado" style="object-position:55% 45%;" />
-        <div class="scrim"></div>
-        <div class="ov">
-          <p class="tag"><span class="tick"></span>02 · showroom</p>
-          <h2 class="l1 big">Y TERMINA EN<br>EL DETALLE</h2>
-        </div>
-      </div>
-
-      <div class="layer" data-act="4">
-        <div class="img split-wrap" id="imgAct4">
-          <div class="split-half">
-            <img src="assets/img/corraloncontraste.png" alt="Corralón" style="object-position:50% 45%;" />
-          </div>
-          <div class="split-half">
-            <img src="assets/img/showroomcontraste.png" alt="Showroom" style="object-position:50% 38%;" />
-          </div>
-        </div>
-        <div class="scrim"></div>
-        <div class="ov"><h2 class="l1 small">Corralón + showroom.<br>La obra cambia de etapa.<br>Vos volvés al mismo lugar.</h2></div>
-      </div>
-
-      <div class="layer" data-act="5">
-        <img class="img" id="imgAct5" src="assets/img/IMG_1565.jpeg" alt="Camión de reparto con el logo de Materiales Centro" style="object-position:50% 46%;" />
-        <div class="scrim"></div>
-        <div class="ov" style="align-items:flex-start;">
-          <h2 class="l1 num" id="numAct5">46</h2>
-          <p class="sub">Años en General Pico, la misma pasión.</p>
-        </div>
-      </div>
-
-      <div class="reel"><span class="tick"></span><span id="reelText">Apertura</span></div>
-      <div class="rail" aria-hidden="true">
-        <i data-r="0"></i><i data-r="1"></i><i data-r="2"></i><i data-r="3"></i><i data-r="4"></i><i data-r="5"></i>
-      </div>
+  <section id="obra-video">
+    <div class="video-frame">
+      <iframe
+        src="https://www.youtube.com/embed/5IaC7FZlDbE?autoplay=1&mute=1&loop=1&playlist=5IaC7FZlDbE&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3"
+        title="Materiales Centro" frameborder="0"
+        allow="autoplay; encrypted-media" allowfullscreen>
+      </iframe>
     </div>
   </section>
 
@@ -297,124 +217,6 @@ window.includesReady.then(function(){
     document.querySelectorAll('.reveal-el').forEach(function(el){ el.classList.add('is-visible'); });
   }
 
-  if(reduce){ return; }
-
-  try{
-
-  var obra = document.getElementById('obra');
-  var stage = document.getElementById('stage');
-  var reelText = document.getElementById('reelText');
-  var railTicks = document.querySelectorAll('.rail i');
-  var act3Reveal = document.getElementById('imgAct3Reveal');
-  var layers = {
-    0: document.querySelector('.layer[data-act="0"]'),
-    1: document.querySelector('.layer[data-act="1"]'),
-    2: document.querySelector('.layer[data-act="2"]'),
-    3: document.getElementById('act3'),
-    4: document.querySelector('.layer[data-act="4"]'),
-    5: document.querySelector('.layer[data-act="5"]')
-  };
-  var imgs = {
-    0: document.getElementById('imgAct0'),
-    1: document.getElementById('imgAct1'),
-    2: document.getElementById('imgAct2'),
-    4: document.getElementById('imgAct4'),
-    5: document.getElementById('imgAct5')
-  };
-  var act0meta = document.getElementById('act0meta');
-  var numAct5 = document.getElementById('numAct5');
-
-  var names = ['Apertura','01 · El material','02 · La estructura','03 · El detalle','04 · Llegada','05 · 46 años'];
-  var bounds = [0, .08, .40, .52, .78, .92, 1.0];
-  var FADE = 0.025;
-
-  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
-  function lerp(a,b,t){ return a + (b-a)*t; }
-  function smooth(t){ t = clamp(t,0,1); return t*t*(3-2*t); }
-
-  function presence(p, i){
-    var s = bounds[i], e = bounds[i+1];
-    var v;
-    if(i === 0){
-      v = 1 - smooth((p - (e-FADE)) / (FADE*2));
-    } else if(i === bounds.length-2){
-      v = smooth((p - (s-FADE)) / (FADE*2));
-    } else {
-      var rise = smooth((p - (s-FADE)) / (FADE*2));
-      var fall = 1 - smooth((p - (e-FADE)) / (FADE*2));
-      v = Math.min(rise, fall);
-    }
-    return clamp(v, 0, 1);
-  }
-
-  var obraTop = 0, scrollable = 1;
-  function measure(){
-    obraTop = obra.offsetTop;
-    scrollable = Math.max(1, obra.offsetHeight - window.innerHeight);
-  }
-
-  var ticking = false;
-  function onScroll(){
-    if(!ticking){
-      ticking = true;
-      requestAnimationFrame(render);
-    }
-  }
-
-  function render(){
-    ticking = false;
-    try{
-      measure();
-      var y = window.scrollY;
-      var p = clamp((y - obraTop) / scrollable, 0, 1);
-
-      var activeIdx = 0, activeMax = -1;
-      for(var i=0;i<6;i++){
-        var pr = presence(p, i);
-        if(pr > activeMax){ activeMax = pr; activeIdx = i; }
-        layers[i].style.opacity = pr;
-      }
-
-      var t0 = smooth(clamp((p - bounds[0]) / (bounds[1]-bounds[0]), 0, 1));
-      imgs[0].style.transform = 'scale(' + lerp(1.1,1.0,t0) + ')';
-      act0meta.style.opacity = t0 > .55 ? 1 : 0;
-
-      var t1 = smooth(clamp((p - bounds[1]) / (bounds[2]-bounds[1]), 0, 1));
-      imgs[1].style.transform = 'translateX(' + lerp(0,-2,t1) + '%) scale(' + lerp(1.03,1.07,t1) + ')';
-
-      var t2 = smooth(clamp((p - bounds[2]) / (bounds[3]-bounds[2]), 0, 1));
-      imgs[2].style.transform = 'scale(' + lerp(1.0,1.05,t2) + ')';
-
-      var t3 = smooth(clamp((p - bounds[3]) / (bounds[4]-bounds[3]), 0, 1));
-      var reveal = t3 * 122;
-      act3Reveal.style.clipPath = 'polygon(0 0, ' + reveal + '% 0, ' + Math.max(reveal-22,-5) + '% 100%, 0% 100%)';
-
-      var t4 = smooth(clamp((p - bounds[4]) / (bounds[5]-bounds[4]), 0, 1));
-      imgs[4].style.transform = 'scale(' + lerp(1.0,1.03,t4) + ')';
-
-      var t5 = smooth(clamp((p - bounds[5]) / (bounds[6]-bounds[5]), 0, 1));
-      numAct5.style.transform = 'scale(' + lerp(.88,1,t5) + ')';
-      numAct5.style.opacity = t5;
-
-      for(var k=0;k<railTicks.length;k++){
-        railTicks[k].classList.toggle('on', k === activeIdx);
-      }
-      reelText.textContent = names[activeIdx];
-
-    }catch(err){
-      console.error('Error en el render de la cinemática', err);
-    }
-  }
-
-  measure();
-  render();
-  window.addEventListener('scroll', onScroll, {passive:true});
-  window.addEventListener('resize', function(){ measure(); render(); });
-  if(window.visualViewport){
-    window.visualViewport.addEventListener('resize', onScroll, {passive:true});
-  }
-
-  }catch(err){ console.error('Error al iniciar la cinemática de la obra', err); }
 });
 </script>
 </body>
