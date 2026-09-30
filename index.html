@@ -19,6 +19,17 @@
   .logo-mark svg{height:100%; width:auto; display:block;}
   header.solid .logo-mark{filter:none;}
   .head-right{display:flex; align-items:center; gap:16px;}
+  /* "Catálogo" y "Mi pedido" quedaban con su color oscuro de siempre sobre
+     el degradé oscuro/blureado del header transparente — invisibles. Se
+     aclaran igual que el resto del nav sobre la cinemática. */
+  .nav-cat-btn{color:#fff; border-color:rgba(255,255,255,.5);}
+  .nav-cat-btn:hover{border-color:rgba(255,255,255,.85);}
+  .cart-pill{color:#fff; text-shadow:0 1px 4px rgba(0,0,0,.5);}
+  .cart-pill:hover{border-color:rgba(255,255,255,.5);}
+  header.solid .nav-cat-btn{color:var(--ink); border-color:rgba(42,31,20,.35);}
+  header.solid .nav-cat-btn:hover{border-color:var(--ink);}
+  header.solid .cart-pill{color:var(--ink); text-shadow:none;}
+  header.solid .cart-pill:hover{border-color:rgba(42,31,20,.4);}
 
   .main-nav{
     display:flex; flex-wrap:nowrap; align-items:center; justify-content:center; gap:clamp(8px,1vw,14px);
