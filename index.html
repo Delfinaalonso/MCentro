@@ -17,7 +17,12 @@
      pasó la clienta (YouTube, no listado). Mucho más simple: una sola
      sección de una pantalla de alto, sin matemática de scroll ni estados
      por acto — el video habla solo. */
-  #obra-video{position:relative; height:100vh; height:100dvh; overflow:hidden; background:var(--deep);}
+  /* El header ocupa 73px fijos arriba (medido en todos los anchos); si el
+     video mide 100vh completo, sus últimos 73px quedan tapados por el
+     borde de la pantalla al cargar — y ahí es justo donde vive el botón
+     de sonido. Se descuenta esa altura para que el video (y el botón)
+     entren enteros sin necesidad de scrollear. */
+  #obra-video{position:relative; height:calc(100vh - 73px); height:calc(100dvh - 73px); overflow:hidden; background:var(--deep);}
   .video-frame{
     position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
     width:100vw; height:56.25vw; /* 16:9 a partir del ancho... */
@@ -25,11 +30,20 @@
   }
   .video-frame iframe{position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;}
 
+  /* Capa invisible sobre el video: absorbe cualquier toque/clic y no hace
+     nada con él. Así el video nunca se puede pausar, adelantar ni tocar
+     para ir a YouTube — el único control que queda vivo es el botón de
+     sonido, que se dibuja encima gracias al z-index. */
+  .video-shield{position:absolute; inset:0; z-index:2; background:transparent;}
+
   /* El video arranca muteado (lo exigen todos los navegadores para poder
      reproducir en automático); este botón es la única forma de activar
      el sonido, así que tiene que verse y ser fácil de tocar en celular. */
+  /* A la izquierda, no a la derecha: ahí abajo a la derecha vive siempre
+     el botón flotante de WhatsApp (position:fixed, en todas las páginas)
+     y se pisaban. */
   .video-sound-toggle{
-    position:absolute; right:18px; bottom:18px; z-index:3;
+    position:absolute; left:18px; bottom:18px; z-index:3;
     width:46px; height:46px; border-radius:50%;
     border:1px solid rgba(241,236,227,.4); background:rgba(4,4,3,.55);
     backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
@@ -90,6 +104,7 @@
         allow="autoplay; encrypted-media" allowfullscreen>
       </iframe>
     </div>
+    <div class="video-shield" aria-hidden="true"></div>
     <button type="button" class="video-sound-toggle is-muted" id="videoSoundToggle" aria-pressed="false" aria-label="Activar sonido">
       <svg class="ic-muted" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 9l5 5M21 9l-5 5"/></svg>
       <svg class="ic-unmuted" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19.5 6a9 9 0 0 1 0 12"/></svg>
