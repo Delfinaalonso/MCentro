@@ -47,13 +47,11 @@
     -webkit-appearance:none; appearance:none; cursor:default;
   }
 
-  /* Botón fijo de sonido, abajo a la izquierda: alineado a la misma altura
-     que el botón flotante de WhatsApp de abajo a la derecha (ese botón
-     mide 43px de alto y su borde real queda a 69px del piso, no a los
-     20px que indica su CSS, porque adentro convive con el globo de chat
-     oculto). Los dos quedan lo más cerca posible del borde, a la par. */
+  /* Botón fijo de sonido, abajo a la izquierda: a la misma altura que el
+     botón flotante de WhatsApp de abajo a la derecha (bottom:20px), ya
+     corregido en styles.css para que quede pegado al borde de verdad. */
   .video-sound-toggle{
-    position:absolute; left:18px; bottom:69px; z-index:3;
+    position:absolute; left:18px; bottom:20px; z-index:3;
     width:46px; height:46px; border-radius:50%;
     border:1px solid rgba(241,236,227,.4); background:rgba(4,4,3,.55);
     backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
@@ -66,9 +64,11 @@
   .video-sound-toggle:not(.is-muted) .ic-unmuted{display:block;}
 
   /* Señal de que la página sigue para abajo: una flechita chica, centrada,
-     puramente decorativa (no se puede tocar, no hace nada). */
+     puramente decorativa (no se puede tocar, no hace nada). Más arriba que
+     el botón de sonido/WhatsApp para no pisarse con ellos en pantallas
+     angostas, donde el botón de WhatsApp se acerca al centro. */
   .video-scroll-hint{
-    position:absolute; left:50%; bottom:22px; transform:translateX(-50%);
+    position:absolute; left:50%; bottom:80px; transform:translateX(-50%);
     z-index:3; pointer-events:none; color:#F1ECE3; opacity:.8;
     animation:video-scroll-bounce 1.8s ease-in-out infinite;
   }
