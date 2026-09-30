@@ -27,7 +27,16 @@
     width:100vw; height:56.25vw; /* 16:9 a partir del ancho... */
     min-height:100%; min-width:177.78vh; /* ...o del alto, lo que cubra más */
   }
-  .video-frame iframe{position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;}
+  /* A pesar de controls=0, YouTube a veces muestra un cartelito con el
+     título/fecha del video arriba a la izquierda al arrancar. Se agranda
+     el video un poco de más y se lo corre hacia arriba: esa franja de
+     arriba queda recortada fuera de la vista (#obra-video tiene
+     overflow:hidden) y abajo se rellena con más imagen del video, sin
+     dejar ningún hueco. */
+  .video-frame iframe{
+    position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;
+    transform:scale(1.18) translateY(-5%);
+  }
 
   /* Capa invisible sobre el video: absorbe cualquier toque/clic y decide
      ella qué hacer con él (mutear o desmutear) — nunca lo deja pasar al
