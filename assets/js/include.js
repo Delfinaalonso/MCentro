@@ -29,11 +29,16 @@ window.includesReady = (function(){
     function checkNavFit(){
       var nav = document.querySelector('.main-nav');
       if(!nav) return;
-      if(getComputedStyle(nav).display === 'none'){
-        document.documentElement.classList.remove('nav-force-burger');
-        return;
+      /* Se saca la clase primero y se mide en el estado "natural" del nav
+         (sin forzar nada). Si se dejaba puesta mientras se medía, una
+         segunda pasada (p. ej. la de document.fonts.ready) veía el nav ya
+         oculto por esta misma clase y la sacaba sola, deshaciendo el
+         forzado — quedaba parpadeando entre los dos estados. */
+      document.documentElement.classList.remove('nav-force-burger');
+      if(getComputedStyle(nav).display === 'none') return; // ya lo esconde el corte fijo de CSS
+      if(nav.scrollWidth > nav.clientWidth + 1){
+        document.documentElement.classList.add('nav-force-burger');
       }
-      document.documentElement.classList.toggle('nav-force-burger', nav.scrollWidth > nav.clientWidth + 1);
     }
     checkNavFit();
     if(document.fonts && document.fonts.ready){

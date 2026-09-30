@@ -84,8 +84,9 @@ var MCCart = (function(){
     var count = getCount();
     var visible = count > 0;
 
+    /* El carrito queda siempre visible en el header (antes se ocultaba
+       con el pedido vacío, y eso hacía parecer que había desaparecido). */
     document.querySelectorAll('[data-cart-count]').forEach(function(el){
-      el.style.display = visible ? '' : 'none';
       var n = el.querySelector('.n');
       if(n) n.textContent = count;
     });
