@@ -183,10 +183,15 @@
     else{ history.pushState(state, '', url); }
   }
 
+  /* Solo entran acá las subcategorías que tienen al menos un producto
+     activo — si en productos.json queda una subcategoría sin ningún
+     producto (o con todos activo:false), su chip directamente no se
+     genera, no hace falta sacarla a mano. */
   function subcategoriasFor(rubro){
     var seen = {};
     var list = [];
     productos.forEach(function(p){
+      if(!p.activo) return;
       if(rubro && p.rubro !== rubro) return;
       if(!seen[p.subcategoria]){
         seen[p.subcategoria] = true;
