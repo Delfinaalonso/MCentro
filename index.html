@@ -25,6 +25,22 @@
   }
   .video-frame iframe{position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;}
 
+  /* El video arranca muteado (lo exigen todos los navegadores para poder
+     reproducir en automático); este botón es la única forma de activar
+     el sonido, así que tiene que verse y ser fácil de tocar en celular. */
+  .video-sound-toggle{
+    position:absolute; right:18px; bottom:18px; z-index:3;
+    width:46px; height:46px; border-radius:50%;
+    border:1px solid rgba(241,236,227,.4); background:rgba(4,4,3,.55);
+    backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    color:#F1ECE3; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:background .2s ease, border-color .2s ease;
+  }
+  .video-sound-toggle:hover{background:rgba(4,4,3,.78); border-color:rgba(241,236,227,.7);}
+  .video-sound-toggle .ic-unmuted{display:none;}
+  .video-sound-toggle:not(.is-muted) .ic-muted{display:none;}
+  .video-sound-toggle:not(.is-muted) .ic-unmuted{display:block;}
+
   /* ================= SALIDA — tres fotogramas, no tarjetas ================= */
   #salida{padding:84px 0 50px;}
   .salida-head{max-width:44ch; margin-bottom:40px;}
@@ -68,11 +84,16 @@
   <section id="obra-video">
     <div class="video-frame">
       <iframe
-        src="https://www.youtube.com/embed/5IaC7FZlDbE?autoplay=1&mute=1&loop=1&playlist=5IaC7FZlDbE&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3"
+        id="obraYt"
+        src="https://www.youtube.com/embed/5IaC7FZlDbE?autoplay=1&mute=1&loop=1&playlist=5IaC7FZlDbE&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&enablejsapi=1&origin=https://delfinaalonso.github.io"
         title="Materiales Centro" frameborder="0"
         allow="autoplay; encrypted-media" allowfullscreen>
       </iframe>
     </div>
+    <button type="button" class="video-sound-toggle is-muted" id="videoSoundToggle" aria-pressed="false" aria-label="Activar sonido">
+      <svg class="ic-muted" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 9l5 5M21 9l-5 5"/></svg>
+      <svg class="ic-unmuted" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19.5 6a9 9 0 0 1 0 12"/></svg>
+    </button>
   </section>
 
   <section id="salida">
@@ -216,6 +237,46 @@ window.includesReady.then(function(){
     console.error('Error en el "aparecer al scrollear"', err);
     document.querySelectorAll('.reveal-el').forEach(function(el){ el.classList.add('is-visible'); });
   }
+
+  try{
+    var ytFrame = document.getElementById('obraYt');
+    var soundBtn = document.getElementById('videoSoundToggle');
+    if(ytFrame && soundBtn && window.YT === undefined){
+      var ytPlayer = null;
+
+      function setSoundUi(muted){
+        soundBtn.classList.toggle('is-muted', muted);
+        soundBtn.setAttribute('aria-pressed', muted ? 'false' : 'true');
+        soundBtn.setAttribute('aria-label', muted ? 'Activar sonido' : 'Silenciar');
+      }
+
+      window.onYouTubeIframeAPIReady = function(){
+        try{
+          ytPlayer = new YT.Player('obraYt', {
+            events: { onReady: function(){ setSoundUi(true); } }
+          });
+        }catch(err){ console.error('Error al iniciar el reproductor de YouTube', err); }
+      };
+
+      soundBtn.addEventListener('click', function(){
+        if(!ytPlayer || !ytPlayer.isMuted){ return; }
+        try{
+          if(ytPlayer.isMuted()){
+            ytPlayer.unMute();
+            ytPlayer.setVolume(100);
+            setSoundUi(false);
+          } else {
+            ytPlayer.mute();
+            setSoundUi(true);
+          }
+        }catch(err){ console.error('Error al cambiar el sonido del video', err); }
+      });
+
+      var ytTag = document.createElement('script');
+      ytTag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(ytTag);
+    }
+  }catch(err){ console.error('Error al preparar el control de sonido del video', err); }
 
 });
 </script>
