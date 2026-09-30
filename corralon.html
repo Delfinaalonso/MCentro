@@ -7,13 +7,37 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
 <style>
-  /* ---------- page hero ---------- */
-  .phero{position:relative; height:78vh; min-height:460px; overflow:hidden;}
-  .phero img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
-  .phero .scrim{position:absolute; inset:0; background:linear-gradient(to top, rgba(4,4,3,.85) 0%, rgba(4,4,3,.22) 45%, transparent 72%);}
-  .phero .ov{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:0 28px 56px; max-width:1180px; margin:0 auto; color:#fff;}
-  .phero h1{font-size:clamp(46px,9vw,116px); font-weight:800; line-height:.9;}
-  .phero p.sub{font-size:15px; color:#E7E1D2; max-width:44ch; margin-top:14px; line-height:1.6;}
+  /* ---------- page hero: mismo patrón partido (texto | foto) que el resto
+     de las páginas de categoría — Corralón se había quedado con la versión
+     vieja de imagen grande de fondo. ---------- */
+  .phero-split{position:relative; display:grid; grid-template-columns:1.1fr 1fr; min-height:58vh;}
+  .phero-split::before{
+    content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(235,92,46,.22) 0, rgba(235,92,46,.22) 1px, transparent 1px, transparent 56px),
+      repeating-linear-gradient(90deg, rgba(235,92,46,.22) 0, rgba(235,92,46,.22) 1px, transparent 1px, transparent 56px);
+    -webkit-mask-image:linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+    mask-image:linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+  }
+  .ps-copy{position:relative; z-index:1; display:flex; flex-direction:column; justify-content:center; padding:60px 44px;}
+  .ps-copy h1{font-size:clamp(36px,5vw,60px); font-weight:800; line-height:1.03; color:var(--ink);}
+  .ps-copy .sub{font-size:15px; color:var(--soft); max-width:40ch; margin:18px 0 30px; line-height:1.68;}
+  .ps-cta{display:flex; align-items:center; gap:24px; flex-wrap:wrap;}
+  .ps-link{color:var(--ink); opacity:.8; font-size:13.5px; font-weight:600; display:inline-flex; align-items:center; gap:6px; transition:gap .2s ease;}
+  .ps-link:hover{gap:11px; opacity:1;}
+  .ps-media{
+    position:relative; z-index:1; min-height:380px; padding:36px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .ps-frame{position:relative; width:100%; height:100%; overflow:hidden; border-radius:10px; border:1px solid rgba(42,31,20,.22); box-shadow:0 30px 56px -22px rgba(42,31,20,.4);}
+  .ps-frame img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  html.js-anim .ps-frame img{animation:kbLoop 17s ease-in-out infinite alternate;}
+  @keyframes kbLoop{ from{transform:scale(1.08) translate(0,0);} to{transform:scale(1.22) translate(-1.5%,-1.5%);} }
+  @media(max-width:900px){
+    .phero-split{grid-template-columns:1fr; min-height:auto;}
+    .ps-media{min-height:260px; order:-1; padding:20px;}
+    .ps-copy{padding:32px 28px;}
+  }
 
   /* ---------- 10 líneas de stock: cards más chicas que en el resto de las páginas
      (acá hay más cantidad y algunos títulos más largos, así que a tamaño grande
@@ -27,13 +51,20 @@
 
 
 <main>
-  <section class="phero">
-    <img src="assets/img/portada-corralon.jpg" alt="Acopio de bolsones y ladrillos en el corralón" style="object-position:50% 45%;" />
-    <div class="scrim"></div>
-    <div class="ov">
+  <section class="phero-split reveal-el">
+    <div class="ps-copy">
       <p class="tag"><span class="tick"></span>Corralón</p>
-      <h1>Todo lo que<br>sostiene la obra</h1>
+      <h1>Todo lo que sostiene la obra</h1>
       <p class="sub">Stock permanente, con entrega coordinada en obra.</p>
+      <div class="ps-cta">
+        <a href="#presupuesto" class="btn btn-naranja">Pedir presupuesto →</a>
+        <a href="#lineas" class="ps-link">Ver qué hay en Corralón ↓</a>
+      </div>
+    </div>
+    <div class="ps-media">
+      <div class="ps-frame">
+        <img src="assets/img/portada-corralon.jpg" alt="Acopio de bolsones y ladrillos en el corralón" style="object-position:50% 45%;" />
+      </div>
     </div>
   </section>
 
