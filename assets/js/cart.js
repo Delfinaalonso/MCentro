@@ -30,6 +30,22 @@ var MCCart = (function(){
       items.push(Object.assign({ id: item.id || ('consulta-' + Date.now() + '-' + Math.random().toString(36).slice(2,7)), cantidad: 1 }, item));
     }
     write(items);
+    popCartBar();
+  }
+
+  /* La barra fija de abajo aparece un momento apenas agregás algo (como
+     confirmación) y se esconde sola — antes quedaba pegada en pantalla
+     todo el tiempo que tuvieras algo en el pedido, tapando otros
+     elementos (el botón flotante, etc.) y molestando la lectura. El
+     acceso permanente al pedido sigue estando en "Mi pedido" del header. */
+  var POP_MS = 3500;
+  var popTimer = null;
+  function popCartBar(){
+    document.querySelectorAll('[data-cart-bar]').forEach(function(el){ el.classList.add('visible'); });
+    clearTimeout(popTimer);
+    popTimer = setTimeout(function(){
+      document.querySelectorAll('[data-cart-bar]').forEach(function(el){ el.classList.remove('visible'); });
+    }, POP_MS);
   }
   function remove(id){
     write(read().filter(function(i){ return i.id !== id; }));
@@ -82,7 +98,6 @@ var MCCart = (function(){
 
   function render(){
     var count = getCount();
-    var visible = count > 0;
 
     /* El carrito queda siempre visible en el header (antes se ocultaba
        con el pedido vacío, y eso hacía parecer que había desaparecido). */
@@ -91,9 +106,6 @@ var MCCart = (function(){
       if(n) n.textContent = count;
     });
 
-    document.querySelectorAll('[data-cart-bar]').forEach(function(el){
-      el.classList.toggle('visible', visible);
-    });
     document.querySelectorAll('[data-cart-count-text]').forEach(function(el){
       el.textContent = 'Tu pedido (' + count + ')';
     });
