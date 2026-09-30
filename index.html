@@ -99,9 +99,9 @@
     <div class="video-frame">
       <iframe
         id="obraYt"
-        src="https://www.youtube.com/embed/5IaC7FZlDbE?autoplay=1&mute=1&loop=1&playlist=5IaC7FZlDbE&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&enablejsapi=1&origin=https://delfinaalonso.github.io"
+        src="https://www.youtube-nocookie.com/embed/5IaC7FZlDbE?autoplay=1&mute=1&loop=1&playlist=5IaC7FZlDbE&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&origin=https://delfinaalonso.github.io"
         title="Materiales Centro" frameborder="0"
-        allow="autoplay; encrypted-media" allowfullscreen>
+        allow="autoplay">
       </iframe>
     </div>
     <button type="button" class="video-shield" id="videoShield" aria-pressed="false" aria-label="Activar sonido del video"></button>
@@ -281,7 +281,7 @@ window.includesReady.then(function(){
         }catch(err){ console.error('Error al iniciar el reproductor de YouTube', err); }
       };
 
-      shield.addEventListener('click', function(){
+      function toggleMute(){
         if(!ytPlayer || !ytPlayer.isMuted){ return; }
         try{
           if(ytPlayer.isMuted()){
@@ -294,6 +294,48 @@ window.includesReady.then(function(){
           }
           popFeedback();
         }catch(err){ console.error('Error al cambiar el sonido del video', err); }
+      }
+
+      /* En mobile no alcanza con "click": hay que distinguir un toque real
+         (mutear) de un swipe para scrollear la página (que tiene que seguir
+         funcionando con total normalidad aunque arranque encima del video).
+         Solo si el dedo se movió poco y soltó rápido, lo tratamos como toque
+         y ahí sí cortamos el evento para que nunca llegue al reproductor de
+         YouTube (ni dispare sus propios controles nativos al tocar). */
+      var tStartX = 0, tStartY = 0, tStartAt = 0, tMoved = false;
+      var lastGestureAt = 0;
+
+      function handleTapGesture(){
+        var now = Date.now();
+        if(now - lastGestureAt < 400){ return; }
+        lastGestureAt = now;
+        toggleMute();
+      }
+
+      shield.addEventListener('touchstart', function(e){
+        if(e.touches.length !== 1){ return; }
+        tMoved = false;
+        tStartX = e.touches[0].clientX;
+        tStartY = e.touches[0].clientY;
+        tStartAt = Date.now();
+      }, {passive:true});
+
+      shield.addEventListener('touchmove', function(e){
+        if(e.touches.length !== 1){ return; }
+        var dx = e.touches[0].clientX - tStartX;
+        var dy = e.touches[0].clientY - tStartY;
+        if(Math.sqrt(dx*dx + dy*dy) > 10){ tMoved = true; }
+      }, {passive:true});
+
+      shield.addEventListener('touchend', function(e){
+        if(!tMoved && (Date.now() - tStartAt) < 500){
+          e.preventDefault();
+          handleTapGesture();
+        }
+      }, {passive:false});
+
+      shield.addEventListener('click', function(){
+        handleTapGesture();
       });
 
       var ytTag = document.createElement('script');
