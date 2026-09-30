@@ -42,26 +42,6 @@
   .intro-line{padding:70px 0 10px;}
   .intro-line p{font-size:clamp(20px,3vw,27px); font-family:'Bricolage Grotesque',sans-serif; font-weight:500; max-width:38ch; line-height:1.4;}
 
-  /* ---------- marcas y socios (slider) ---------- */
-  .partners{padding:50px 0 60px; border-top:1px solid var(--line); margin-top:30px;}
-  .partners-head{margin-bottom:26px;}
-  .partners-head h2{font-size:clamp(22px,3vw,30px); max-width:26ch;}
-  .partners-marquee{overflow-x:auto; margin:0 -28px; padding:4px 28px; -webkit-mask-image:linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); mask-image:linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); scrollbar-width:none;}
-  .partners-marquee::-webkit-scrollbar{display:none;}
-  html.js-anim .partners-marquee{overflow:hidden;}
-  .partners-track{display:flex; gap:14px; width:max-content;}
-  html.js-anim .partners-track{animation:partnersMarquee 26s linear infinite;}
-  html.js-anim .partners-marquee:hover .partners-track{animation-play-state:paused;}
-  @keyframes partnersMarquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
-  .partner-card{
-    flex:0 0 auto; width:210px; height:122px; border:1px solid var(--line); border-radius:8px;
-    display:flex; align-items:center; justify-content:center; text-align:center; padding:18px;
-    box-shadow:0 4px 14px -7px rgba(42,31,20,.22); transition:box-shadow .25s ease, transform .25s ease;
-  }
-  .partner-card:hover{box-shadow:0 18px 32px -12px rgba(42,31,20,.32); transform:translateY(-4px);}
-  .partner-card.real{background:var(--bg);}
-  .partner-card img{max-height:52px; width:auto; max-width:82%; object-fit:contain; filter:grayscale(1) contrast(1.05); opacity:.8; transition:filter .25s ease, opacity .25s ease;}
-  .partner-card:hover img{filter:none; opacity:1;}
 </style>
 
 <body data-page="terminaciones">
@@ -235,31 +215,6 @@
     </div>
     <div class="destacados-grid" data-destacados-grid data-rubro="terminaciones"></div>
     <a href="catalogo.html?rubro=terminaciones" class="link-more destacados-more">Ver más en el catálogo →</a>
-  </section>
-
-  <section class="wrap partners reveal-el">
-    <div class="partners-head">
-      <p class="tag"><span class="tick"></span>Marcas y socios</p>
-      <h2>Con quién trabajamos en el local</h2>
-    </div>
-    <div class="partners-marquee" tabindex="0" aria-label="Marcas y socios estratégicos">
-      <div class="partners-track">
-        <div class="partner-card real"><img src="assets/img/logo-ferrum.png" alt="Ferrum" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-fv.png" alt="FV" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-TST.png" alt="TST" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-johnson.png" alt="Jhonson" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-Blangino.png" alt="Blangino" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-misiones.png" alt="Misiones" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-Vasser.png" alt="Vasser" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-ferrum.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-fv.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-TST.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-johnson.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-Blangino.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-misiones.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-Vasser.png" alt="" /></div>
-      </div>
-    </div>
   </section>
 
   <section id="presupuesto">
