@@ -74,7 +74,7 @@ var MCCart = (function(){
 
   function buildWhatsAppMessage(){
     var items = read();
-    var lines = ['Hola! Te paso mi pedido de Materiales Centro:', ''];
+    var lines = ['Hola! Te paso mi pedido:', ''];
     items.slice(0, MAX_ITEMS_IN_MESSAGE).forEach(function(i){
       if(i.tipo === 'producto'){
         lines.push('• ' + i.nombre + ' — ' + i.cantidad + ' ' + (i.unidad || 'un.') + (i.precio ? ' (' + formatMoney(i.precio * i.cantidad) + ')' : ''));
