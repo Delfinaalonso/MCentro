@@ -138,7 +138,10 @@
   .partners-marquee::-webkit-scrollbar{display:none;}
   html.js-anim .partners-marquee{overflow:hidden;}
   .partners-track{display:flex; gap:14px; width:max-content;}
-  html.js-anim .partners-track{animation:partnersMarquee 26s linear infinite;}
+  /* 48s, no 26s: con el doble de logos (13 en vez de 7) recorre el doble
+     de distancia, así que necesita el doble de tiempo para que la
+     velocidad de scroll se sienta igual que antes. */
+  html.js-anim .partners-track{animation:partnersMarquee 48s linear infinite;}
   html.js-anim .partners-marquee:hover .partners-track{animation-play-state:paused;}
   @keyframes partnersMarquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
   .partner-card{
@@ -228,6 +231,12 @@
         <div class="partner-card real"><img src="assets/img/logo-Blangino.png" alt="Blangino" /></div>
         <div class="partner-card real"><img src="assets/img/logo-misiones.png" alt="Misiones" /></div>
         <div class="partner-card real"><img src="assets/img/logo-Vasser.png" alt="Vasser" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-durlock.png" alt="Durlock" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-cerronegro.png" alt="Cerro Negro" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-canuelas.png" alt="Cerámica Cañuelas" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-palmar.png" alt="Palmar" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-lomanegra.png" alt="Loma Negra" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-spl.png" alt="SPL Láminas" /></div>
         <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-ferrum.png" alt="" /></div>
         <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-fv.png" alt="" /></div>
         <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-TST.png" alt="" /></div>
@@ -235,6 +244,12 @@
         <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-Blangino.png" alt="" /></div>
         <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-misiones.png" alt="" /></div>
         <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-Vasser.png" alt="" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-durlock.png" alt="" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-cerronegro.png" alt="" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-canuelas.png" alt="" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-palmar.png" alt="" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-lomanegra.png" alt="" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-spl.png" alt="" /></div>
       </div>
     </div>
   </section>
