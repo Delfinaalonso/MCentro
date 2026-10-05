@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=5">
+<link rel="stylesheet" href="assets/css/styles.css?v=6">
 <style>
   /* ---------- header: pedido explícito de sacar todas las sombras/degradé
      oscuro y el halo de texto — el header de home queda con el mismo estilo
@@ -80,10 +80,25 @@
     .video-scroll-hint{animation:none;}
   }
 
+  /* El video está grabado horizontal (16:9); en un celular en vertical,
+     "cubrir" la pantalla completa (lo que hace el resto de este bloque)
+     recorta la mayor parte de los costados y deja ver solo una tira
+     angosta del medio — además de agrandar la franja a recortar arriba
+     para tapar el cartel de YouTube, lo que se nota más sobre tan poco
+     video visible. En mobile se muestra en su proporción real (16:9,
+     sin recortar de más) en vez de forzarlo a pantalla completa: entra
+     bastante más video en pantalla y de paso ocupa mucho menos alto, así
+     que hay que scrollear menos para llegar al resto de la página. */
+  @media(max-width:760px){
+    #obra-video{height:auto; aspect-ratio:16/9;}
+    .video-frame{position:absolute; inset:0; top:0; left:0; transform:none; width:100%; height:100%; min-width:0; min-height:0;}
+    .video-scroll-hint{display:none;}
+  }
+
   /* ================= SALIDA — tres fotogramas, no tarjetas ================= */
   #salida{padding:84px 0 50px;}
-  .salida-head{max-width:44ch; margin-bottom:40px;}
-  .salida-head p.tag{color:var(--soft);}
+  .salida-head{max-width:44ch; margin:0 auto 40px; text-align:center;}
+  .salida-head p.tag{color:var(--soft); justify-content:center;}
   /* Nunca se tiene que partir en dos líneas: el tamaño baja con el ancho de
      pantalla (en vez de tener un piso fijo) para que "¿Por dónde
      arrancamos?" siempre entre completo en una sola línea. */
@@ -112,13 +127,11 @@
   html.nav-force-burger .main-nav{display:none;}
   html.nav-force-burger .burger{display:flex;}
 
-  @media(max-width:760px){
-    .exit-grid{grid-template-columns:1fr;}
-    .exit{aspect-ratio:16/10;}
-  }
-
   /* ---------- marcas y socios (slider) — movido de Terminaciones a la home ---------- */
-  .partners{padding:50px 0 60px; border-top:1px solid var(--line); margin-top:30px;}
+  /* padding-top/bottom, no el shorthand de 3 valores: ese pone el
+     izquierdo/derecho en 0 y pisa el padding lateral de .wrap, dejando el
+     título pegado al borde en mobile. */
+  .partners{padding-top:50px; padding-bottom:60px; border-top:1px solid var(--line); margin-top:30px;}
   .partners-head{margin-bottom:26px;}
   .partners-head h2{font-size:clamp(22px,3vw,30px); max-width:26ch;}
   .partners-marquee{overflow-x:auto; margin:0 -28px; padding:4px 28px; -webkit-mask-image:linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); mask-image:linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); scrollbar-width:none;}
