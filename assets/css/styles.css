@@ -62,9 +62,12 @@ header{position:sticky; top:0; z-index:80; background-color:var(--bg); backgroun
 .main-nav a:hover{border-color:rgba(42,31,20,.4);}
 .main-nav a.on{border-color:var(--naranja); color:var(--naranja); font-weight:700;}
 
-.burger{display:none; width:36px; height:36px; border:1.5px solid rgba(42,31,20,.4); background:none; cursor:pointer; align-items:center; justify-content:center; flex-shrink:0;}
-.burger span, .burger span::before, .burger span::after{content:''; display:block; width:16px; height:1.5px; background:var(--ink); position:relative;}
-.burger span::before{position:absolute; top:-6px;} .burger span::after{position:absolute; top:6px;}
+/* Sin recuadro: antes tenía un borde cuadrado que no sumaba nada (mismo
+   criterio que se usó para los demás botones del sitio). Las líneas más
+   gruesas y en el verde de marca, para que tenga más presencia. */
+.burger{display:none; width:40px; height:40px; border:none; background:none; cursor:pointer; align-items:center; justify-content:center; flex-shrink:0;}
+.burger span, .burger span::before, .burger span::after{content:''; display:block; width:19px; height:2.2px; background:var(--verde-brand); position:relative;}
+.burger span::before{position:absolute; top:-7px;} .burger span::after{position:absolute; top:7px;}
 .mobile-panel{display:none;}
 .mobile-panel.open{display:flex; flex-direction:column; gap:2px; padding:6px 28px 18px; background:var(--bg); border-bottom:1px solid var(--line);}
 .mobile-panel a{color:var(--ink); padding:13px 4px; font-size:14.5px; border-bottom:1px solid var(--line);}
@@ -97,7 +100,11 @@ html.js-anim .reveal-el.d1.is-visible{transition-delay:.12s;}
 /* scroll-margin-top: el botón "¿Qué necesitás? →" del hero salta acá con
    un link #necesitas; sin este margen, el título queda tapado debajo del
    header fijo al llegar (mismo ajuste que .exit en la home). */
-.necesitas{padding:30px 0 60px; text-align:center; scroll-margin-top:90px;}
+/* padding-top/bottom, no el shorthand de 3 valores: ese pone el
+   izquierdo/derecho en 0 y pisa el padding lateral de .wrap, dejando el
+   título pegado al borde de la pantalla en mobile (bug real, no es solo
+   que "se vea apretado"). */
+.necesitas{padding-top:30px; padding-bottom:60px; text-align:center; scroll-margin-top:90px;}
 .necesitas-head{margin:0 auto 22px; max-width:56ch;}
 .necesitas-head .tag{justify-content:center;}
 .necesitas-head h2{font-size:clamp(26px,3.6vw,38px); margin:4px 0 10px;}
@@ -195,7 +202,7 @@ footer .row{position:relative; z-index:1; display:flex; justify-content:space-be
 .cart-bar .cb-actions{display:flex; gap:10px; flex-wrap:wrap;}
 
 /* ---------- destacados (productos reales del catálogo, en Terminaciones y Corralón) ---------- */
-.destacados{padding:24px 0 16px; border-top:1px solid var(--line); margin-top:30px;}
+.destacados{padding-top:24px; padding-bottom:16px; border-top:1px solid var(--line); margin-top:30px;}
 .destacados-head{margin-bottom:20px;}
 .destacados-head h2{font-size:clamp(26px,3.6vw,38px); max-width:26ch;}
 .destacados-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:16px;}
@@ -226,12 +233,13 @@ footer .row{position:relative; z-index:1; display:flex; justify-content:space-be
 .link-more{color:var(--ink); opacity:.8; font-size:13.5px; font-weight:600; display:inline-flex; align-items:center; gap:6px; transition:gap .2s ease; width:fit-content;}
 .link-more:hover{gap:11px; opacity:1;}
 .destacados-more{margin-top:20px;}
+/* Nunca baja a 1 columna: con 2 siempre, aunque sea un celular chico,
+   se ve el doble de producto sin scrollear de más. */
 @media(max-width:1000px){ .destacados-grid{grid-template-columns:repeat(3,1fr);} }
-@media(max-width:600px){ .destacados-grid{grid-template-columns:repeat(2,1fr);} }
-@media(max-width:420px){ .destacados-grid{grid-template-columns:1fr;} }
+@media(max-width:600px){ .destacados-grid{grid-template-columns:repeat(2,1fr); gap:10px;} }
 
 /* ---------- líneas (grid de categorías con flip cards) — usado en todas las páginas de categoría ---------- */
-.lineas{padding:24px 0 16px;}
+.lineas{padding-top:24px; padding-bottom:16px;}
 .lineas-head{margin-bottom:20px;}
 .lineas-head h2{font-size:clamp(26px,3.6vw,38px); max-width:24ch;}
 .lineas-grid{display:flex; flex-wrap:wrap; justify-content:center; gap:16px;}
@@ -267,6 +275,22 @@ footer .row{position:relative; z-index:1; display:flex; justify-content:space-be
 .linea-back .go:hover{gap:11px;}
 
 .lineas-more{font-size:13px; color:var(--soft); margin-top:20px; max-width:56ch; line-height:1.6;}
+
+/* En mobile, 2 por fila siempre (nunca 1): las cards achicadas de 230px
+   mínimo ya no entran de a dos por debajo de ~620px, dejando una sola
+   columna — eso es lo que hace scrollear de más. Se fuerza el 50% y se
+   ajusta el texto interno (más chico, menos padding) para que siga
+   siendo legible en el espacio reducido. El link "Ver productos →" de
+   atrás suma un poco de padding para que sea más fácil de tocar. */
+@media(max-width:620px){
+  .lineas-grid{gap:10px;}
+  .linea-box{flex:0 1 calc(50% - 5px); max-width:calc(50% - 5px);}
+  .lb-front-in, .lb-back-in{padding:12px;}
+  .lb-tag{font-size:9px; margin-bottom:5px;}
+  .linea-front h3, .linea-back h3{font-size:clamp(12px,3.4vw,14px);}
+  .lb-brands{font-size:8px; margin-bottom:6px;}
+  .linea-back .go{font-size:8px; padding:5px 0;}
+}
 
 /* Ahora que el nav comparte fila con el logo, "Catálogo" y el carrito,
    necesita bastante más ancho que antes para entrar sin partirse — medido

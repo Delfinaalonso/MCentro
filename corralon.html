@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=5">
+<link rel="stylesheet" href="assets/css/styles.css?v=6">
 <style>
   /* ---------- page hero: mismo patrón partido (texto | foto) que el resto
      de las páginas de categoría — Corralón se había quedado con la versión
@@ -35,8 +35,8 @@
   @keyframes kbLoop{ from{transform:scale(1.08) translate(0,0);} to{transform:scale(1.22) translate(-1.5%,-1.5%);} }
   @media(max-width:900px){
     .phero-split{grid-template-columns:1fr; min-height:auto;}
-    .ps-media{min-height:260px; order:-1; padding:20px;}
-    .ps-copy{padding:32px 28px;}
+    .ps-media{min-height:170px; order:-1; padding:16px;}
+    .ps-copy{padding:18px 28px 28px;}
   }
 
   /* ---------- 10 líneas de stock: cards más chicas que en el resto de las páginas
@@ -44,6 +44,13 @@
      quedaban en 3 líneas y se leía desordenado) ---------- */
   #lineas .linea-box{flex-basis:170px; max-width:180px;}
   #lineas .linea-front h3, #lineas .linea-back h3{font-size:clamp(13px,1.2vw,15px);}
+  /* En mobile, el ancho fijo de arriba (pensado para tablet/iPad) gana
+     por especificidad a la regla de 2 columnas de styles.css y deja a
+     Corralón en 1 sola columna. Se repite acá, apuntada a #lineas para
+     empatar esa especificidad y que gane por venir después. */
+  @media(max-width:620px){
+    #lineas .linea-box{flex:0 1 calc(50% - 5px); max-width:calc(50% - 5px);}
+  }
 </style>
 
 <body data-page="corralon">
