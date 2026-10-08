@@ -316,3 +316,9 @@ html.nav-force-burger .burger{display:flex;}
   #presupuesto .row{flex-direction:column;}
   .cart-bar{padding:12px 16px; flex-wrap:wrap;}
 }
+
+/* ====== TEMPORAL: venta online oculta ======
+   Mientras esto esté activo, el catálogo, el carrito ("Mi pedido") y los
+   destacados quedan ocultos; solo sigue el pedido de presupuesto por
+   WhatsApp. Para reactivar todo, borrar este bloque entero. */
+.vo-temp-hidden{display:none !important;}
