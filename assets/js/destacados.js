@@ -9,8 +9,7 @@
 
   function formatMoney(n){ return '$' + Number(n).toLocaleString('es-AR'); }
 
-  fetch('assets/data/productos.json')
-    .then(function(res){ return res.json(); })
+  MCData.getProductos()
     .then(function(data){
       var destacados = (data.productos || [])
         .filter(function(p){ return p.activo && p.destacado && (!rubro || p.rubro === rubro); })

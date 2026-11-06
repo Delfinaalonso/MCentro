@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Panel — Materiales Centro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css?v=7">
+<style>
+  body{min-height:100vh;}
+  .admin-shell{max-width:1040px; margin:0 auto; padding:32px 20px 80px;}
+  .admin-top{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:28px;}
+  .admin-top h1{font-size:22px;}
+  .admin-top .tag{color:var(--soft); font-size:13px;}
+  #loginView{max-width:360px; margin:80px auto; background:#fff; border:1px solid var(--line); border-radius:14px; padding:28px;}
+  #loginView h1{font-size:20px; margin-bottom:6px;}
+  #loginView p{color:var(--soft); font-size:14px; margin-bottom:18px;}
+  .field{margin-bottom:14px;}
+  .field label{display:block; font-size:13px; font-weight:600; margin-bottom:6px;}
+  .field input, .field select, .field textarea{width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px; background:#fff;}
+  .field textarea{min-height:70px; resize:vertical;}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:10px 18px; border-radius:30px; border:none; font-weight:600; font-size:14px; cursor:pointer; font-family:inherit;}
+  .btn-verde{background:var(--verde-brand); color:#fff;}
+  .btn-outline{background:transparent; border:1px solid var(--line); color:var(--ink);}
+  .btn-naranja{background:var(--naranja); color:#fff;}
+  .btn-sm{padding:5px 10px; font-size:13px; border-radius:20px;}
+  .msg{font-size:13px; margin-top:10px;}
+  .msg.error{color:#B3261E;}
+  .msg.ok{color:var(--verde-brand);}
+  #appView{display:none;}
+  .toolbar{display:flex; gap:12px; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap;}
+  table.products{width:100%; border-collapse:collapse; background:#fff; border-radius:12px; overflow:hidden; border:1px solid var(--line);}
+  table.products th, table.products td{padding:10px 12px; text-align:left; font-size:13px; border-bottom:1px solid var(--line); vertical-align:middle;}
+  table.products th{background:var(--cardfill); font-weight:700;}
+  table.products img{width:44px; height:44px; object-fit:cover; border-radius:8px; background:var(--cardfill);}
+  .stock-ctrl{display:flex; align-items:center; gap:6px;}
+  .stock-ctrl button{width:26px; height:26px; border-radius:50%; border:1px solid var(--line); background:#fff; cursor:pointer; font-size:16px; line-height:1;}
+  .pill-toggle{display:inline-flex; align-items:center; gap:6px; font-size:12px; cursor:pointer;}
+  .modal-backdrop{display:none; position:fixed; inset:0; background:rgba(27,20,16,.5); align-items:flex-start; justify-content:center; padding:40px 16px; overflow:auto; z-index:50;}
+  .modal-backdrop.open{display:flex;}
+  .modal{background:#fff; border-radius:14px; padding:24px; max-width:480px; width:100%;}
+  .modal h2{font-size:18px; margin-bottom:16px;}
+  .modal-actions{display:flex; gap:10px; margin-top:18px;}
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:0 14px;}
+  .empty{color:var(--soft); font-size:14px; padding:20px; text-align:center;}
+</style>
+</head>
+<body>
+
+<div id="loginView">
+  <h1>Panel de administración</h1>
+  <p>Materiales Centro — ingresá con tu cuenta.</p>
+  <form id="loginForm">
+    <div class="field">
+      <label for="loginEmail">Email</label>
+      <input type="email" id="loginEmail" required autocomplete="username" />
+    </div>
+    <div class="field">
+      <label for="loginPassword">Contraseña</label>
+      <input type="password" id="loginPassword" required autocomplete="current-password" />
+    </div>
+    <button type="submit" class="btn btn-verde" style="width:100%;">Ingresar</button>
+    <p id="loginMsg" class="msg"></p>
+  </form>
+</div>
+
+<div id="appView">
+  <div class="admin-shell">
+    <div class="admin-top">
+      <div>
+        <h1>Productos</h1>
+        <p class="tag">Panel de administración — Materiales Centro</p>
+      </div>
+      <button type="button" class="btn btn-outline btn-sm" id="logoutBtn">Cerrar sesión</button>
+    </div>
+
+    <div class="toolbar">
+      <button type="button" class="btn btn-naranja" id="newProductBtn">+ Nuevo producto</button>
+      <p id="listMsg" class="msg"></p>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="products">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Nombre</th>
+            <th>Rubro / Subcategoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Destacado</th>
+            <th>Activo</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="productsBody"></tbody>
+      </table>
+      <p class="empty" id="emptyMsg" style="display:none;">Todavía no hay productos cargados.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <h2 id="modalTitle">Nuevo producto</h2>
+    <form id="productForm">
+      <input type="hidden" id="pId" />
+      <div class="field">
+        <label for="pNombre">Nombre</label>
+        <input type="text" id="pNombre" required />
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label for="pRubro">Rubro</label>
+          <select id="pRubro" required></select>
+        </div>
+        <div class="field">
+          <label for="pSubcategoria">Subcategoría</label>
+          <select id="pSubcategoria"></select>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label for="pMarca">Marca</label>
+          <input type="text" id="pMarca" />
+        </div>
+        <div class="field">
+          <label for="pUnidad">Unidad de venta</label>
+          <input type="text" id="pUnidad" placeholder="bolsa, m2, unidad..." value="unidad" />
+        </div>
+      </div>
+      <div class="field">
+        <label for="pDescripcion">Descripción corta</label>
+        <textarea id="pDescripcion"></textarea>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label for="pPrecio">Precio ($)</label>
+          <input type="number" id="pPrecio" min="0" step="0.01" />
+        </div>
+        <div class="field">
+          <label for="pStock">Stock inicial</label>
+          <input type="number" id="pStock" min="0" step="1" value="0" />
+        </div>
+      </div>
+      <div class="field">
+        <label for="pFoto">Foto (ruta o URL)</label>
+        <input type="text" id="pFoto" placeholder="assets/img/mi-producto.jpg" />
+      </div>
+      <div class="field">
+        <label class="pill-toggle"><input type="checkbox" id="pDestacado" /> Mostrar en productos destacados</label>
+      </div>
+      <p id="formMsg" class="msg"></p>
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-verde">Guardar</button>
+        <button type="button" class="btn btn-outline" id="cancelModalBtn">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>
