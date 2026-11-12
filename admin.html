@@ -46,6 +46,11 @@
   .modal-actions{display:flex; gap:10px; margin-top:18px;}
   .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:0 14px;}
   .empty{color:var(--soft); font-size:14px; padding:20px; text-align:center;}
+  .filters{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px;}
+  .filters input, .filters select{padding:8px 10px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:13px; background:#fff;}
+  .filters input[type="search"]{flex:1; min-width:180px;}
+  th.sortable{cursor:pointer; user-select:none; white-space:nowrap;}
+  th.sortable:hover{color:var(--verde-brand);}
 </style>
 </head>
 <body>
@@ -82,15 +87,30 @@
       <p id="listMsg" class="msg"></p>
     </div>
 
+    <div class="filters">
+      <input type="search" id="fBuscar" placeholder="Buscar por nombre o marca..." />
+      <select id="fRubro"><option value="">Todos los rubros</option></select>
+      <select id="fSubcategoria"><option value="">Todas las subcategorías</option></select>
+      <select id="fEstado">
+        <option value="">Todos (activos e inactivos)</option>
+        <option value="activos">Solo activos</option>
+        <option value="inactivos">Solo inactivos</option>
+      </select>
+      <select id="fDestacado">
+        <option value="">Destacados y no destacados</option>
+        <option value="si">Solo destacados</option>
+      </select>
+    </div>
+
     <div style="overflow-x:auto;">
       <table class="products">
         <thead>
           <tr>
             <th></th>
-            <th>Nombre</th>
-            <th>Rubro / Subcategoría</th>
-            <th>Precio</th>
-            <th>Stock</th>
+            <th data-sort="nombre" class="sortable">Nombre ↕</th>
+            <th data-sort="categoria" class="sortable">Rubro / Subcategoría ↕</th>
+            <th data-sort="precio" class="sortable">Precio ↕</th>
+            <th data-sort="stock" class="sortable">Stock ↕</th>
             <th>Destacado</th>
             <th>Activo</th>
             <th></th>

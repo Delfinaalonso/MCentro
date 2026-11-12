@@ -30,8 +30,15 @@
   var fotoMsg = document.getElementById('fotoMsg');
   var UNIDADES_CONOCIDAS = ['unidad', 'bolsa', 'm2', 'metro', 'kg', 'litro', 'rollo', 'caja', 'par', 'juego'];
 
+  var fBuscar = document.getElementById('fBuscar');
+  var fRubro = document.getElementById('fRubro');
+  var fSubcategoria = document.getElementById('fSubcategoria');
+  var fEstado = document.getElementById('fEstado');
+  var fDestacado = document.getElementById('fDestacado');
+
   var categories = []; // {id, slug, nombre, parent_id, orden}
   var products = [];
+  var sortState = { campo: 'nombre', asc: true };
 
   if (!sb) {
     loginMsg.textContent = 'Falta configurar Supabase (completar SUPABASE_URL y SUPABASE_ANON_KEY en assets/js/supabase-client.js).';
@@ -101,8 +108,80 @@
       products = prodRes.data || [];
       listMsg.textContent = '';
       fillRubroSelect();
+      fillFilterSelects();
       renderProducts();
     });
+  }
+
+  function fillFilterSelects() {
+    var rubroActual = fRubro.value;
+    fRubro.innerHTML = '<option value="">Todos los rubros</option>';
+    rubros().forEach(function (r) {
+      var opt = document.createElement('option');
+      opt.value = r.id; opt.textContent = r.nombre;
+      fRubro.appendChild(opt);
+    });
+    fRubro.value = rubroActual;
+    fillFilterSubcategorias();
+  }
+  function fillFilterSubcategorias() {
+    var subActual = fSubcategoria.value;
+    fSubcategoria.innerHTML = '<option value="">Todas las subcategorías</option>';
+    var lista = fRubro.value ? subcategorias(fRubro.value) : categories.filter(function (c) { return !!c.parent_id; }).sort(function (a, b) { return a.orden - b.orden; });
+    lista.forEach(function (s) {
+      var opt = document.createElement('option');
+      opt.value = s.id; opt.textContent = s.nombre;
+      fSubcategoria.appendChild(opt);
+    });
+    fSubcategoria.value = subActual;
+  }
+  fRubro.addEventListener('change', function () { fillFilterSubcategorias(); renderProducts(); });
+  fSubcategoria.addEventListener('change', renderProducts);
+  fEstado.addEventListener('change', renderProducts);
+  fDestacado.addEventListener('change', renderProducts);
+  fBuscar.addEventListener('input', renderProducts);
+
+  document.querySelectorAll('th.sortable').forEach(function (th) {
+    th.addEventListener('click', function () {
+      var campo = th.getAttribute('data-sort');
+      if (sortState.campo === campo) sortState.asc = !sortState.asc;
+      else { sortState.campo = campo; sortState.asc = true; }
+      renderProducts();
+    });
+  });
+
+  function visibleProducts() {
+    var texto = fBuscar.value.trim().toLowerCase();
+    var list = products.filter(function (p) {
+      if (fRubro.value && p.rubro_id !== fRubro.value) return false;
+      if (fSubcategoria.value && p.subcategoria_id !== fSubcategoria.value) return false;
+      if (fEstado.value === 'activos' && !p.activo) return false;
+      if (fEstado.value === 'inactivos' && p.activo) return false;
+      if (fDestacado.value === 'si' && !p.destacado) return false;
+      if (texto) {
+        var hay = (p.nombre || '').toLowerCase().indexOf(texto) !== -1 || (p.marca || '').toLowerCase().indexOf(texto) !== -1;
+        if (!hay) return false;
+      }
+      return true;
+    });
+    var campo = sortState.campo, dir = sortState.asc ? 1 : -1;
+    list.sort(function (a, b) {
+      var va, vb;
+      if (campo === 'categoria') {
+        va = categoriaNombre(a.rubro_id); vb = categoriaNombre(b.rubro_id);
+      } else if (campo === 'precio' || campo === 'stock') {
+        va = a[campo] === null || a[campo] === undefined ? -1 : Number(a[campo]);
+        vb = b[campo] === null || b[campo] === undefined ? -1 : Number(b[campo]);
+        return (va - vb) * dir;
+      } else {
+        va = (a[campo] || '').toString().toLowerCase();
+        vb = (b[campo] || '').toString().toLowerCase();
+      }
+      if (va < vb) return -1 * dir;
+      if (va > vb) return 1 * dir;
+      return 0;
+    });
+    return list;
   }
 
   function fillRubroSelect() {
@@ -174,8 +253,10 @@
 
   function renderProducts() {
     productsBody.innerHTML = '';
-    emptyMsg.style.display = products.length ? 'none' : 'block';
-    products.forEach(function (p) {
+    var lista = visibleProducts();
+    emptyMsg.style.display = lista.length ? 'none' : 'block';
+    emptyMsg.textContent = products.length ? 'Ningún producto coincide con el filtro.' : 'Todavía no hay productos cargados.';
+    lista.forEach(function (p) {
       var tr = document.createElement('tr');
 
       var tdFoto = document.createElement('td');
