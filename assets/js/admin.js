@@ -22,6 +22,13 @@
   var cancelModalBtn = document.getElementById('cancelModalBtn');
   var pRubro = document.getElementById('pRubro');
   var pSubcategoria = document.getElementById('pSubcategoria');
+  var pUnidad = document.getElementById('pUnidad');
+  var pUnidadOtra = document.getElementById('pUnidadOtra');
+  var pFoto = document.getElementById('pFoto');
+  var pFotoFile = document.getElementById('pFotoFile');
+  var pFotoPreview = document.getElementById('pFotoPreview');
+  var fotoMsg = document.getElementById('fotoMsg');
+  var UNIDADES_CONOCIDAS = ['unidad', 'bolsa', 'm2', 'metro', 'kg', 'litro', 'rollo', 'caja', 'par', 'juego'];
 
   var categories = []; // {id, slug, nombre, parent_id, orden}
   var products = [];
@@ -118,6 +125,47 @@
     });
   }
   pRubro.addEventListener('change', fillSubcategoriaSelect);
+
+  pUnidad.addEventListener('change', function () {
+    pUnidadOtra.style.display = pUnidad.value === 'otra' ? 'block' : 'none';
+  });
+
+  function setUnidadSelect(valor) {
+    var v = (valor || 'unidad').trim();
+    if (UNIDADES_CONOCIDAS.indexOf(v) !== -1) {
+      pUnidad.value = v;
+      pUnidadOtra.style.display = 'none';
+      pUnidadOtra.value = '';
+    } else {
+      pUnidad.value = 'otra';
+      pUnidadOtra.style.display = 'block';
+      pUnidadOtra.value = v;
+    }
+  }
+  function getUnidadValue() {
+    return pUnidad.value === 'otra' ? (pUnidadOtra.value.trim() || 'unidad') : pUnidad.value;
+  }
+
+  pFotoFile.addEventListener('change', function () {
+    var file = pFotoFile.files && pFotoFile.files[0];
+    if (!file) return;
+    fotoMsg.textContent = 'Subiendo...';
+    fotoMsg.className = 'msg';
+    var path = Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9.\-_]/g, '-');
+    sb.storage.from('product-photos').upload(path, file, { upsert: false }).then(function (res) {
+      if (res.error) {
+        fotoMsg.textContent = 'No se pudo subir la foto: ' + res.error.message;
+        fotoMsg.className = 'msg error';
+        return;
+      }
+      var pub = sb.storage.from('product-photos').getPublicUrl(res.data.path);
+      pFoto.value = pub.data.publicUrl;
+      pFotoPreview.src = pub.data.publicUrl;
+      pFotoPreview.style.display = 'block';
+      fotoMsg.textContent = 'Foto subida ✓';
+      fotoMsg.className = 'msg ok';
+    });
+  });
 
   function formatMoney(n) {
     if (n === null || n === undefined) return 'A confirmar';
@@ -224,11 +272,19 @@
     modalTitle.textContent = p ? 'Editar producto' : 'Nuevo producto';
     document.getElementById('pNombre').value = p ? p.nombre : '';
     document.getElementById('pMarca').value = p ? (p.marca || '') : '';
-    document.getElementById('pUnidad').value = p ? p.unidad : 'unidad';
+    setUnidadSelect(p ? p.unidad : 'unidad');
     document.getElementById('pDescripcion').value = p ? (p.descripcion || '') : '';
     document.getElementById('pPrecio').value = p && p.precio !== null ? p.precio : '';
     document.getElementById('pStock').value = p ? p.stock : 0;
-    document.getElementById('pFoto').value = p ? (p.foto || '') : '';
+    pFoto.value = p ? (p.foto || '') : '';
+    pFotoFile.value = '';
+    fotoMsg.textContent = '';
+    if (p && p.foto) {
+      pFotoPreview.src = p.foto;
+      pFotoPreview.style.display = 'block';
+    } else {
+      pFotoPreview.style.display = 'none';
+    }
     document.getElementById('pDestacado').checked = p ? !!p.destacado : false;
     fillRubroSelect();
     if (p) {
@@ -251,10 +307,10 @@
     var payload = {
       nombre: document.getElementById('pNombre').value.trim(),
       marca: document.getElementById('pMarca').value.trim() || null,
-      unidad: document.getElementById('pUnidad').value.trim() || 'unidad',
+      unidad: getUnidadValue(),
       descripcion: document.getElementById('pDescripcion').value.trim() || null,
       precio: precioVal === '' ? null : Number(precioVal),
-      foto: document.getElementById('pFoto').value.trim() || null,
+      foto: pFoto.value.trim() || null,
       destacado: document.getElementById('pDestacado').checked,
       rubro_id: pRubro.value,
       subcategoria_id: pSubcategoria.value || null,

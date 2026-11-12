@@ -129,7 +129,20 @@
         </div>
         <div class="field">
           <label for="pUnidad">Unidad de venta</label>
-          <input type="text" id="pUnidad" placeholder="bolsa, m2, unidad..." value="unidad" />
+          <select id="pUnidad">
+            <option value="unidad">unidad</option>
+            <option value="bolsa">bolsa</option>
+            <option value="m2">m2</option>
+            <option value="metro">metro</option>
+            <option value="kg">kg</option>
+            <option value="litro">litro</option>
+            <option value="rollo">rollo</option>
+            <option value="caja">caja</option>
+            <option value="par">par</option>
+            <option value="juego">juego</option>
+            <option value="otra">otra...</option>
+          </select>
+          <input type="text" id="pUnidadOtra" placeholder="Escribí la unidad" style="margin-top:8px; display:none;" />
         </div>
       </div>
       <div class="field">
@@ -147,8 +160,11 @@
         </div>
       </div>
       <div class="field">
-        <label for="pFoto">Foto (ruta o URL)</label>
-        <input type="text" id="pFoto" placeholder="assets/img/mi-producto.jpg" />
+        <label for="pFotoFile">Foto</label>
+        <img id="pFotoPreview" alt="" style="width:72px; height:72px; object-fit:cover; border-radius:8px; background:var(--cardfill); margin-bottom:8px; display:none;" />
+        <input type="file" id="pFotoFile" accept="image/*" />
+        <input type="hidden" id="pFoto" />
+        <p id="fotoMsg" class="msg" style="margin-top:4px;"></p>
       </div>
       <div class="field">
         <label class="pill-toggle"><input type="checkbox" id="pDestacado" /> Mostrar en productos destacados</label>
