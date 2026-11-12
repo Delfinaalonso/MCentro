@@ -9,8 +9,8 @@
    se completen los dos valores, el sitio pasa a leer de la base de datos
    real sin tocar ningún otro archivo. */
 var MCData = (function () {
-  var SUPABASE_URL = '';
-  var SUPABASE_ANON_KEY = '';
+  var SUPABASE_URL = 'https://cmkqekxbilfykxbxewqf.supabase.co';
+  var SUPABASE_ANON_KEY = 'sb_publishable_aFKkSFVoVZshjUMJthESPw_46TArwO3';
 
   var client = null;
 
