@@ -153,6 +153,7 @@ create view products_public as
 select
   p.id,
   p.nombre,
+  p.descripcion,
   r.slug as rubro,
   r.nombre as "rubroLabel",
   s.slug as subcategoria,

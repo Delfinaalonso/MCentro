@@ -4,6 +4,7 @@
     {
       "id": "pt-porcelanato-misiones-60x60",
       "nombre": "Porcelanato Misiones 60x60",
+      "descripcion": null,
       "rubro": "terminaciones",
       "rubroLabel": "Terminaciones",
       "subcategoria": "pisos-y-revestimientos",
@@ -18,6 +19,7 @@
     {
       "id": "pt-ceramico-misiones-30x30",
       "nombre": "Cerámico esmaltado Misiones 30x30",
+      "descripcion": null,
       "rubro": "terminaciones",
       "rubroLabel": "Terminaciones",
       "subcategoria": "pisos-y-revestimientos",
@@ -32,6 +34,7 @@
     {
       "id": "pt-monocomando-fv-class",
       "nombre": "Grifería monocomando FV línea Class",
+      "descripcion": null,
       "rubro": "terminaciones",
       "rubroLabel": "Terminaciones",
       "subcategoria": "griferia",
@@ -46,6 +49,7 @@
     {
       "id": "pt-mezcladora-vasser-cocina",
       "nombre": "Mezcladora de cocina Vasser",
+      "descripcion": null,
       "rubro": "terminaciones",
       "rubroLabel": "Terminaciones",
       "subcategoria": "griferia",
@@ -60,6 +64,7 @@
     {
       "id": "pt-inodoro-ferrum-bari",
       "nombre": "Inodoro Ferrum Bari con mochila",
+      "descripcion": null,
       "rubro": "terminaciones",
       "rubroLabel": "Terminaciones",
       "subcategoria": "sanitarios",
@@ -74,6 +79,7 @@
     {
       "id": "pt-inodoro-jhonson-quantic",
       "nombre": "Inodoro Jhonson Quantic",
+      "descripcion": null,
       "rubro": "terminaciones",
       "rubroLabel": "Terminaciones",
       "subcategoria": "sanitarios",
@@ -88,6 +94,7 @@
     {
       "id": "pt-vanitory-blangino-60",
       "nombre": "Vanitory Blangino 60cm con bacha",
+      "descripcion": null,
       "rubro": "terminaciones",
       "rubroLabel": "Terminaciones",
       "subcategoria": "amoblamientos-de-bano",
@@ -102,6 +109,7 @@
     {
       "id": "pt-espejo-jhonson-led",
       "nombre": "Espejo con luz LED Jhonson",
+      "descripcion": null,
       "rubro": "terminaciones",
       "rubroLabel": "Terminaciones",
       "subcategoria": "amoblamientos-de-bano",
@@ -116,6 +124,7 @@
     {
       "id": "pt-toallero-doble-inox",
       "nombre": "Toallero doble acero inoxidable",
+      "descripcion": null,
       "rubro": "terminaciones",
       "rubroLabel": "Terminaciones",
       "subcategoria": "accesorios",
@@ -130,6 +139,7 @@
     {
       "id": "pc-cemento-portland-50kg",
       "nombre": "Cemento Portland 50kg",
+      "descripcion": null,
       "rubro": "corralon",
       "rubroLabel": "Corralón",
       "subcategoria": "cemento",
@@ -144,6 +154,7 @@
     {
       "id": "pc-cal-hidratada-25kg",
       "nombre": "Cal hidratada 25kg",
+      "descripcion": null,
       "rubro": "corralon",
       "rubroLabel": "Corralón",
       "subcategoria": "cales",
@@ -158,6 +169,7 @@
     {
       "id": "pc-arena-fina",
       "nombre": "Arena fina",
+      "descripcion": null,
       "rubro": "corralon",
       "rubroLabel": "Corralón",
       "subcategoria": "aridos",
@@ -172,6 +184,7 @@
     {
       "id": "pc-piedra-partida-6-20",
       "nombre": "Piedra partida 6-20",
+      "descripcion": null,
       "rubro": "corralon",
       "rubroLabel": "Corralón",
       "subcategoria": "aridos",
@@ -186,6 +199,7 @@
     {
       "id": "pc-ladrillo-hueco-8x18x33",
       "nombre": "Ladrillo hueco 8x18x33",
+      "descripcion": null,
       "rubro": "corralon",
       "rubroLabel": "Corralón",
       "subcategoria": "ladrillos",
@@ -200,6 +214,7 @@
     {
       "id": "pc-ladrillo-comun",
       "nombre": "Ladrillo común",
+      "descripcion": null,
       "rubro": "corralon",
       "rubroLabel": "Corralón",
       "subcategoria": "ladrillos",
@@ -214,6 +229,7 @@
     {
       "id": "pc-hierro-8mm-12m",
       "nombre": "Hierro de construcción 8mm x 12m",
+      "descripcion": null,
       "rubro": "corralon",
       "rubroLabel": "Corralón",
       "subcategoria": "hierros-y-mallas",
@@ -228,6 +244,7 @@
     {
       "id": "pc-malla-sima-15x15",
       "nombre": "Malla Sima 15x15",
+      "descripcion": null,
       "rubro": "corralon",
       "rubroLabel": "Corralón",
       "subcategoria": "hierros-y-mallas",
@@ -242,6 +259,7 @@
     {
       "id": "pc-cemento-cola-flexible-25kg",
       "nombre": "Cemento cola flexible 25kg",
+      "descripcion": null,
       "rubro": "corralon",
       "rubroLabel": "Corralón",
       "subcategoria": "adhesivos",
@@ -256,6 +274,7 @@
     {
       "id": "pc-membrana-asfaltica-4mm",
       "nombre": "Membrana asfáltica 4mm",
+      "descripcion": null,
       "rubro": "corralon",
       "rubroLabel": "Corralón",
       "subcategoria": "membranas",
@@ -270,6 +289,7 @@
     {
       "id": "pc-lana-de-vidrio-50mm",
       "nombre": "Lana de vidrio 50mm",
+      "descripcion": null,
       "rubro": "corralon",
       "rubroLabel": "Corralón",
       "subcategoria": "aislantes-termicos",

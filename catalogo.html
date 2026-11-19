@@ -55,6 +55,24 @@
   .cc-add{flex:1; justify-content:center; margin-top:0; border-radius:6px; font-size:12px; letter-spacing:.02em; padding:0 10px; height:34px; text-transform:uppercase; font-weight:700;}
   .cc-add.added{background:var(--verde-brand);}
 
+  .cc-info{position:absolute; top:8px; right:8px; width:26px; height:26px; border-radius:50%; background:rgba(27,20,16,.55); color:#fff; border:none; display:flex; align-items:center; justify-content:center; font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:13px; cursor:pointer; z-index:2; transition:background-color .15s ease;}
+  .cc-info:hover{background:var(--naranja);}
+
+  .pm-backdrop{display:none; position:fixed; inset:0; background:rgba(27,20,16,.6); z-index:100; align-items:center; justify-content:center; padding:20px;}
+  .pm-backdrop.open{display:flex;}
+  .pm-panel{background:var(--bg); background-image:var(--grain); background-repeat:repeat; background-size:300px 300px; background-blend-mode:multiply; max-width:640px; width:100%; max-height:90vh; overflow:auto; border:1px solid var(--line); display:grid; grid-template-columns:1fr 1fr; position:relative;}
+  .pm-close{position:absolute; top:10px; right:10px; width:32px; height:32px; border-radius:50%; background:rgba(27,20,16,.5); color:#fff; border:none; font-size:18px; line-height:1; cursor:pointer; z-index:3;}
+  .pm-close:hover{background:var(--naranja);}
+  .pm-media{position:relative; aspect-ratio:1/1; background:var(--cardfill); overflow:hidden;}
+  .pm-media img{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; padding:6%;}
+  .pm-body{padding:22px; display:flex; flex-direction:column; gap:10px;}
+  .pm-tag{font-family:'Inter',sans-serif; font-size:10px; letter-spacing:.06em; text-transform:uppercase; font-weight:600; color:var(--naranja);}
+  .pm-body h2{font-size:21px; line-height:1.2; font-family:'Inter',sans-serif; font-weight:700; color:var(--ink);}
+  .pm-price{font-family:'Inter',sans-serif; font-size:16px; color:var(--ink); font-weight:600;}
+  .pm-desc{font-family:'Inter',sans-serif; font-size:13.5px; line-height:1.6; color:var(--soft);}
+  .pm-actions{margin-top:4px;}
+  @media(max-width:620px){ .pm-panel{grid-template-columns:1fr;} .pm-media{aspect-ratio:4/3;} }
+
   .cat-empty{padding:40px 0; color:var(--soft); font-size:14px;}
 
   /* Nunca baja a 1 columna: 2 siempre, aunque sea un celular chico. */
@@ -97,6 +115,29 @@
     <p class="cat-empty" data-cat-empty style="display:none;">No encontramos productos con ese filtro. Probá con otra búsqueda o consultanos directo por WhatsApp.</p>
   </section>
 </main>
+
+<div class="pm-backdrop" data-pm-backdrop>
+  <div class="pm-panel">
+    <button type="button" class="pm-close" data-pm-close aria-label="Cerrar">×</button>
+    <div class="pm-media"><img data-pm-img src="" alt="" /></div>
+    <div class="pm-body">
+      <span class="pm-tag" data-pm-tag></span>
+      <h2 data-pm-nombre></h2>
+      <span class="pm-price" data-pm-price></span>
+      <p class="pm-desc" data-pm-desc></p>
+      <div class="pm-actions">
+        <div class="cc-actions">
+          <div class="cc-stepper">
+            <button type="button" data-pm-minus aria-label="Restar">−</button>
+            <input type="number" min="1" value="1" data-pm-qty>
+            <button type="button" data-pm-plus aria-label="Sumar">+</button>
+          </div>
+          <button type="button" class="btn btn-naranja cc-add" data-pm-add>Agregar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div data-include="footer"></div>
 
@@ -155,6 +196,49 @@
   var rubroWrap = document.querySelector('[data-filter-rubro]');
   var subWrap = document.querySelector('[data-filter-sub]');
   var searchInput = document.querySelector('[data-cat-search]');
+
+  var pmBackdrop = document.querySelector('[data-pm-backdrop]');
+  var pmImg = document.querySelector('[data-pm-img]');
+  var pmTag = document.querySelector('[data-pm-tag]');
+  var pmNombre = document.querySelector('[data-pm-nombre]');
+  var pmPrice = document.querySelector('[data-pm-price]');
+  var pmDesc = document.querySelector('[data-pm-desc]');
+  var pmQty = document.querySelector('[data-pm-qty]');
+  var pmAdd = document.querySelector('[data-pm-add]');
+
+  function openProductModal(p){
+    pmImg.src = p.foto || '';
+    pmImg.alt = p.nombre;
+    pmTag.textContent = p.subcategoriaLabel || '';
+    pmNombre.textContent = p.nombre;
+    pmPrice.textContent = p.precio ? formatMoney(p.precio) : 'Precio a confirmar';
+    pmDesc.textContent = p.descripcion || 'Sin descripción disponible. Consultanos por WhatsApp si necesitás más detalle.';
+    pmQty.value = 1;
+    pmAdd.textContent = 'Agregar';
+    pmAdd.classList.remove('added');
+    pmAdd.onclick = function(){
+      var qty = Math.max(1, parseInt(pmQty.value, 10) || 1);
+      MCCart.add({ id: p.id, tipo: 'producto', nombre: p.nombre, unidad: p.unidad, precio: p.precio || 0, cantidad: qty });
+      pmAdd.textContent = 'Agregado ✓';
+      pmAdd.classList.add('added');
+      setTimeout(function(){
+        pmAdd.textContent = 'Agregar';
+        pmAdd.classList.remove('added');
+      }, 1200);
+    };
+    pmBackdrop.classList.add('open');
+  }
+  function closeProductModal(){ pmBackdrop.classList.remove('open'); }
+
+  document.querySelector('[data-pm-close]').addEventListener('click', closeProductModal);
+  pmBackdrop.addEventListener('click', function(e){ if(e.target === pmBackdrop) closeProductModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeProductModal(); });
+  document.querySelector('[data-pm-minus]').addEventListener('click', function(){
+    pmQty.value = Math.max(1, (parseInt(pmQty.value, 10) || 1) - 1);
+  });
+  document.querySelector('[data-pm-plus]').addEventListener('click', function(){
+    pmQty.value = (parseInt(pmQty.value, 10) || 1) + 1;
+  });
 
   function normalize(s){
     return (s || '').toString().normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
@@ -274,7 +358,7 @@
       var card = document.createElement('div');
       card.className = 'cat-card';
       card.innerHTML =
-        '<div class="cc-media"><img src="' + p.foto + '" alt="' + p.nombre + '"></div>' +
+        '<div class="cc-media"><img src="' + p.foto + '" alt="' + p.nombre + '"><button type="button" class="cc-info" data-cc-info aria-label="Ver descripción">i</button></div>' +
         '<div class="cc-body">' +
           '<span class="cc-tag">' + p.subcategoriaLabel + '</span>' +
           '<h3>' + p.nombre + '</h3>' +
@@ -289,6 +373,8 @@
             '<button type="button" class="btn btn-naranja cc-add" data-cc-add>Agregar</button>' +
           '</div>' +
         '</div>';
+
+      card.querySelector('[data-cc-info]').addEventListener('click', function(){ openProductModal(p); });
 
       var qtyInput = card.querySelector('[data-cc-qty]');
       card.querySelector('[data-cc-minus]').addEventListener('click', function(){
