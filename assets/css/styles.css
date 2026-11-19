@@ -214,7 +214,7 @@ footer .row{position:relative; z-index:1; display:flex; justify-content:space-be
 }
 .dest-card:hover{box-shadow:0 20px 38px -14px rgba(42,31,20,.35); transform:translateY(-4px);}
 .dc-media{position:relative; aspect-ratio:1/1; overflow:hidden; background:var(--cardfill);}
-.dc-media img{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; padding:10%; transition:transform .4s ease;}
+.dc-media img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .4s ease;}
 .dest-card:hover .dc-media img{transform:scale(1.05);}
 .dc-body{padding:14px; display:flex; flex-direction:column; gap:6px; flex:1;}
 .dc-tag{font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.06em; text-transform:uppercase; color:var(--naranja);}
