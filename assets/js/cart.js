@@ -99,11 +99,15 @@ var MCCart = (function(){
   function render(){
     var count = getCount();
 
-    /* El carrito queda siempre visible en el header (antes se ocultaba
-       con el pedido vacío, y eso hacía parecer que había desaparecido). */
+    /* El pedido "0" al llegar es ruido para alguien que recién entra, así
+       que el pill se oculta con el carrito vacío — excepto en catálogo y
+       en el pedido, donde tiene que verse siempre aunque esté en 0. */
+    var page = document.body.getAttribute('data-page');
+    var alwaysShow = page === 'catalogo' || page === 'pedido';
     document.querySelectorAll('[data-cart-count]').forEach(function(el){
       var n = el.querySelector('.n');
       if(n) n.textContent = count;
+      el.hidden = !alwaysShow && count === 0;
     });
 
     document.querySelectorAll('[data-cart-count-text]').forEach(function(el){

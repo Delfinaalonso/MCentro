@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /pedido.html
+Sitemap: https://delfinaalonso.github.io/MCentro/sitemap.xml

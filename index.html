@@ -1,11 +1,25 @@
 <!DOCTYPE html>
+<html lang="es-AR">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>La Obra</title>
+<title>Materiales Centro | Corralón y Showroom en General Pico, La Pampa</title>
+<meta name="description" content="Corralón y showroom en General Pico: cemento, ladrillos, Durlock, sanitarios, pisos y herramientas. 46 años en tu obra. Pedí tu presupuesto por WhatsApp.">
+<meta name="theme-color" content="#006D3A">
+<link rel="canonical" href="https://delfinaalonso.github.io/MCentro/">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_AR">
+<meta property="og:site_name" content="Materiales Centro">
+<meta property="og:title" content="Materiales Centro — Corralón y Showroom en General Pico">
+<meta property="og:description" content="Todo para tu obra, de los cimientos a las terminaciones. Pedí tu presupuesto por WhatsApp.">
+<meta property="og:url" content="https://delfinaalonso.github.io/MCentro/">
+<meta property="og:image" content="https://delfinaalonso.github.io/MCentro/assets/img/og-home.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=13">
+<link rel="stylesheet" href="assets/css/styles.css?v=14">
 <style>
   /* ---------- header: pedido explícito de sacar todas las sombras/degradé
      oscuro y el halo de texto — el header de home queda con el mismo estilo
@@ -21,7 +35,15 @@
      video mide 100vh completo, sus últimos 73px quedan tapados por el
      borde de la pantalla al cargar. Se descuenta esa altura para que el
      video entre entero sin necesidad de scrollear. */
-  #obra-video{position:relative; height:calc(100vh - 73px); height:calc(100dvh - 73px); overflow:hidden; background:var(--deep);}
+  #obra-video{
+    position:relative; height:calc(100vh - 73px); height:calc(100dvh - 73px); overflow:hidden;
+    background-color:var(--deep);
+    /* Imagen de fondo mientras el video de YouTube todavía no cargó (T14:
+       la carga del iframe y de su API se difiere hasta el evento load de
+       la ventana, así no compite con el resto del contenido). */
+    background-image:url('assets/img/portada-showroom.jpg');
+    background-size:cover; background-position:50% 30%;
+  }
   .video-frame{
     position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
     width:100vw; height:56.25vw; /* 16:9 a partir del ancho... */
@@ -36,6 +58,10 @@
   .video-frame iframe{
     position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;
     transform:scale(1.18) translateY(-5%);
+    /* Transparente: mientras no tiene data-src cargado (ver T14, se difiere
+       hasta el evento load) se tiene que ver la imagen de fondo de
+       #obra-video y no el blanco por defecto de un iframe vacío. */
+    background:transparent;
   }
 
   /* Capa invisible sobre el video: absorbe cualquier toque/clic y no hace
@@ -103,6 +129,7 @@
      pantalla (en vez de tener un piso fijo) para que "¿Por dónde
      arrancamos?" siempre entre completo en una sola línea. */
   .salida-head h2{font-size:clamp(15px,6vw,42px); color:var(--ink); white-space:nowrap;}
+  .salida-sub{margin-top:8px; color:var(--soft); font-size:clamp(13px,2.2vw,16px);}
   /* 3 columnas (no 4): con Catálogo y Quiénes somos afuera (quedan solo
      en el menú) son 6 accesos, y 3x2 cierra parejo en vez de dejar una
      fila incompleta. */
@@ -113,6 +140,7 @@
   .exit .scrim{position:absolute; inset:0; background:linear-gradient(to top, rgba(4,4,3,.85), rgba(4,4,3,.15) 55%, transparent 75%);}
   .exit .ex-in{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:20px; color:#fff;}
   .exit h3{font-size:clamp(17px,1.8vw,22px); line-height:1.15;}
+  .exit .ex-desc{font-size:13px; line-height:1.35; color:rgba(255,255,255,.88); margin-top:4px;}
   .exit .go{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--naranja); display:flex; align-items:center; gap:7px; margin-top:8px; transition:gap .2s ease;}
   .exit:hover .go{gap:12px;}
   @media(max-width:900px){ .exit-grid{grid-template-columns:repeat(2,1fr);} }
@@ -153,6 +181,24 @@
   .partner-card.real{background:var(--bg);}
   .partner-card img{max-height:52px; width:auto; max-width:82%; object-fit:contain; filter:grayscale(1) contrast(1.05); opacity:.8; transition:filter .25s ease, opacity .25s ease;}
   .partner-card:hover img{filter:none; opacity:1;}
+
+  /* ================= FRANJA DE CONFIANZA (T3) ================= */
+  .trust-strip{background:#fff; border-bottom:1px solid var(--line);}
+  .trust-strip .wrap{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:10px 0;
+    list-style:none; padding:18px 28px; max-width:1180px; margin:0 auto;
+  }
+  .trust-strip li{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.02em; color:var(--soft);
+    padding:4px 26px; text-align:center;
+  }
+  .trust-strip li + li{border-left:1px solid var(--line);}
+  .trust-strip li strong{color:var(--ink); font-weight:600;}
+  @media (max-width:860px){
+    .trust-strip .wrap{flex-direction:column; align-items:center; gap:10px; padding:16px 28px;}
+    .trust-strip li{border-left:none !important; padding:0; width:100%;}
+    .trust-strip li + li{border-top:1px solid var(--line); padding-top:10px;}
+  }
 </style>
 
 <body data-page="home">
@@ -164,7 +210,7 @@
     <div class="video-frame">
       <iframe
         id="obraYt"
-        src="https://www.youtube-nocookie.com/embed/5IaC7FZlDbE?autoplay=1&mute=1&loop=1&playlist=5IaC7FZlDbE&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&origin=https://delfinaalonso.github.io"
+        data-src="https://www.youtube-nocookie.com/embed/5IaC7FZlDbE?autoplay=1&mute=1&loop=1&playlist=5IaC7FZlDbE&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&origin=https://delfinaalonso.github.io"
         title="Materiales Centro" frameborder="0"
         allow="autoplay">
       </iframe>
@@ -177,41 +223,53 @@
     <svg class="video-scroll-hint" aria-hidden="true" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10l6 6 6-6"/></svg>
   </section>
 
+  <section id="confianza" class="trust-strip">
+    <ul class="wrap">
+      <li><strong>46 años</strong> en General Pico</li>
+      <li><strong>Showroom y corralón</strong> en un solo lugar</li>
+      <li><strong>Lun a Vie 8–16 h</strong> · Sáb 8–12:30 h</li>
+      <!-- [CONFIRMAR con el cliente antes de publicar]
+      <li><strong>Presupuesto sin cargo</strong> ni compromiso</li>
+      -->
+    </ul>
+  </section>
+
   <section id="salida">
     <div class="wrap salida-head reveal-el">
-      <h2>¿Por dónde arrancamos?</h2>
+      <h2>Elegí tu etapa de obra</h2>
+      <p class="salida-sub">¿Por dónde arrancamos?</p>
     </div>
     <div class="wrap">
       <div class="exit-grid">
         <a href="terminaciones.html" class="exit reveal-el">
-          <img src="assets/img/portada-showroom.jpg" alt="Terminaciones" style="object-position:50% 38%;" />
+          <img src="assets/img/portada-showroom.jpg" alt="Griferías y sanitarios en el showroom de Materiales Centro" width="740" height="960" loading="lazy" decoding="async" style="object-position:50% 38%;" />
           <div class="scrim"></div>
-          <div class="ex-in"><h3>Terminaciones</h3><span class="go">Entrar →</span></div>
+          <div class="ex-in"><h3>Terminaciones</h3><p class="ex-desc">Pisos, revestimientos, sanitarios y griferías</p><span class="go">Ver terminaciones →</span></div>
         </a>
         <a href="corralon.html" class="exit reveal-el d1">
-          <img src="assets/img/portada-corralon.jpg" alt="Corralón" style="object-position:50% 38%;" />
+          <img src="assets/img/portada-corralon.jpg" alt="Ladrillos cerámicos huecos apilados en el corralón" width="740" height="960" loading="lazy" decoding="async" style="object-position:50% 38%;" />
           <div class="scrim"></div>
-          <div class="ex-in"><h3>Corralón</h3><span class="go">Entrar →</span></div>
+          <div class="ex-in"><h3>Corralón</h3><p class="ex-desc">Cemento, ladrillos, hierros, áridos y más</p><span class="go">Ver corralón →</span></div>
         </a>
         <a href="construccion-en-seco.html" class="exit reveal-el d2">
-          <img src="assets/img/portada-en-seco.jpg" alt="Construcción en seco" style="object-position:50% 45%;" />
+          <img src="assets/img/portada-en-seco.jpg" alt="Placas de yeso Durlock apiladas en depósito" width="740" height="960" loading="lazy" decoding="async" style="object-position:50% 45%;" />
           <div class="scrim"></div>
-          <div class="ex-in"><h3>Construcción en seco</h3><span class="go">Entrar →</span></div>
+          <div class="ex-in"><h3>Construcción en seco</h3><p class="ex-desc">Durlock, perfiles y aislantes</p><span class="go">Ver construcción en seco →</span></div>
         </a>
         <a href="instalaciones.html" class="exit reveal-el">
-          <img src="assets/img/portada-instalaciones.jpg" alt="Instalaciones" style="object-position:60% 40%;" />
+          <img src="assets/img/portada-instalaciones.jpg" alt="Instalación de cañerías de agua en una obra" width="1600" height="1067" loading="lazy" decoding="async" style="object-position:60% 40%;" />
           <div class="scrim"></div>
-          <div class="ex-in"><h3>Instalaciones</h3><span class="go">Entrar →</span></div>
+          <div class="ex-in"><h3>Instalaciones</h3><p class="ex-desc">Materiales para instalaciones</p><span class="go">Ver instalaciones →</span></div>
         </a>
         <a href="herramientas.html" class="exit reveal-el d1">
-          <img src="assets/img/portada-herramientas.jpg" alt="Herramientas" style="object-position:50% 30%;" />
+          <img src="assets/img/portada-herramientas.jpg" alt="Serruchos, palas y herramientas de mano en exhibición" width="740" height="960" loading="lazy" decoding="async" style="object-position:50% 30%;" />
           <div class="scrim"></div>
-          <div class="ex-in"><h3>Herramientas</h3><span class="go">Entrar →</span></div>
+          <div class="ex-in"><h3>Herramientas</h3><p class="ex-desc">Herramientas para obra y hogar</p><span class="go">Ver herramientas →</span></div>
         </a>
         <a href="articulos-para-el-hogar.html" class="exit reveal-el d2">
-          <img src="assets/img/portada-art-del-hogar.jpg" alt="Artículos para el hogar" style="object-position:60% 70%;" />
+          <img src="assets/img/portada-art-del-hogar.jpg" alt="Anafe a gas y campana extractora de cocina en exhibición" width="740" height="960" loading="lazy" decoding="async" style="object-position:60% 70%;" />
           <div class="scrim"></div>
-          <div class="ex-in"><h3>Artículos para el hogar</h3><span class="go">Entrar →</span></div>
+          <div class="ex-in"><h3>Artículos para el hogar</h3><p class="ex-desc">Artículos para el hogar</p><span class="go">Ver artículos para el hogar →</span></div>
         </a>
       </div>
     </div>
@@ -220,36 +278,37 @@
   <section class="wrap partners reveal-el">
     <div class="partners-head">
       <p class="tag"><span class="tick"></span>Marcas y socios</p>
-      <h2>Con quién trabajamos en el local</h2>
+      <h2>Las marcas que ya conocés, en un solo lugar</h2>
     </div>
     <div class="partners-marquee" tabindex="0" aria-label="Marcas y socios estratégicos">
       <div class="partners-track">
-        <div class="partner-card real"><img src="assets/img/logo-ferrum.png" alt="Ferrum" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-fv.png" alt="FV" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-TST.png" alt="TST" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-johnson.png" alt="Jhonson" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-Blangino.png" alt="Blangino" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-misiones.png" alt="Misiones" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-Vasser.png" alt="Vasser" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-durlock.png" alt="Durlock" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-cerronegro.png" alt="Cerro Negro" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-canuelas.png" alt="Cerámica Cañuelas" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-palmar.png" alt="Palmar" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-lomanegra.png" alt="Loma Negra" /></div>
-        <div class="partner-card real"><img src="assets/img/logo-spl.png" alt="SPL Láminas" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-ferrum.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-fv.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-TST.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-johnson.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-Blangino.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-misiones.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-Vasser.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-durlock.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-cerronegro.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-canuelas.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-palmar.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-lomanegra.png" alt="" /></div>
-        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-spl.png" alt="" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-ferrum.png" alt="Ferrum" width="1294" height="398" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-fv.png" alt="FV" width="510" height="210" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-TST.png" alt="TST" width="431" height="250" loading="lazy" decoding="async" /></div>
+        <!-- [CONFIRMAR con el cliente]: el archivo se llama logo-johnson.png pero el alt dice "Jhonson" — probable error de tipeo. No se cambia a "Johnson" hasta que Delfina confirme cuál es el nombre correcto de la marca. -->
+        <div class="partner-card real"><img src="assets/img/logo-johnson.png" alt="Jhonson" width="1780" height="250" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-Blangino.png" alt="Blangino" width="482" height="250" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-misiones.png" alt="Misiones" width="758" height="154" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-Vasser.png" alt="Vasser" width="513" height="210" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-durlock.png" alt="Durlock" width="500" height="213" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-cerronegro.png" alt="Cerro Negro" width="280" height="154" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-canuelas.png" alt="Cerámica Cañuelas" width="1525" height="244" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-palmar.png" alt="Palmar" width="350" height="133" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-lomanegra.png" alt="Loma Negra" width="800" height="783" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real"><img src="assets/img/logo-spl.png" alt="SPL Láminas" width="326" height="272" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-ferrum.png" alt="" width="1294" height="398" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-fv.png" alt="" width="510" height="210" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-TST.png" alt="" width="431" height="250" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-johnson.png" alt="" width="1780" height="250" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-Blangino.png" alt="" width="482" height="250" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-misiones.png" alt="" width="758" height="154" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-Vasser.png" alt="" width="513" height="210" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-durlock.png" alt="" width="500" height="213" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-cerronegro.png" alt="" width="280" height="154" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-canuelas.png" alt="" width="1525" height="244" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-palmar.png" alt="" width="350" height="133" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-lomanegra.png" alt="" width="800" height="783" loading="lazy" decoding="async" /></div>
+        <div class="partner-card real" aria-hidden="true"><img src="assets/img/logo-spl.png" alt="" width="326" height="272" loading="lazy" decoding="async" /></div>
       </div>
     </div>
   </section>
@@ -269,7 +328,7 @@
             <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
             <span>@materialescentro</span>
           </a>
-          <a href="http://wa.link/g53pjo" target="_blank" rel="noopener">
+          <a href="https://wa.me/5492302634844?text=Hola!%20Quiero%20pedir%20un%20presupuesto." target="_blank" rel="noopener" data-wa-source="presupuesto">
             <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5l1.3-3.9a8.5 8.5 0 1 1 3.2 3.2z"/><path d="M8.7 9.6c0-.5.4-1 .9-1h.5c.3 0 .5.2.6.4l.6 1.4c.1.2.1.5-.1.7l-.5.6c.4.9 1.1 1.6 2 2l.6-.5c.2-.2.4-.2.7-.1l1.4.6c.3.1.4.3.4.6v.5c0 .5-.4.9-1 .9-3.4 0-6.1-2.7-6.1-6.1z" fill="currentColor" stroke="none"/></svg>
             <span>+54 9 2302 63-4844</span>
           </a>
@@ -374,9 +433,21 @@ window.includesReady.then(function(){
         }catch(err){ console.error('Error al cambiar el sonido del video', err); }
       });
 
-      var ytTag = document.createElement('script');
-      ytTag.src = 'https://www.youtube.com/iframe_api';
-      document.head.appendChild(ytTag);
+      /* T14: el video y la API de YouTube (iframe_api) ya no cargan de
+         entrada — se difieren hasta que termina de cargar el resto de la
+         página (evento load), para no competir por ancho de banda con el
+         resto del contenido. Mientras tanto se ve la imagen de fondo del
+         #obra-video. */
+      function loadYouTube(){
+        try{
+          ytFrame.src = ytFrame.dataset.src;
+          var ytTag = document.createElement('script');
+          ytTag.src = 'https://www.youtube.com/iframe_api';
+          document.head.appendChild(ytTag);
+        }catch(err){ console.error('Error al cargar el video de YouTube', err); }
+      }
+      if(document.readyState === 'complete'){ loadYouTube(); }
+      else{ window.addEventListener('load', loadYouTube); }
     }
   }catch(err){ console.error('Error al preparar el control de sonido del video', err); }
 
