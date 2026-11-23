@@ -6,7 +6,6 @@ create or replace view products_public as
 select
   p.id,
   p.nombre,
-  p.descripcion,
   r.slug as rubro,
   r.nombre as "rubroLabel",
   s.slug as subcategoria,
@@ -16,7 +15,8 @@ select
   p.foto,
   p.destacado,
   p.activo,
-  p.orden
+  p.orden,
+  p.descripcion
 from products p
 join categories r on p.rubro_id = r.id
 left join categories s on p.subcategoria_id = s.id
