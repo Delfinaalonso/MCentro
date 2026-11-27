@@ -34,6 +34,13 @@ a{color:inherit; text-decoration:none;}
 .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
 @media (prefers-reduced-motion: no-preference){ html{scroll-behavior:smooth;} }
 
+/* Oculta visualmente sin sacar del flujo de lectura de lectores de pantalla
+   ni del DOM para buscadores — para contenido que necesita existir (un h1
+   real de la página) pero no un lugar visible en el diseño (la home, con
+   su hero de video a pantalla completa, no tiene dónde mostrar un título
+   grande sin romper ese diseño). */
+.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
+
 /* ---------- header (versión por defecto: sticky, siempre sólido) ---------- */
 header{position:sticky; top:0; z-index:80; background-color:var(--bg); background-image:var(--grain); background-repeat:repeat; background-size:300px 300px; background-blend-mode:multiply; border-bottom:1px solid var(--line);}
 /* El menú, el logo, "Catálogo" y el carrito van todos en la misma fila
