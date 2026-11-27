@@ -29,10 +29,10 @@
      se redeclara acá, se hereda tal cual de styles.css). ---------- */
 
   /* ================= VIDEO DE APERTURA =================
-     Reemplaza la secuencia de fotos con scroll "pegado" por el video que
-     pasó la clienta (YouTube, no listado). Mucho más simple: una sola
-     sección de una pantalla de alto, sin matemática de scroll ni estados
-     por acto — el video habla solo. */
+     Video propio (mp4, con audio), alojado en el repo — reemplaza el
+     embed de YouTube: sin marca ni cartel de canal, autoplay bastante
+     más confiable en mobile. Una sola sección de una pantalla de alto,
+     sin matemática de scroll ni estados por acto — el video habla solo. */
   /* El header ocupa 73px fijos arriba (medido en todos los anchos); si el
      video mide 100vh completo, sus últimos 73px quedan tapados por el
      borde de la pantalla al cargar. Se descuenta esa altura para que el
@@ -40,30 +40,10 @@
   #obra-video{
     position:relative; height:calc(100vh - 73px); height:calc(100dvh - 73px); overflow:hidden;
     background-color:var(--deep);
-    /* Imagen de fondo mientras el video de YouTube todavía no cargó (T14:
-       la carga del iframe y de su API se difiere hasta el evento load de
-       la ventana, así no compite con el resto del contenido). */
-    background-image:url('assets/img/portada-showroom.jpg');
-    background-size:cover; background-position:50% 30%;
   }
-  .video-frame{
-    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-    width:100vw; height:56.25vw; /* 16:9 a partir del ancho... */
-    min-height:100%; min-width:177.78vh; /* ...o del alto, lo que cubra más */
-  }
-  /* A pesar de controls=0, YouTube a veces muestra un cartelito con el
-     título/fecha del video arriba a la izquierda al arrancar. Se agranda
-     el video un poco de más y se lo corre hacia arriba: esa franja de
-     arriba queda recortada fuera de la vista (#obra-video tiene
-     overflow:hidden) y abajo se rellena con más imagen del video, sin
-     dejar ningún hueco. */
-  .video-frame iframe{
-    position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;
-    transform:scale(1.18) translateY(-5%);
-    /* Transparente: mientras no tiene data-src cargado (ver T14, se difiere
-       hasta el evento load) se tiene que ver la imagen de fondo de
-       #obra-video y no el blanco por defecto de un iframe vacío. */
-    background:transparent;
+  #obraVideo{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    pointer-events:none;
   }
 
   /* Capa invisible sobre el video: absorbe cualquier toque/clic y no hace
@@ -111,15 +91,12 @@
   /* El video está grabado horizontal (16:9); en un celular en vertical,
      "cubrir" la pantalla completa (lo que hace el resto de este bloque)
      recorta la mayor parte de los costados y deja ver solo una tira
-     angosta del medio — además de agrandar la franja a recortar arriba
-     para tapar el cartel de YouTube, lo que se nota más sobre tan poco
-     video visible. En mobile se muestra en su proporción real (16:9,
+     angosta del medio. En mobile se muestra en su proporción real (16:9,
      sin recortar de más) en vez de forzarlo a pantalla completa: entra
      bastante más video en pantalla y de paso ocupa mucho menos alto, así
      que hay que scrollear menos para llegar al resto de la página. */
   @media(max-width:760px){
     #obra-video{height:auto; aspect-ratio:16/9;}
-    .video-frame{position:absolute; inset:0; top:0; left:0; transform:none; width:100%; height:100%; min-width:0; min-height:0;}
     .video-scroll-hint{display:none;}
   }
 
@@ -218,14 +195,9 @@
 <main id="top">
   <h1 class="sr-only">Materiales Centro — Corralón y Showroom en General Pico</h1>
   <section id="obra-video">
-    <div class="video-frame">
-      <iframe
-        id="obraYt"
-        src="https://www.youtube-nocookie.com/embed/5IaC7FZlDbE?autoplay=1&mute=1&loop=1&playlist=5IaC7FZlDbE&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&cc_load_policy=0&origin=https://delfinaalonso.github.io"
-        title="Materiales Centro" frameborder="0"
-        allow="autoplay">
-      </iframe>
-    </div>
+    <video id="obraVideo" autoplay muted loop playsinline preload="auto" poster="assets/img/portada-showroom.jpg">
+      <source src="assets/video/obra.mp4" type="video/mp4">
+    </video>
     <div class="video-shield" id="videoShield" aria-hidden="true"></div>
     <button type="button" class="video-sound-toggle is-muted" id="videoSoundToggle" aria-pressed="false" aria-label="Activar sonido">
       <svg class="ic-muted" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 9l5 5M21 9l-5 5"/></svg>
@@ -409,50 +381,21 @@ window.includesReady.then(function(){
   }
 
   try{
-    var ytFrame = document.getElementById('obraYt');
+    var video = document.getElementById('obraVideo');
     var soundBtn = document.getElementById('videoSoundToggle');
-    if(ytFrame && soundBtn && window.YT === undefined){
-      var ytPlayer = null;
-
+    if(video && soundBtn){
       function setSoundUi(muted){
         soundBtn.classList.toggle('is-muted', muted);
         soundBtn.setAttribute('aria-pressed', muted ? 'false' : 'true');
         soundBtn.setAttribute('aria-label', muted ? 'Activar sonido' : 'Silenciar');
       }
-
-      window.onYouTubeIframeAPIReady = function(){
-        try{
-          ytPlayer = new YT.Player('obraYt', {
-            events: { onReady: function(){ setSoundUi(true); } }
-          });
-        }catch(err){ console.error('Error al iniciar el reproductor de YouTube', err); }
-      };
+      setSoundUi(video.muted);
 
       soundBtn.addEventListener('click', function(){
-        if(!ytPlayer || !ytPlayer.isMuted){ return; }
-        try{
-          if(ytPlayer.isMuted()){
-            ytPlayer.unMute();
-            ytPlayer.setVolume(100);
-            setSoundUi(false);
-          } else {
-            ytPlayer.mute();
-            setSoundUi(true);
-          }
-        }catch(err){ console.error('Error al cambiar el sonido del video', err); }
+        video.muted = !video.muted;
+        if(!video.muted){ video.volume = 1; }
+        setSoundUi(video.muted);
       });
-
-      /* El src del iframe se había diferido hasta el evento load de la
-         ventana (T14, pensado para no competir con el resto de la carga),
-         pero en iOS Safari eso le hacía perder el permiso de autoplay: el
-         video quedaba pausado mostrando el cartel de YouTube (canal,
-         botón de play) en vez de arrancar solo. Autoplay muteado es mucho
-         más confiable con el src puesto en el HTML desde el principio
-         (ver más arriba), así que solo queda diferida la API, que no
-         afecta el autoplay en sí. */
-      var ytTag = document.createElement('script');
-      ytTag.src = 'https://www.youtube.com/iframe_api';
-      document.head.appendChild(ytTag);
     }
   }catch(err){ console.error('Error al preparar el control de sonido del video', err); }
 
