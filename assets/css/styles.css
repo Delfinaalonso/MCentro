@@ -256,7 +256,13 @@ footer .row{position:relative; z-index:1; display:flex; justify-content:space-be
 .cc-stepper{display:flex; align-items:center; flex-shrink:0; border:1px solid rgba(42,31,20,.3); border-radius:999px; overflow:hidden;}
 .cc-stepper button{width:28px; height:34px; border:none; background:transparent; color:var(--ink); font-size:15px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;}
 .cc-stepper button:hover{background:rgba(42,31,20,.08);}
-.cc-stepper input{width:26px; height:34px; text-align:center; border:none; background:transparent; font-family:'Inter',sans-serif; font-size:13px; color:var(--ink); padding:0;}
+.cc-stepper input{width:26px; height:34px; text-align:center; border:none; background:transparent; font-family:'Inter',sans-serif; font-size:13px; color:var(--ink); padding:0; -moz-appearance:textfield; appearance:textfield;}
+/* El spinner nativo de un input number ocupa espacio del lado derecho
+   aunque esté con text-align:center, y el número queda corrido a la
+   izquierda en vez de centrado entre los botones − y +. Se saca ese
+   spinner (Chrome/Safari/Edge) para que el centrado sea real. */
+.cc-stepper input::-webkit-outer-spin-button,
+.cc-stepper input::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
 .cc-add{flex:1; justify-content:center; margin-top:0; border-radius:6px; font-size:12px; letter-spacing:.02em; padding:0 10px; height:34px; text-transform:uppercase; font-weight:700;}
 .cc-add.added{background:var(--verde-brand);}
 /* El stepper (84px) + el botón no entran lado a lado en una columna angosta
