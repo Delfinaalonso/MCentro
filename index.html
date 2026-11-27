@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=18">
+<link rel="stylesheet" href="assets/css/styles.css?v=19">
 <style>
   /* ---------- header: pedido explícito de sacar todas las sombras/degradé
      oscuro y el halo de texto — el header de home queda con el mismo estilo
@@ -124,8 +124,12 @@
   }
 
   /* ================= SALIDA — tres fotogramas, no tarjetas ================= */
-  #salida{padding:84px 0 50px;}
-  .salida-head{max-width:44ch; margin:0 auto 40px; text-align:center;}
+  #salida{padding:56px 0 40px;}
+  .salida-head{max-width:44ch; margin:0 auto 32px; text-align:center;}
+  @media(max-width:700px){
+    #salida{padding:36px 0 28px;}
+    .salida-head{margin-bottom:24px;}
+  }
   .salida-head p.tag{color:var(--soft); justify-content:center;}
   /* Nunca se tiene que partir en dos líneas: el tamaño baja con el ancho de
      pantalla (en vez de tener un piso fijo) para que "¿Por dónde
@@ -161,7 +165,8 @@
   /* padding-top/bottom, no el shorthand de 3 valores: ese pone el
      izquierdo/derecho en 0 y pisa el padding lateral de .wrap, dejando el
      título pegado al borde en mobile. */
-  .partners{padding-top:50px; padding-bottom:60px; border-top:1px solid var(--line); margin-top:30px;}
+  .partners{padding-top:40px; padding-bottom:44px; border-top:1px solid var(--line); margin-top:20px;}
+  @media(max-width:700px){ .partners{padding-top:28px; padding-bottom:32px; margin-top:12px;} }
   .partners-head{margin-bottom:26px;}
   .partners-head h2{font-size:clamp(22px,3vw,30px); max-width:26ch;}
   .partners-marquee{overflow-x:auto; margin:0 -28px; padding:4px 28px; -webkit-mask-image:linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); mask-image:linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); scrollbar-width:none;}
@@ -184,22 +189,25 @@
   .partner-card img{max-height:52px; width:auto; max-width:82%; object-fit:contain; filter:grayscale(1) contrast(1.05); opacity:.8; transition:filter .25s ease, opacity .25s ease;}
   .partner-card:hover img{filter:none; opacity:1;}
 
-  /* ================= FRANJA DE CONFIANZA (T3) ================= */
-  .trust-strip{background:#fff; border-bottom:1px solid var(--line);}
+  /* ================= FRANJA DE CONFIANZA (T3) =================
+     Sin caja blanca ni tipografía mono (no encajaban con el resto de la
+     página): fondo transparente, se apoya en el mismo crema de siempre,
+     con un detalle en verde marca en vez del texto en negro. */
+  .trust-strip{border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
   .trust-strip .wrap{
-    display:flex; flex-wrap:wrap; justify-content:center; gap:10px 0;
-    list-style:none; padding:18px 28px; max-width:1180px; margin:0 auto;
+    display:flex; flex-wrap:wrap; justify-content:center; gap:8px 0;
+    list-style:none; padding:14px 28px; max-width:1180px; margin:0 auto;
   }
   .trust-strip li{
-    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.02em; color:var(--soft);
+    font-family:'Inter',sans-serif; font-size:13px; color:var(--soft);
     padding:4px 26px; text-align:center;
   }
   .trust-strip li + li{border-left:1px solid var(--line);}
-  .trust-strip li strong{color:var(--ink); font-weight:600;}
+  .trust-strip li strong{color:var(--verde-brand); font-weight:700;}
   @media (max-width:860px){
-    .trust-strip .wrap{flex-direction:column; align-items:center; gap:10px; padding:16px 28px;}
+    .trust-strip .wrap{flex-direction:column; align-items:center; gap:8px; padding:12px 28px;}
     .trust-strip li{border-left:none !important; padding:0; width:100%;}
-    .trust-strip li + li{border-top:1px solid var(--line); padding-top:10px;}
+    .trust-strip li + li{border-top:1px solid var(--line); padding-top:8px;}
   }
 </style>
 
@@ -213,7 +221,7 @@
     <div class="video-frame">
       <iframe
         id="obraYt"
-        data-src="https://www.youtube-nocookie.com/embed/5IaC7FZlDbE?autoplay=1&mute=1&loop=1&playlist=5IaC7FZlDbE&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&cc_load_policy=0&origin=https://delfinaalonso.github.io"
+        src="https://www.youtube-nocookie.com/embed/5IaC7FZlDbE?autoplay=1&mute=1&loop=1&playlist=5IaC7FZlDbE&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&cc_load_policy=0&origin=https://delfinaalonso.github.io"
         title="Materiales Centro" frameborder="0"
         allow="autoplay">
       </iframe>
@@ -436,21 +444,17 @@ window.includesReady.then(function(){
         }catch(err){ console.error('Error al cambiar el sonido del video', err); }
       });
 
-      /* T14: el video y la API de YouTube (iframe_api) ya no cargan de
-         entrada — se difieren hasta que termina de cargar el resto de la
-         página (evento load), para no competir por ancho de banda con el
-         resto del contenido. Mientras tanto se ve la imagen de fondo del
-         #obra-video. */
-      function loadYouTube(){
-        try{
-          ytFrame.src = ytFrame.dataset.src;
-          var ytTag = document.createElement('script');
-          ytTag.src = 'https://www.youtube.com/iframe_api';
-          document.head.appendChild(ytTag);
-        }catch(err){ console.error('Error al cargar el video de YouTube', err); }
-      }
-      if(document.readyState === 'complete'){ loadYouTube(); }
-      else{ window.addEventListener('load', loadYouTube); }
+      /* El src del iframe se había diferido hasta el evento load de la
+         ventana (T14, pensado para no competir con el resto de la carga),
+         pero en iOS Safari eso le hacía perder el permiso de autoplay: el
+         video quedaba pausado mostrando el cartel de YouTube (canal,
+         botón de play) en vez de arrancar solo. Autoplay muteado es mucho
+         más confiable con el src puesto en el HTML desde el principio
+         (ver más arriba), así que solo queda diferida la API, que no
+         afecta el autoplay en sí. */
+      var ytTag = document.createElement('script');
+      ytTag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(ytTag);
     }
   }catch(err){ console.error('Error al preparar el control de sonido del video', err); }
 

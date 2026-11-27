@@ -25,7 +25,10 @@
    contenedor de scroll en vez del viewport. clip recorta el desborde
    horizontal (lo que necesitábamos para el marquee de marcas) sin ese
    efecto secundario. */
-html{-webkit-text-size-adjust:100%; overflow-x:clip;}
+/* background-color acá (no solo en body) para que el "rebote" de iOS al
+   llegar al final de la página no muestre un blanco de golpe detrás del
+   contenido real. */
+html{-webkit-text-size-adjust:100%; overflow-x:clip; background-color:var(--bg);}
 body{background-color:var(--bg); background-image:var(--grain); background-repeat:repeat; background-size:300px 300px; background-blend-mode:multiply; color:var(--ink); font-family:'Inter',system-ui,sans-serif; -webkit-font-smoothing:antialiased; overflow-x:clip;}
 h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif; letter-spacing:-.01em; text-wrap:balance;}
 img{max-width:100%; display:block;}
@@ -134,7 +137,8 @@ html.js-anim .reveal-el.d1.is-visible{transition-delay:.12s;}
 }
 
 /* ---------- presupuesto + footer + fab (compartido) — banda oscura cálida de cierre ---------- */
-#presupuesto{--bg:var(--deep); --ink:var(--deep-ink); --soft:var(--deep-soft); --line:var(--deep-line); position:relative; overflow:hidden; background:var(--bg); padding:64px 0; border-top:1px solid var(--line); margin-top:30px;}
+#presupuesto{--bg:var(--deep); --ink:var(--deep-ink); --soft:var(--deep-soft); --line:var(--deep-line); position:relative; overflow:hidden; background:var(--bg); padding:48px 0; border-top:1px solid var(--line); margin-top:20px;}
+@media(max-width:700px){ #presupuesto{padding:36px 0; margin-top:12px;} }
 #presupuesto::before{
   content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
   background-image:
@@ -265,15 +269,18 @@ footer .row{position:relative; z-index:1; display:flex; justify-content:space-be
 .cc-stepper input::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
 .cc-add{flex:1; justify-content:center; margin-top:0; border-radius:6px; font-size:12px; letter-spacing:.02em; padding:0 10px; height:34px; text-transform:uppercase; font-weight:700;}
 .cc-add.added{background:var(--verde-brand);}
-/* El stepper (84px) + el botón no entran lado a lado en una columna angosta
-   (p. ej. la grilla de 2 columnas del catálogo en celulares chicos) — ahí
-   se apilan en vez de desbordar. Container query (no media query): solo
-   mira el ancho real de la card, así el modal de descripción — que tiene
-   mucho más ancho disponible — no se ve afectado aunque la pantalla sea
-   la misma. */
+/* El stepper (84px) + el botón no entran lado a lado en una columna muy
+   angosta (p. ej. la grilla de 2 columnas del catálogo en celulares
+   chicos) y antes se apilaban, lo que estiraba la card de más. Ahora se
+   los achica a los dos para que convivan en la misma fila. Container
+   query (no media query): solo mira el ancho real de la card, así el
+   modal de descripción — que tiene mucho más ancho disponible — sigue
+   mostrando el tamaño normal aunque la pantalla sea la misma. */
 @container (max-width:220px){
-  .cc-actions{flex-direction:column; align-items:stretch;}
-  .cc-stepper{align-self:center;}
+  .cc-actions{gap:5px;}
+  .cc-stepper button{width:22px; height:30px; font-size:13px;}
+  .cc-stepper input{width:18px; height:30px; font-size:12px;}
+  .cc-add{font-size:10px; letter-spacing:0; padding:0 6px; height:30px;}
 }
 
 .pm-backdrop{display:none; position:fixed; inset:0; background:rgba(27,20,16,.6); z-index:100; align-items:center; justify-content:center; padding:20px;}
