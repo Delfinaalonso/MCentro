@@ -259,6 +259,16 @@ footer .row{position:relative; z-index:1; display:flex; justify-content:space-be
 .cc-stepper input{width:26px; height:34px; text-align:center; border:none; background:transparent; font-family:'Inter',sans-serif; font-size:13px; color:var(--ink); padding:0;}
 .cc-add{flex:1; justify-content:center; margin-top:0; border-radius:6px; font-size:12px; letter-spacing:.02em; padding:0 10px; height:34px; text-transform:uppercase; font-weight:700;}
 .cc-add.added{background:var(--verde-brand);}
+/* El stepper (84px) + el botón no entran lado a lado en una columna angosta
+   (p. ej. la grilla de 2 columnas del catálogo en celulares chicos) — ahí
+   se apilan en vez de desbordar. Container query (no media query): solo
+   mira el ancho real de la card, así el modal de descripción — que tiene
+   mucho más ancho disponible — no se ve afectado aunque la pantalla sea
+   la misma. */
+@container (max-width:220px){
+  .cc-actions{flex-direction:column; align-items:stretch;}
+  .cc-stepper{align-self:center;}
+}
 
 .pm-backdrop{display:none; position:fixed; inset:0; background:rgba(27,20,16,.6); z-index:100; align-items:center; justify-content:center; padding:20px;}
 .pm-backdrop.open{display:flex;}
