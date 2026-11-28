@@ -12,9 +12,9 @@
 <link rel="stylesheet" href="assets/css/styles.css?v=19">
 <style>
   /* ---------- catálogo: hero + filtros + grilla ---------- */
-  .cat-hero{padding-top:64px; padding-bottom:20px; max-width:56ch;}
-  .cat-hero h1{font-size:clamp(32px,4.6vw,52px); font-weight:800; line-height:1.05; color:var(--ink);}
-  .cat-hero .sub{font-size:14.5px; color:var(--soft); margin-top:14px; line-height:1.65;}
+  .cat-hero{padding-top:64px; padding-bottom:20px;}
+  .cat-hero h1{font-size:clamp(32px,4.6vw,52px); font-weight:800; line-height:1.05; color:var(--ink); white-space:nowrap;}
+  .cat-hero .sub{font-size:14.5px; color:var(--soft); margin-top:14px; line-height:1.65; max-width:56ch;}
 
   .cat-filters{
     margin:20px 0 8px; padding:26px 26px 24px;
@@ -57,6 +57,7 @@
   /* Nunca baja a 1 columna: 2 siempre, aunque sea un celular chico. */
   @media(max-width:1000px){ .cat-grid{grid-template-columns:repeat(3,1fr);} }
   @media(max-width:700px){ .cat-grid{grid-template-columns:repeat(2,1fr); gap:10px;} }
+  @media(max-width:600px){ .cat-hero h1{white-space:normal;} }
 </style>
 
 <body data-page="catalogo">
